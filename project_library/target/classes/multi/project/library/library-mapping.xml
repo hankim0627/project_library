@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store">
+
+	<select id="allWithPage" parameterType="int" resultType="store">
+		<![CDATA[
+		SELECT * FROM
+		(SELECT ROWNUM AS R, ST.* FROM
+		(SELECT * FROM STORE ORDER BY ST_DATE DESC) ST) S
+		WHERE S.R >= (#{a}-1)*10+1 AND S.R <= #{a}*10
+		]]>
+	</select>
+
+	<select id="allCount" resultType="int">
+		SELECT COUNT(*) FROM STORE
+	</select>
+		
+	<select id="selectStore" parameterType="String" resultType="store">
+		SELECT * FROM STORE
+		WHERE ST_NUM LIKE #{a}
+	</select>
+	
+	<!-- 작성자 id로 store게시판 검색 -->
+	<select id="selectStoreWithId" parameterType="String" resultType="store">
+		SELECT * FROM STORE
+		WHERE ST_M_ID LIKE #{a}
+	</select>
+	
+	<select id="countStoreWithId" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM STORE
+		WHERE ST_M_ID LIKE #{a}
+	</select>
+	
+	<select id="selectStNum" parameterType="java.util.Map" resultType="string">
+		SELECT ST.ST_NUM FROM
+		(SELECT ST_NUM, ST_M_ID, ST_TITLE, ROWNUM AS R
+		 FROM STORE ORDER BY ST_DATE DESC) ST
+		WHERE ST.ST_M_ID = #{st_m_id}
+		AND ST.ST_TITLE = #{st_title}
+		AND ROWNUM = 1
+	</select>
+	
+	<!-- ms_st_num별로 member_store 선택-->
+	<!-- SELECT DISTINCT MS_ST_NUM, FLAG, MS_M_ID, SEND_ID FROM MEMBER_STORE -->
+	<select id="selectMemStore" parameterType="String" resultType="memStore">
+		SELECT MS_ST_NUM, FLAG, MS_M_ID, SEND_ID FROM MEMBER_STORE
+		WHERE MS_ST_NUM = #{a}
+	</select>
+	
+	<insert id="insertMemStore" parameterType="memStore">
+		INSERT INTO MEMBER_STORE
+		VALUES(#{ms_m_id},#{ms_st_num},0,#{send_id})
+	</insert>
+	
+	<insert id="insertStore" parameterType="store">
+		INSERT INTO STORE VALUES('test', st_num_seq.nextval, 
+		#{st_title}, #{st_context}, #{st_m_id}, #{st_pw}, sysdate)
+	</insert>
+		
+	<update id="updateMemStore" parameterType="String">
+		UPDATE MEMBER_STORE
+		SET FLAG = 1 WHERE MS_ST_NUM = #{a}
+	</update>
+	
+	<select id="selectAllComment" parameterType="String" resultType="comment">
+		SELECT * FROM STORE_COMMENT
+		WHERE C_ST_NUM = #{a}
+	</select>
+	
+	<insert id="insertComment" parameterType="comment">
+		INSERT INTO STORE_COMMENT VALUES(
+		#{c_st_num},#{c_m_id},#{c_content})
+	</insert>
+	
+	<update id="updateMemStoreFlag" parameterType="java.util.Map">
+		UPDATE MEMBER_STORE
+		SET FLAG = 1
+		WHERE MS_ST_NUM = #{stnum} AND SEND_ID = #{sendid}
+	</update>
+	
+	<!-- 거래가 성사된 사람 찾기 -->
+	<select id="selectSendId" parameterType="String" resultType="String">
+		SELECT SEND_ID FROM MEMBER_STORE
+		WHERE FLAG = 1 AND MS_ST_NUM = #{a}
+	</select>
+	
+	<delete id="deleteStoreVO" parameterType="String">
+		DELETE FROM STORE
+		WHERE ST_NUM = #{a}
+	</delete>
+	
+	<delete id="deleteMemStoreVO" parameterType="String">
+		DELETE FROM MEMBER_STORE
+		WHERE MS_ST_NUM = #{a}
+	</delete> 
+	
+	<!-- 이미 거래신청한 사람인지 -->
+	<select id="isAlreadySend" parameterType="java.util.Map" resultType="memStore">
+		SELECT * FROM MEMBER_STORE
+		WHERE SEND_ID LIKE #{sendid}
+		AND MS_ST_NUM = #{stnum} 
+	</select>
+	
+	<!-- 이미 완료된 거래인지 -->
+	<select id="isDone" parameterType="String" resultType="String">
+		SELECT FLAG FROM MEMBER_STORE
+		WHERE MS_ST_NUM = #{a}
+	</select>
+	
+	<!-- 검색 -->
+	<!-- map.put("column",조건) -->
+	<!-- map.put("value",검색값) -->
+	<select id="searchStore" parameterType="java.util.Map" resultType="store">
+		SELECT ST.* FROM
+		(SELECT ROWNUM AS R, STORE.* FROM STORE
+		WHERE
+		<if test="column=='제목'">
+			ST_TITLE LIKE '%'||#{value}||'%'
+		</if>
+		<if test="column=='작성자'">
+			ST_M_ID LIKE '%'||#{value}||'%'
+		</if>
+		<if test="column=='제목+내용'">
+			ST_TITLE LIKE '%'||#{value}||'%' OR
+			ST_CONTEXT LIKE '%'||#{value}||'%'
+		</if>
+		) ST
+		<![CDATA[
+		WHERE R > (#{amount}-1)*5 AND R <= #{amount}*5
+		]]> 
+	</select>
+	
+	<select id="countSearch" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM STORE
+		WHERE
+		<if test="column=='제목'">
+			ST_TITLE LIKE '%'||#{value}||'%'
+		</if>
+		<if test="column=='작성자'">
+			ST_M_ID LIKE '%'||#{value}||'%'
+		</if>
+		<if test="column=='제목+내용'">
+			ST_TITLE LIKE '%'||#{value}||'%' OR
+			ST_CONTEXT LIKE '%'||#{value}||'%'
+		</if>
+	</select>
+	
+</mapper>

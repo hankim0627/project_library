@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 1.DataSource(Connection Pool기능) -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>	
+		<property name="username" value="hr"/>
+		<property name="password" value="hr"/>	
+	</bean>	
+	
+	<!-- 2.SqlSessionFactory 객체 생성 설정 - 스프링 : SqlSessionFactoryBean-->
+	<!-- classpath:/ 파일의 경로, /*-mapping.xml처럼 패턴으로도 가능 (모든 -mapping.xml가져와라) -->
+	<!-- 1번에서 만든 dataSource를 인자로 줌으로써 db연결 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:/multi/project/library/library-config.xml"/>
+		<property name="mapperLocations" value="classpath:/multi/project/library/library-mapping.xml"/>
+	</bean>
+	
+	<!-- 3.SqlSession객체 생성 설정 - 스프링 : SqlSessionTemplate-->
+	<!-- SqlSessionTemplate는 SqlSession의 하위개념 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>		
+	</bean>	
+</beans>
