@@ -31,10 +31,10 @@ public class FreeController {
 		  ModelAndView mv = new ModelAndView();
 		  LibraryVO lib=fser.location(libraryId);//도서관 아이디 세션 넣을자리
 		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("userid"));//회원아이디 세션 넣을 자리
-		  mv.addObject("lat",lib.getL_Latitude());//위도
-	   	  mv.addObject("lon",lib.getL_Longtitude());//경도
-	   	  mv.addObject("libraryName",lib.getL_Name());
-	   	  mv.addObject("libraryId",lib.getL_Id());//도서관 아이디
+		  mv.addObject("lat",lib.getL_latitude());//위도
+	   	  mv.addObject("lon",lib.getL_longtitude());//경도
+	   	  mv.addObject("libraryName",lib.getL_name());
+	   	  mv.addObject("libraryId",lib.getL_id());//도서관 아이디
 	   	  mv.addObject("user",mem);//회원정보
 		  mv.setViewName("/LibraryMain");
 		  
@@ -58,7 +58,7 @@ public class FreeController {
 	    	
 	    	
 	    	int cnt = (Integer)sessionId.getAttribute("libraryId");//도서관 아이디 세션 넣을 자리
-	    	int count=fser.freeCnt(cnt);
+	    	int count=fser.freeCnt(cnt);//도서관아이디로 해당 게시물 글 갯수 구함
 	   		int totalPage=0;
 	   		if(count%10==0){
 	   			
@@ -70,7 +70,6 @@ public class FreeController {
 	   		
 	   		
 	   		mv.addObject("totalpage",totalPage);
-	   		//mv.addObject("id","kim");//회원 아이디 세션으로 넘기는것 대신 사용
 	   		mv.addObject("freelist",list);
 	   		mv.addObject("user",mem);//세션으로 찾은 회원정보 
 	   		mv.setViewName("/Free");
@@ -104,9 +103,7 @@ public class FreeController {
 		  
 		  List<FreeVO> list2=fser.freeSearch(ma);
 		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("userid"));//회원아이디 세션 넣을 자리
-//		  for (int j = 0; j < list2.size(); j++) {
-//			  System.out.println(list2.get(j).getF_Content());
-//		  }
+
 		    int count=fser.freeSerchCnt(ma);
 	    	int totalPage=0;
 	   		if(count%10==0){
@@ -114,7 +111,7 @@ public class FreeController {
 	   		}else{
 	   			totalPage=count/10+1;
 	   		}
-	   	  //mv.addObject("id","kim");//회원 아이디 세션으로 넘기는것 대신 사용
+	   	  
 	   	  mv.addObject("user",mem);//세션으로 찾은 회원정보
 	   	  mv.addObject("searchdate",searchdate);
 	   	  mv.addObject("searchBy",searchBy);
