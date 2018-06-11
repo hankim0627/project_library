@@ -6,14 +6,16 @@
 <head>
 <meta charset=UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <style type="text/css">
+
 body
 {background-color: rgb(217, 217, 217)}
-</style>
-<script src="/library/resources/jquery-3.2.1.min.js"></script>
-
-
-<style type="text/css">
 div
 {background-color: pink;
 padding: 10px;
@@ -22,13 +24,13 @@ border-style: double;}
 </head>
 <body>
 <form action="/library/Insert/" method="post" >
-<div>
+<div class="form-group">
 <h1>게시물 작성</h1>
-제목 : <input type="text" name="title" id="title"><br>
-내용 : <br>
-<textarea cols=50; rows=10; name="contents" id="contents">게시물 내용을 작성하세요</textarea><br>
-암호<input type=text name="pw" id="pw" >
-<input id='in' type='submit' value='작성하기'>
+제목 : <input type="text" name="title" id="title" style='width:200px'><br>
+<label for="comment">내용 : </label>
+<textarea class="form-control" cols=50; rows=10; name="contents" id="contents">게시물 내용을 작성하세요</textarea><br>
+암호 : <input type=text name="pw" id="pw" style='width:160px'>
+<input id='in' type='submit' class="btn btn-default"value='작성하기'>
 <br>
 <br>
 </div>

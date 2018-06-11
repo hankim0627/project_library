@@ -47,8 +47,7 @@ public class FreeController {
 	  public ModelAndView freelist(@RequestParam(value="pagenum", defaultValue="1") String pagenum, HttpSession sessionId){
 		  
 		    int free= Integer.parseInt(pagenum);
-		    //sessionId.setAttribute("libraryId", "1");//임의로 도서관 아이디 세션 생성 
-			//sessionId.setAttribute("userid", "Lee");//임의로 세션아이디 생성
+		    
 	    	Map<String,Object> map=new HashMap<String,Object>();
 	    	map.put("l_Id", sessionId.getAttribute("libraryId"));//도서관 아이디세션 넣을자리
 	    	map.put("num", free);
@@ -58,7 +57,7 @@ public class FreeController {
 	    	
 	    	
 	    	int cnt = (Integer)sessionId.getAttribute("libraryId");//도서관 아이디 세션 넣을 자리
-	    	int count=fser.freeCnt(cnt);//도서관아이디로 해당 게시물 글 갯수 구함
+	    	int count=fser.freeCnt(cnt);
 	   		int totalPage=0;
 	   		if(count%10==0){
 	   			
@@ -70,6 +69,7 @@ public class FreeController {
 	   		
 	   		
 	   		mv.addObject("totalpage",totalPage);
+	   		//mv.addObject("id","kim");//회원 아이디 세션으로 넘기는것 대신 사용
 	   		mv.addObject("freelist",list);
 	   		mv.addObject("user",mem);//세션으로 찾은 회원정보 
 	   		mv.setViewName("/Free");
@@ -89,21 +89,23 @@ public class FreeController {
 	  @RequestMapping("/FreeSearch")
 	  public ModelAndView freeserchlist
 	  (@RequestParam(value="pagenum", defaultValue="1")
-	  String pagenum,String searchdate, String searchBy,String searchText ,HttpSession sessionId){
+	  String pagenum,String searchdate, String searchBy,String searchText ,HttpSession session){
 		// System.out.println(pagenum+" "+searchdate+" "+searchBy+" "+searchText);
 		  ModelAndView mv = new ModelAndView();
 		  
 		  int free= Integer.parseInt(pagenum);
 		  Map<String,Object> ma = new  HashMap<String,Object>(); 
-		  ma.put("l_Id", sessionId.getAttribute("libraryId"));//도서관세션 넣을자리
+		  ma.put("l_Id", session.getAttribute("libraryId"));//도서관세션 넣을자리
 	      ma.put("num", free);
 		  ma.put("searchdate",searchdate);
 		  ma.put("searchBy",searchBy);
 		  ma.put("searchText",searchText);
 		  
 		  List<FreeVO> list2=fser.freeSearch(ma);
-		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("userid"));//회원아이디 세션 넣을 자리
-
+		  List<MemberVO> mem= fser.memberInfo((String) session.getAttribute("userid"));//회원아이디 세션 넣을 자리
+//		  for (int j = 0; j < list2.size(); j++) {
+//			  System.out.println(list2.get(j).getF_Content());
+//		  }
 		    int count=fser.freeSerchCnt(ma);
 	    	int totalPage=0;
 	   		if(count%10==0){
@@ -111,13 +113,23 @@ public class FreeController {
 	   		}else{
 	   			totalPage=count/10+1;
 	   		}
-	   	  
+	   		
+	   		
+	   	  //mv.addObject("id","kim");//회원 아이디 세션으로 넘기는것 대신 사용
 	   	  mv.addObject("user",mem);//세션으로 찾은 회원정보
-	   	  mv.addObject("searchdate",searchdate);
-	   	  mv.addObject("searchBy",searchBy);
-	      mv.addObject("searchText",searchText);
+//	   	  mv.addObject("searchdate",searchdate);
+//	   	  mv.addObject("searchBy",searchBy);
+//	      mv.addObject("searchText",searchText);
+	   	
 	   	  mv.addObject("totalpage2",totalPage);
 		  mv.addObject("freelist2",list2);
+	   	session.setAttribute("pagenum",pagenum);
+	   	session.setAttribute("searchdate",searchdate);
+	   	session.setAttribute("searchBy",searchBy);
+	   	session.setAttribute("searchText",searchText);
+	   	
+		 
+		  
 		  mv.setViewName("/FreeSearch");
 		  return mv;
 	  }//search 페이징처리
@@ -152,25 +164,35 @@ public class FreeController {
 	  @RequestMapping(value="/ReplyDelete", method=RequestMethod.POST)
 	  public String replyDelete(String deletePw,String deleteReply){
 		  Map<String,String> map= new HashMap<String,String>();
-		  //System.out.println(deleteReply+"번 삭제 비번 : "+deletePw);
+		 // System.out.println(deleteReply+"번 삭제 비번 : "+deletePw);
 		  map.put("number", deleteReply);//해당 댓글 번호
 		  map.put("pw", deletePw);
 		  fser.replyDelete(map);//댓글삭제
-		 
 		  return "redirect:/Freelist";
 		  //"redirect:/Freelist";
 	  }//리플삭제
 	  @RequestMapping(value="/ReplyDelete2", method=RequestMethod.POST)
-	  public String replyDelete2(String deletePw,String deleteReply){
+	  public String replyDelete2(String deletePw,String deleteReply,HttpSession session){
+		  ModelAndView mv= new ModelAndView();
 		  Map<String,String> map= new HashMap<String,String>();
 		 // System.out.println(deleteReply+"번 삭제 비번 : "+deletePw);
+		  String pagenum=(String) session.getAttribute("pagenum");
+		  String searchdate=(String) session.getAttribute("searchdate");
+		  String searchBy=(String) session.getAttribute("searchBy");
+		  String searchText=(String) session.getAttribute("searchText");
+		//  System.out.println(pagenum+" 조건1 "+searchdate+" 조건2 "+searchBy+" 내용 "+searchText);
 		  map.put("number", deleteReply);
 		  map.put("pw", deletePw);
 		  fser.replyDelete(map);//댓글삭제
-		 
-		  return "redirect://FreeSearch";
-		  //"redirect:/Freelist";
-	  }//Search 리플삭제
+		  return "redirect:/FreeSearch?pagenum="+pagenum+
+		  "&searchdate="+searchdate+
+		  "&searchBy="+searchBy+
+		  "&searchText="+searchText;//세션값 다시 입력해서 GET방식으로 돌아감
+		  
+
+	  }//Search후 리플삭제
+	  
+	  
 	  
 	  /*@RequestMapping(value="/ReplyDelete", method=RequestMethod.POST)
 	  @ResponseBody
@@ -220,6 +242,27 @@ public class FreeController {
 		  return "redirect:/Freelist";
 		  
 		}//게시판 글 지우기
+	  
+	  @RequestMapping("/FreeContDelete2")
+	  public String freeContDelete2(String freeNumber,String password,HttpSession session){
+		 // System.out.println(password+ freeNumber);
+		  Map<String,Object> map= new HashMap<String,Object>();
+		  map.put("f_Num", freeNumber);//해당 글번호
+		  map.put("f_Pw", password);
+		  fser.deleteContReply(freeNumber);//해당글 리플 지우기
+		  fser.deleteCont(map);//해당글 지우기
+		  String pagenum=(String) session.getAttribute("pagenum");
+		  String searchdate=(String) session.getAttribute("searchdate");
+		  String searchBy=(String) session.getAttribute("searchBy");
+		  String searchText=(String) session.getAttribute("searchText");
+			
+		  return "redirect:/FreeSearch?pagenum="+pagenum+
+				  "&searchdate="+searchdate+
+				  "&searchBy="+searchBy+
+				  "&searchText="+searchText;//세션값 다시 입력해서 GET방식으로 돌아감
+		  
+		}//Search 후 게시판 글 지우기
+	  
 	  @RequestMapping(value="/UserPicSelect",method=RequestMethod.GET)
 	  public String UserPicSelect(){
 		 // ModelAndView mv= new ModelAndView();

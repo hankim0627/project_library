@@ -254,7 +254,7 @@ public class StoreController {
 		map.put("column", op);
 		map.put("value", value);
 		map.put("amount", "1");
-		List<StoreVO> list = service.searchStoreVO(map);
+		List<StoreVO> list = service.searchStoreVO(map); //검색결과 리스트
 		mv.addObject("searchList", list);
 		
 		int countSearch = service.countSearch(map);
@@ -267,6 +267,7 @@ public class StoreController {
 		return mv;
 	}
 	
+	//더보기
 	@ResponseBody
 	@RequestMapping("/searchMore")
 	public List<StoreVO> searchMore(HttpSession session, String currAmount){

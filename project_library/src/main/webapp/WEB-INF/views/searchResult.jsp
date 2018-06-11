@@ -13,7 +13,7 @@ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	$('td').on('click','a',function(event){
+	$('td').on('click','a[href="more"]',function(event){
 		event.preventDefault();		
 		var currAmount = Number($(this).attr('id'))+1;
 
@@ -43,6 +43,20 @@ $(document).ready(function(){
 			}
 		})//ajax-end
 	})
+	
+	$('table').on('click','.selectTitle',function(event){
+		event.preventDefault();
+		var stnum = $(this).closest("tr").children().eq(0).text();
+		var writer = $(this).closest("tr").children().eq(2).text();
+		$.ajax({
+			url : "/library/store.stnum",
+			data : {"stnum" : stnum,
+					"writer" : writer},
+			success : function(result){
+				$("#detail").html(result.st_title);
+			}
+		})	
+	})
 })
 </script>
 </head>
@@ -56,8 +70,8 @@ $(document).ready(function(){
 <td>작성자</td>
 <td>작성일</td>
 </tr>
-<c:forEach var="storeVO" items="${searchList}">
 
+<c:forEach var="storeVO" items="${searchList}">
 <tr>
 <td>${storeVO.st_num}</td>
 <td><a class="selectTitle" href="">${storeVO.st_title}</a></td>
@@ -68,9 +82,12 @@ $(document).ready(function(){
 
 <tr id="bottom"><td colspan="4" style="text-align: center;">
 <!-- 더보기 누를때마다 id가 증가 -->
-<a href="" id="${amount}">▼더보기(${countSearch-amount*5})</a>
+<a href="more" id="${amount}">▼더보기(${countSearch-amount*5})</a>
 </td></tr>
 </table>
+
+<div id="detail">
+</div>
 
 </body>
 </html>

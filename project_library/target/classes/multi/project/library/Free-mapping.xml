@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Library">
+
+	<select id="freelist"  resultType="fvo">
+		SELECT * FROM free
+	</select>
+	
+<!--  <select id="freePageAll" parameterType="int[]" resultType="fvo">
+select * from
+(select  rownum rm , e.* 
+from(select * from free order by f_date desc)e)where rm between
+<foreach collection="array" item="aa" separator="and">#{aa}</foreach> 
+</select> -->
+
+<select id="freePageAll" parameterType="java.util.Map" resultType="fvo">
+select * from
+(select  rownum rm , e.* 
+from(select * from free where l_Id = #{l_Id} order by f_date desc)e)where rm between
+ ((#{num}-1)*10+1) and (#{num}*10)
+
+</select>
+
+<select id="freeCnt" parameterType="int" resultType="int">
+select count(*) from free where l_Id = #{l_Id} 
+</select> 
+
+<select id="freeSelectList"  parameterType="int" resultType="fvo">
+		SELECT * FROM free where f_num=#{num}
+</select>
+
+<select id="freeSearch" parameterType="java.util.Map" resultType="fvo">
+select * from
+(select  rownum rm , e.* 
+from(select * from free where l_Id = #{l_Id} 
+<if test="searchdate=='all'"> </if>
+<if test="searchdate=='1d'"><![CDATA[and  sysdate-f_date<1]]></if>
+<if test="searchdate=='1w'"><![CDATA[and  sysdate-f_date<7]]></if>
+<if test="searchdate=='1m'"><![CDATA[and  sysdate-f_date<30]]></if>
+<if test="searchBy==0">and(f_Title like '%'||#{searchText}||'%' or f_Content like '%'||#{searchText}||'%')</if>
+<if test="searchBy==1">and f_m_Id like '%'||#{searchText}||'%'</if>
+<if test="searchBy==2">and f_Title like '%'||#{searchText}||'%'</if>
+order by f_date desc)e)
+where rm between ((#{num}-1)*10+1) and (#{num}*10)
+</select>
+
+<select id="freeSearchCnt" parameterType="java.util.Map" resultType="int">
+select count(*) from free where l_Id = #{l_Id} 
+<if test="searchdate=='all'"> </if>
+<if test="searchdate=='1d'"><![CDATA[and  sysdate-f_date<1]]></if>
+<if test="searchdate=='1w'"><![CDATA[and  sysdate-f_date<7]]></if>
+<if test="searchdate=='1m'"><![CDATA[and  sysdate-f_date<30]]></if>
+<if test="searchBy==0">and(f_Title like '%'||#{searchText}||'%' or f_Content like '%'||#{searchText}||'%')</if>
+<if test="searchBy==1">and f_m_Id like '%'||#{searchText}||'%'</if>
+<if test="searchBy==2">and f_Title like '%'||#{searchText}||'%'</if>
+</select>
+
+<insert id="freeInsert" parameterType="java.util.Map">
+insert into free values
+(#{l_Id},#{title},#{contents},#{m_Id},#{pw},sysdate,(select nvl(max(f_num),0) from free)+1)
+</insert>
+
+ <select id="freeReply"  resultType="frvo">
+		SELECT * FROM freereply where fr_free_Num=#{num} order by fr_num
+</select> 
+
+<select id="memberInfo" parameterType="String" resultType="mvo">
+     select * from lib_member where m_Id = #{id}
+</select>
+
+<delete id="replyDelete" parameterType="java.util.Map">
+  delete freereply where fr_num = #{number} and fr_pw=#{pw}
+</delete>
+
+<insert id="insertReply" parameterType="java.util.Map">
+insert into freereply values
+((select nvl(max(fr_num),0) from freereply)+1, #{num},#{userid},#{replyCon},(select m_Pic from lib_member where m_Id=#{userid}),#{replyPw})
+</insert>
+
+<select id="selectLocation" parameterType="int" resultType="lvo">
+select * from library where l_id=#{l_Id}
+</select>
+
+<delete id="deleteCont" parameterType="java.util.Map">
+delete free where f_Pw=#{f_Pw} and f_Num=#{f_Num}
+</delete>
+
+<delete id="deleteContReply" parameterType="String">
+ delete freereply where fr_free_Num=#{freeNumber}
+</delete>
+
+<update id="changePic" parameterType="java.util.Map">
+update lib_member  set m_Pic = #{pic} where m_Id=#{id}
+</update>
+
+
+<update id="changeReplyPic" parameterType="java.util.Map">
+update freereply set m_Pic = #{pic} where fr_m_Id=#{id}
+</update>
+
+</mapper>
