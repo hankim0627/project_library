@@ -135,6 +135,16 @@ $("#map").on('click',function(){
 	$('#board').html("<iframe src='/library/Freelist' width=1050 height=900 ></iframe>")
 }) 
 
+$("#store>a").on('click',function(){	
+	//alert('/library/Freelist');
+	$('#board').html("<iframe src='/library/store' width=1050 height=900 ></iframe>")
+}) 
+
+
+ $("#studyroom>a").on('click',function(){	
+	//alert('/library/Freelist');
+	$('#board').html("<iframe src='/library/studyRoomMain' width=1050 height=900 ></iframe>")
+}) 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');
 	$('#board').html(
