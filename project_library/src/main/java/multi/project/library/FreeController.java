@@ -29,7 +29,7 @@ public class FreeController {
 		 // sessionId.setAttribute("member_id", "Park");//임의로 세션아이디 생성
 		  ModelAndView mv = new ModelAndView();
 		  int libraryId=(Integer)sessionId.getAttribute("l_id");//도서관 아이디 세션 넣을자리
-		 // System.out.println(libraryId);
+		  //System.out.println(libraryId+" = 도서관 아이디");
 		  
 		  LibraryVO lib=fser.location(libraryId);
 		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("member_id"));//회원아이디 세션 넣을 자리
@@ -201,6 +201,7 @@ public class FreeController {
 	  public List<FreeReplyVO> insertReply(int num, String userid, String replyCon ,String replyPw){
 		  //System.out.println(userid+" "+replyCon+" "+replyPw);
 		  Map<String,Object> map= new HashMap<String,Object>();
+		  System.out.println(userid);
 		  map.put("num", num);
 		  map.put("userid", userid);
 		  map.put("replyCon", replyCon);

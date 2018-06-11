@@ -67,7 +67,7 @@ insert into free values
 </select> 
 
 <select id="memberInfo" parameterType="String" resultType="mem">
-     select * from lib_member where m_Id = #{id}
+     select * from member where m_Id = #{id}
 </select>
 
 <delete id="replyDelete" parameterType="java.util.Map">
@@ -76,7 +76,7 @@ insert into free values
 
 <insert id="insertReply" parameterType="java.util.Map">
 insert into freereply values
-((select nvl(max(fr_num),0) from freereply)+1, #{num},#{userid},#{replyCon},(select m_Pic from lib_member where m_Id=#{userid}),#{replyPw})
+((select nvl(max(fr_num),0) from freereply)+1, #{num},#{userid},#{replyCon},(select m_Pic from member where m_Id=#{userid}),#{replyPw})
 </insert>
 
 <select id="selectLocation" parameterType="int" resultType="lib">
@@ -92,7 +92,7 @@ delete free where f_Pw=#{f_Pw} and f_Num=#{f_Num}
 </delete>
 
 <update id="changePic" parameterType="java.util.Map">
-update lib_member  set m_Pic = #{pic} where m_Id=#{id}
+update member  set m_Pic = #{pic} where m_Id=#{id}
 </update>
 
 

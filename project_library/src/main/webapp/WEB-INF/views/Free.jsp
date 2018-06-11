@@ -63,7 +63,7 @@ body
 </head>
 <body>
 
-<input type="hidden" id='userloginId' name=<%=session.getAttribute("userid")%>>
+<input type="hidden" id='userloginId' name=<%=session.getAttribute("member_id")%>>
 
 <div id="main">
 
