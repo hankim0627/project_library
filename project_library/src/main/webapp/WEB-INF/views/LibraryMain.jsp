@@ -6,18 +6,17 @@
 <head>
 <meta charset=UTF-8">
 <title><%=request.getAttribute("libraryName")%></title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- 부트스트랩 CSS 추가하기 -->
-<!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
-<!-- 커스텀 CSS 추가하기 -->
-<!-- <link rel="stylesheet" href="./css/custom.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 #userIdTag
 {background-color: lightblue;
 padding-left: 20px;}
 #userpic
-{width: 30px;
-height: 30px;}
+{width: 40px;
+height: 40px;}
 #userinfo
 {border: 0px;
  }
@@ -33,7 +32,7 @@ height: 30px;}
   display: grid;
   grid-template-areas:
     
-    'menu main right'
+    'menu main main'
     'footer footer footer';
   grid-gap: 10px;
   /* background-color: #2196F3; */
@@ -54,40 +53,61 @@ a
 { text-decoration:none } 
 body
 {background-color: rgb(217, 217, 217)}
+.img-profile {
+    max-width: 10rem;
+    max-height: 10rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.2);
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
 </style>
 </head>
 <body>
 <div id="userIdTag"><c:forEach items="${user}" var="userInfo">
 <table id= "userinfo">
 <tr><td class="u">
-<a href="#"><img name='<%=session.getAttribute("userid")%>' id='userpic' alt='No Image' src='/library/resources/${userInfo.m_Pic}'></a></td>
-<td class="u"><h2>${userInfo.m_id}</h2></td></tr></table>
+<a href="#">
+<span class="d-none d-lg-block">
+<img class="img-fluid img-profile rounded-circle mx-auto mb-2" name='<%=session.getAttribute("userid")%>' id='userpic' alt='No Image' src='/library/resources/${userInfo.m_Pic}'>
+</span>
+</a>
+</td>
+<td class="u"><h2>${userInfo.m_Id}</h2></td></tr></table>
 </c:forEach></div>
 <div class="grid-container">
  
   <div class="item2">Menu
   <br>
   <br>
+  
+     
   <div class='menu' id='lib'><a href='#'>도서관 정보</a></div><br>
   <div class='menu' id='free'><a href='#'>자유 게시판</a></div><br>
   <div class='menu' id='store'><a href='#'>거래 게시판</a></div><br>
   <div class='menu' id='studyroom'><a href='#'>스터디 게시판</a></div><br>
   <div class='menu' id='map'><a href='#'>도서관 위치</a></div><br>
+     
   </div>
-  
+       
   <div id='board' class="item3">
   <c:if test='${libraryId==1 }'>
-  <iframe src='http://www.nl.go.kr/nl/' width=900 height=900 ></iframe>
+  <iframe src='http://www.nl.go.kr/nl/' width=1050 height=900 ></iframe>
   </c:if>
    <c:if test='${libraryId==2 }'>
-  <iframe src='https://www.nanet.go.kr/main.do' width=900 height=900 ></iframe>
+  <iframe src='https://www.nanet.go.kr/main.do' width=1050 height=900 ></iframe>
   </c:if>
   </div>  
   
   <div class="item4"></div>
   
   <div class="item5"><table><tr>
-  <td></td>
+  <td><a href="/library/LibraryMain"><img  src='/library/resources/LOGO2.jpg'></a></td>
   <td>서울특별시 강남구 언주로 508 10~17층(역삼동, 서울상록빌딩)홈페이지 관련 문의 : multi@Library.go.kr
   <br>Copyright ⓒ multiLibrary. All rights	reserved.전화문의 : 02-111-2222, 080-111-2222(수신자 부담)</td>
   </tr></table></div>
@@ -97,13 +117,7 @@ body
 <input type="hidden" value=<%=request.getAttribute("lat") %> id='maplat'><!-- 위도 -->
 <input type="hidden" value=<%=request.getAttribute("lon") %> id='maplon'><!-- 경도 -->
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- <script src="/library/resources/jquery-3.2.1.min.js"></script> -->
-<!-- 부트스트랩 자바스크립트 추가하기 -->
-<!-- <script src="./js/bootstrap.min.js"></script> -->
-<!-- 파퍼 자바스크립트 추가하기 -->
-<!-- <script src="./js/popper.min.js"></script> -->
+
 <script type="text/javascript">
 $("#map").on('click',function(){
 		//alert($("#maplat").val()+" "+$("#maplon").val())
@@ -118,24 +132,24 @@ $("#map").on('click',function(){
 	
  $("#free>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/Freelist' width=900 height=900 ></iframe>")
+	$('#board').html("<iframe src='/library/Freelist' width=1050 height=900 ></iframe>")
 }) 
 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');
 	$('#board').html(
 	  "<c:if test='${libraryId==1 }'>"+
-	  "<iframe src='http://www.nl.go.kr/nl/' width=900 height=900 ></iframe>"+
+	  "<iframe src='http://www.nl.go.kr/nl/' width=1050 height=900 ></iframe>"+
 	  "</c:if>"+
 	  "<c:if test='${libraryId==2 }'>"+
-	  "<iframe src='https://www.nanet.go.kr/main.do' width=900 height=900 ></iframe>"+
+	  "<iframe src='https://www.nanet.go.kr/main.do' width=1050 height=900 ></iframe>"+
 	  "</c:if>")
 })
 
 $('#userpic').on("click",function(){
 	 //alert("그림변경")
-	    var ww=350;    //띄울 창의 넓이
-		var wh=150;    //띄울 창의 높이
+	    var ww=355;    //띄울 창의 넓이
+		var wh=160;    //띄울 창의 높이
 		
 		var top=(screen.availHeight-wh)/4;
 		var left=(screen.availWidth-ww)/2;
