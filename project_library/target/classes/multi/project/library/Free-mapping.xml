@@ -66,7 +66,7 @@ insert into free values
 		SELECT * FROM freereply where fr_free_Num=#{num} order by fr_num
 </select> 
 
-<select id="memberInfo" parameterType="String" resultType="mvo">
+<select id="memberInfo" parameterType="String" resultType="mem">
      select * from lib_member where m_Id = #{id}
 </select>
 
@@ -79,7 +79,7 @@ insert into freereply values
 ((select nvl(max(fr_num),0) from freereply)+1, #{num},#{userid},#{replyCon},(select m_Pic from lib_member where m_Id=#{userid}),#{replyPw})
 </insert>
 
-<select id="selectLocation" parameterType="int" resultType="lvo">
+<select id="selectLocation" parameterType="int" resultType="lib">
 select * from library where l_id=#{l_Id}
 </select>
 

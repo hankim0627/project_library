@@ -10,5 +10,7 @@
 		<typeAlias type="multi.project.library.StoreVO" alias="store"></typeAlias>
 		<typeAlias type="multi.project.library.MemberVO" alias="mem"></typeAlias>
 		<typeAlias type="multi.project.library.LibraryVO" alias="lib"></typeAlias>
+		<typeAlias type="multi.project.library.FreeVO" alias="fvo"></typeAlias>
+	    <typeAlias type="multi.project.library.FreeReplyVO" alias="frvo"></typeAlias>
 	</typeAliases>
 </configuration>
