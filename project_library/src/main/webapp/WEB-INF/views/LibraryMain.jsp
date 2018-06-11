@@ -107,7 +107,7 @@ body
   <div class="item4"></div>
   
   <div class="item5"><table><tr>
-  <td><img  src='/library/resources/LOGO2.jpg'></td>
+  <td><a href="/library/LibraryMain"><img  src='/library/resources/LOGO2.jpg'></a></td>
   <td>서울특별시 강남구 언주로 508 10~17층(역삼동, 서울상록빌딩)홈페이지 관련 문의 : multi@Library.go.kr
   <br>Copyright ⓒ multiLibrary. All rights	reserved.전화문의 : 02-111-2222, 080-111-2222(수신자 부담)</td>
   </tr></table></div>
