@@ -24,7 +24,8 @@ background-color: lightgray;}
 table
 {border: ridge gray 6px;
  margin-bottom: 2px; 
- border-collapse: collapse; }
+ border-collapse: collapse; 
+ width: 530px;}
 td
 {border: solid black 2px; }
 .tit
@@ -53,6 +54,11 @@ a
 { text-decoration:none } 
 body
 {background-color: rgb(217, 217, 217)}
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+
 </style>
 </head>
 <body>
@@ -60,9 +66,8 @@ body
 <input type="hidden" id='userloginId' name=<%=session.getAttribute("userid")%>>
 
 <div id="main">
-<h1>자유 게시판</h1>
-<div id="cont"> 
 
+<div id="cont"> 
 </div>
 
 <table>
@@ -74,29 +79,34 @@ body
 <td id="date">${li.f_Date }</td></tr></c:forEach>
 </table>
 
+
 <c:forEach begin="1" end="${totalpage }" var="page">
 <a href="/library/Freelist?pagenum=${page }">${page }</a>
 </c:forEach>
+
 <input type="button" value="새글작성" id="newcont">
+
 <br>
 
 <form name="Ser" action="/library/FreeSearch/">
 <div id="search" class="search" >
-<select name="searchdate" id="searchdate">
+<div class="input-group">
+<select class="form-control"name="searchdate" id="searchdate" style='width:160px'>
 <option value="all">전체기간</option>
 <option value="1d">최근하루</option>
 <option value="1w">최근일주일</option>
 <option value="1m">최근한달</option>
 </select>
-<select name="searchBy" id="searchBy">
+<select class="form-control"name="searchBy" id="searchBy" style='width:160px'>
 <option value="0">제목+내용</option>
 <option value="1">작성자</option>
 <option value="2">제목</option>
 </select>
-<input type="text" name="searchText" id="searchText">
-<input id='serchbtn' type="image" value="검색" src="/library/resources/serchbutton2.jpg" width="28" height="20">
-
+      <input type="text" class="form-control" placeholder="Search" name="searchText" id="searchText" style='width:170px'>
+      <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
 </div></form>
+
 </div>
 
 </body>
@@ -130,7 +140,7 @@ body
 		  		        "<td>"+server.f_Date+"</td></tr>"+
 		  		        "<tr><td>내용<br><input type='button' value='댓글보기' id='"+server.f_Num+"' class='reply'></td>"+//댓글보기 버튼
 		  		        "<td  colspan='2'>"+server.f_Content+"</td><td>"+
-		  		        "<form action='/library/FreeContDelete/'><input type='submit' value='삭제'>Pw : <input type='password' name='password' style='width:30px'>"+
+		  		        "<form action='/library/FreeContDelete/'>Pw : <input type='password' name='password' style='width:30px'><input type='submit' value='삭제'>"+
 		  		        "<input type='hidden' name='freeNumber' value="+server.f_Num+"></form></td></tr></table>";
 		  		      $("#cont").html(result);   	
 		    		}else{
@@ -177,7 +187,7 @@ body
 				+"<input class='deletebtn'name='deleteReply'type='image' value='"+deleteReply+"' src='/library/resources/xbutton.png' width='13' height='13'>"
 				+"<input type='password' name='deletePw' style='width:30px'></form>"//댓글삭제
 				+"</td><td class='re2'>"
-				+"<img alt='이모티콘' src='/library/resources/"+server2[i].m_Pic+"' width='17' height='17'>"
+				+"<img alt='이모티콘' class='rounded-circle' src='/library/resources/"+server2[i].m_Pic+"' width='17' height='17'>"
 				+server2[i].fr_m_Id+"</td></tr>";
 				
 			$(".re").html($(".re").html() +  result2);
@@ -188,7 +198,7 @@ body
 				+"<img alt='댓글' src='/library/resources/reply2.jpg'></td><td class='re2'>"
 				+server2[i].fr_Content
 				+"</td><td class='re2'>"
-				+"<img alt='이모티콘' src='/library/resources/"+server2[i].m_Pic+"' width='17' height='17'>"
+				+"<img alt='이모티콘' class='rounded-circle' src='/library/resources/"+server2[i].m_Pic+"' width='17' height='17'>"
 				+server2[i].fr_m_Id+"</td></tr>";
 				$(".re").html($(".re").html() +  result2);
     	    			}
@@ -236,7 +246,7 @@ body
 	     					+"<input class='deletebtn'name='deleteReply'type='image' value='"+deleteReply+"' src='/library/resources/xbutton.png' width='13' height='13'>"
 	     					+"<input type='password' name='deletePw' style='width:30px'></form>"
 	     					+"</td><td class='re2'>"
-	     					+"<img alt='이모티콘' src='/library/resources/"+server3[i].m_Pic+"' width='17' height='17'>"
+	     					+"<img alt='이모티콘' class='rounded-circle' src='/library/resources/"+server3[i].m_Pic+"' width='17' height='17'>"
 	     					+server3[i].fr_m_Id+"</td></tr>";
 	     					
 	 	    			$(".re").html($(".re").html() +  result3);
@@ -247,7 +257,7 @@ body
 	     					+"<img alt='댓글' src='/library/resources/reply2.jpg'></td><td class='re2'>"
 	     					+server3[i].fr_Content
 	     					+"</td><td class='re2'>"
-	     					+"<img alt='이모티콘' src='/library/resources/"+server3[i].m_Pic+"' width='17' height='17'>"
+	     					+"<img alt='이모티콘' class='rounded-circle' src='/library/resources/"+server3[i].m_Pic+"' width='17' height='17'>"
 	     					+server3[i].fr_m_Id+"</td></tr>";
 	     					$(".re").html($(".re").html() +  result3);
 	     					
@@ -267,7 +277,7 @@ body
 	
 	$("#newcont").on('click',function(){//새글작성//////////////////////////////
  		var ww=500;    //띄울 창의 넓이
-		var wh=380;    //띄울 창의 높이
+		var wh=440;    //띄울 창의 높이
 		
 		// 새창의 중앙 좌표
 		var top=(screen.availHeight-wh)/4;
@@ -284,4 +294,5 @@ body
  	 })  */
  	 
 </script>
+
 </html>

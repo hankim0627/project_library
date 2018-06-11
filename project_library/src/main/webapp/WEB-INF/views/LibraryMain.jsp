@@ -61,7 +61,7 @@ body
 <table id= "userinfo">
 <tr><td class="u">
 <a href="#"><img name='<%=session.getAttribute("userid")%>' id='userpic' alt='No Image' src='/library/resources/${userInfo.m_Pic}'></a></td>
-<td class="u"><h2>${userInfo.m_Id}</h2></td></tr></table>
+<td class="u"><h2>${userInfo.m_id}</h2></td></tr></table>
 </c:forEach></div>
 <div class="grid-container">
  
