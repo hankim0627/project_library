@@ -3,7 +3,7 @@ package multi.project.library;
 public class LibraryVO {
 	
 	
-	private String l_id;
+	private int l_id;
 	private String l_name;
 	private String l_location;
 	private String l_holiday;
@@ -17,7 +17,7 @@ public class LibraryVO {
 	public LibraryVO() {
 		super();
 	}
-	public LibraryVO(String l_id, String l_name, String l_location, String l_holiday, String l_time, String l_phone,
+	public LibraryVO(int l_id, String l_name, String l_location, String l_holiday, String l_time, String l_phone,
 			String l_website, double l_latitude, double l_longtitude) {
 		super();
 		this.l_id = l_id;
@@ -30,10 +30,11 @@ public class LibraryVO {
 		this.l_latitude = l_latitude;
 		this.l_longtitude = l_longtitude;
 	}
-	public String getL_id() {
+	
+	public int getL_id() {
 		return l_id;
 	}
-	public void setL_id(String l_id) {
+	public void setL_id(int l_id) {
 		this.l_id = l_id;
 	}
 	public String getL_name() {

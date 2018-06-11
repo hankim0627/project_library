@@ -8,8 +8,8 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>	
-		<property name="username" value="hr"/>
-		<property name="password" value="hr"/>	
+		<property name="username" value="prj_library"/>
+		<property name="password" value="library"/>	
 	</bean>	
 	
 	<!-- 2.SqlSessionFactory 객체 생성 설정 - 스프링 : SqlSessionFactoryBean-->

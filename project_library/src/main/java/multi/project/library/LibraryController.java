@@ -58,7 +58,7 @@ public class LibraryController {
 	public ModelAndView loginresult(String id, String pw, HttpSession session){
 
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("map_l_id", (String) session.getAttribute("l_id"));	
+		map.put("map_l_id", Integer.toString((Integer)session.getAttribute("l_id")));	
 		map.put("map_id", id);
 		map.put("map_pw", pw);
 		MemberVO vo = new MemberVO();
@@ -73,7 +73,7 @@ public class LibraryController {
 		}else{
 			//로그인 성공
 			mv.addObject("memberVO", vo);			
-			mv.setViewName("temp");
+			mv.setViewName("/LibraryMain");
 			session.setAttribute("member_id", id);
 		}
 
@@ -96,8 +96,8 @@ public class LibraryController {
 	@ResponseBody
 	public String checkname(String id){
 		String result = service.checkid(id);
-		System.out.println("id "+id);
-		System.out.println(result);
+		//System.out.println("id "+id);
+		//System.out.println(result);
 		
 		return result;
 	}
