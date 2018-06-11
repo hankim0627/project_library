@@ -96,12 +96,8 @@ body
   </div>
        
   <div id='board' class="item3">
-  <c:if test='${libraryId==1 }'>
-  <iframe src='http://www.nl.go.kr/nl/' width=1050 height=900 ></iframe>
-  </c:if>
-   <c:if test='${libraryId==2 }'>
-  <iframe src='https://www.nanet.go.kr/main.do' width=1050 height=900 ></iframe>
-  </c:if>
+  
+  <iframe src=<%=request.getAttribute("libraryWebsite") %> width=1050 height=900 ></iframe>
   </div>  
   
   <div class="item4"></div>
@@ -147,13 +143,7 @@ $("#store>a").on('click',function(){
 }) 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html(
-	  "<c:if test='${libraryId==1 }'>"+
-	  "<iframe src='http://www.nl.go.kr/nl/' width=1050 height=900 ></iframe>"+
-	  "</c:if>"+
-	  "<c:if test='${libraryId==2 }'>"+
-	  "<iframe src='https://www.nanet.go.kr/main.do' width=1050 height=900 ></iframe>"+
-	  "</c:if>")
+	$('#board').html("<iframe src=<%=request.getAttribute("libraryWebsite")%> width=1050 height=900 ></iframe>")
 })
 
 $('#userpic').on("click",function(){

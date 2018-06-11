@@ -25,16 +25,17 @@ public class FreeController {
 	  @RequestMapping("/LibraryMain")
 	  public ModelAndView libraryMain(HttpSession sessionId){
 		 
-		 // sessionId.setAttribute("libraryId", 1);//임의로 도서관 아이디 세션 생성 
+		 // sessionId.setAttribute("l_id", 1);//임의로 도서관 아이디 세션 생성 
 		 // sessionId.setAttribute("member_id", "Park");//임의로 세션아이디 생성
-		  int libraryId=(Integer)sessionId.getAttribute("l_id");
 		  ModelAndView mv = new ModelAndView();
-		  LibraryVO lib=fser.location(libraryId);//도서관 아이디 세션 넣을자리
+		  int libraryId=(Integer)sessionId.getAttribute("l_id");//도서관 아이디 세션 넣을자리
+		  LibraryVO lib=fser.location(libraryId);
 		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("member_id"));//회원아이디 세션 넣을 자리
 		  mv.addObject("lat",lib.getL_latitude());//위도
 	   	  mv.addObject("lon",lib.getL_longtitude());//경도
 	   	  mv.addObject("libraryName",lib.getL_name());
 	   	  mv.addObject("libraryId",lib.getL_id());//도서관 아이디
+	   	  mv.addObject("libraryWebsite",lib.getL_website());
 	   	  mv.addObject("user",mem);//회원정보
 		  mv.setViewName("/LibraryMain");
 		  
