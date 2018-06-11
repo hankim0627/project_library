@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 h1 {
-	color: #d0858a;
+	color: rgba(165, 141, 218, 0.8);
 	font-family: times; /* 여러개 중에 앞에서부터 있는 거 사용 */
 	font-size: 40px;
 	font-weight: bold;
@@ -17,6 +17,8 @@ h1 {
 
 body {
 	text-align: center;
+	background-color: rgb(217, 217, 217);
+	
 }
 </style>
 </head>
