@@ -1,4 +1,4 @@
-package multi.project.library;
+package multi.project.library.studyRoom;
 
 import java.util.List;
 import java.util.Map;

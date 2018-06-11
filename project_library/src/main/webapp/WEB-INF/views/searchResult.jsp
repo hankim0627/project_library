@@ -13,15 +13,24 @@ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	$('a').on('click',function(event){
+	$('td').on('click','a',function(event){
 		event.preventDefault();		
 		var currAmount = Number($(this).attr('id'))+1;
-		$(this).attr('id',currAmount);
-//		var remain = $(this).attr('name');
+
+		var temp = $("#bottom").children(0).text().indexOf("(");
+		var temp2 = $("#bottom").children(0).text().indexOf(")");
+		var num = "";
+		for(var i = temp+1; i < temp2; i++){
+			num += $("#bottom").children(0).text().charAt(i);		
+		}
 		$.ajax({
 			url:"/library/searchMore",
 			data:{"currAmount":currAmount},
-			success:function(result){				
+			success:function(result){
+				num = num - result.length;
+				$("#bottom").children().eq(0).children().eq(0).html(
+						"<a href='' id='${amount}'>▼더보기("+num+")</a>");
+				$("#bottom").children().eq(0).children().eq(0).attr('id',currAmount);
 				for(var i = 0; i < result.length; i++){
 					$("#bottom").before(
 					"<tr>"+
@@ -39,6 +48,7 @@ $(document).ready(function(){
 </head>
 <body>
 <h2><b>#${searchWord}</b> 검색결과</h2>
+<h6>${countSearch}개의 검색결과</h6>
 <table border="1">
 <tr>
 <td>글번호</td>
@@ -57,7 +67,8 @@ $(document).ready(function(){
 </c:forEach>
 
 <tr id="bottom"><td colspan="4" style="text-align: center;">
-<a href="" id="${amount}" name="${countSearch-amount*5}">▼더보기(${countSearch-amount*5})</a>
+<!-- 더보기 누를때마다 id가 증가 -->
+<a href="" id="${amount}">▼더보기(${countSearch-amount*5})</a>
 </td></tr>
 </table>
 

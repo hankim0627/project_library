@@ -275,6 +275,7 @@ public class StoreController {
 		map.put("amount", currAmount); //amount 값을 변경
 		
 		List<StoreVO> list = service.searchStoreVO(map);
+		
 		return list;
 	}
 }

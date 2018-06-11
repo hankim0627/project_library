@@ -1,4 +1,4 @@
-package multi.project.library;
+package multi.project.library.studyRoom;
 
 public class StudyRoomCommentVO {
 	int sr_num;
