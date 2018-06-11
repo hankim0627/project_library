@@ -25,12 +25,12 @@ public class FreeController {
 	  @RequestMapping("/LibraryMain")
 	  public ModelAndView libraryMain(HttpSession sessionId){
 		 
-		  sessionId.setAttribute("libraryId", 1);//임의로 도서관 아이디 세션 생성 
-		  sessionId.setAttribute("userid", "Park");//임의로 세션아이디 생성
-		  int libraryId=(Integer)sessionId.getAttribute("libraryId");
+		 // sessionId.setAttribute("libraryId", 1);//임의로 도서관 아이디 세션 생성 
+		 // sessionId.setAttribute("member_id", "Park");//임의로 세션아이디 생성
+		  int libraryId=(Integer)sessionId.getAttribute("l_id");
 		  ModelAndView mv = new ModelAndView();
 		  LibraryVO lib=fser.location(libraryId);//도서관 아이디 세션 넣을자리
-		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("userid"));//회원아이디 세션 넣을 자리
+		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("member_id"));//회원아이디 세션 넣을 자리
 		  mv.addObject("lat",lib.getL_latitude());//위도
 	   	  mv.addObject("lon",lib.getL_longtitude());//경도
 	   	  mv.addObject("libraryName",lib.getL_name());
@@ -49,14 +49,14 @@ public class FreeController {
 		    int free= Integer.parseInt(pagenum);
 		    
 	    	Map<String,Object> map=new HashMap<String,Object>();
-	    	map.put("l_Id", sessionId.getAttribute("libraryId"));//도서관 아이디세션 넣을자리
+	    	map.put("l_Id", sessionId.getAttribute("l_id"));//도서관 아이디세션 넣을자리
 	    	map.put("num", free);
 	    	List<FreeVO> list=fser.freeList(map);
 	    	ModelAndView mv = new ModelAndView();
-	    	List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("userid"));//회원아이디 세션 넣을 자리
+	    	List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("member_id"));//회원아이디 세션 넣을 자리
 	    	
 	    	
-	    	int cnt = (Integer)sessionId.getAttribute("libraryId");//도서관 아이디 세션 넣을 자리
+	    	int cnt = (Integer)sessionId.getAttribute("l_id");//도서관 아이디 세션 넣을 자리
 	    	int count=fser.freeCnt(cnt);
 	   		int totalPage=0;
 	   		if(count%10==0){
@@ -95,14 +95,14 @@ public class FreeController {
 		  
 		  int free= Integer.parseInt(pagenum);
 		  Map<String,Object> ma = new  HashMap<String,Object>(); 
-		  ma.put("l_Id", session.getAttribute("libraryId"));//도서관세션 넣을자리
+		  ma.put("l_Id", session.getAttribute("l_id"));//도서관세션 넣을자리
 	      ma.put("num", free);
 		  ma.put("searchdate",searchdate);
 		  ma.put("searchBy",searchBy);
 		  ma.put("searchText",searchText);
 		  
 		  List<FreeVO> list2=fser.freeSearch(ma);
-		  List<MemberVO> mem= fser.memberInfo((String) session.getAttribute("userid"));//회원아이디 세션 넣을 자리
+		  List<MemberVO> mem= fser.memberInfo((String) session.getAttribute("member_id"));//회원아이디 세션 넣을 자리
 //		  for (int j = 0; j < list2.size(); j++) {
 //			  System.out.println(list2.get(j).getF_Content());
 //		  }
@@ -144,11 +144,11 @@ public class FreeController {
 	  public void insertSuccess(String contents,String title, String pw,HttpSession sessionId){
 		 //System.out.println(title+" "+contents+" "+pw);
 		 Map<String,Object> map= new HashMap<String,Object>();
-		 map.put("l_Id",  sessionId.getAttribute("libraryId"));//도서관 아이디 세션 넣을 자리
+		 map.put("l_Id",  sessionId.getAttribute("l_id"));//도서관 아이디 세션 넣을 자리
 		 map.put("contents", contents);
 		 map.put("title", title);
 		 map.put("pw", pw);
-		 map.put("m_Id", (String) sessionId.getAttribute("userid"));//회원 아이디 세션 넣을 자리
+		 map.put("m_Id", (String) sessionId.getAttribute("member_id"));//회원 아이디 세션 넣을 자리
 		 fser.FreeInsert(map); 
 	}//자유게시판 입력
 	  
@@ -193,20 +193,6 @@ public class FreeController {
 	  }//Search후 리플삭제
 	  
 	  
-	  
-	  /*@RequestMapping(value="/ReplyDelete", method=RequestMethod.POST)
-	  @ResponseBody
-	  public List<FreeReplyVO> replyDelete(int num, String deletePw,String deleteReply){
-		  Map<String,String> map= new HashMap<String,String>();
-		  System.out.println(deleteReply+"번 삭제 비번 : "+deletePw);
-		  map.put("number", deleteReply);
-		  map.put("pw", deletePw);
-		  fser.replyDelete(map);//댓글삭제
-		  List<FreeReplyVO> result = fser.freeReply(num);//댓글불러오기
-		  return result;
-		  //"redirect:/Freelist";
-	  }//ajax 이용한 리플삭제
-*/	  
 	  @RequestMapping(value="/InsertReply", method=RequestMethod.POST)
       @ResponseBody
 	  public List<FreeReplyVO> insertReply(int num, String userid, String replyCon ,String replyPw){
@@ -276,7 +262,7 @@ public class FreeController {
 	  public void UserPicSelect(String userpic, HttpSession sessionId){
 		  //System.out.println(userpic+" 로 그림변경");
 		  Map<String,String> map= new HashMap<String,String>();
-		  map.put("id", (String) sessionId.getAttribute("userid"));
+		  map.put("id", (String) sessionId.getAttribute("member_id"));
 		  map.put("pic", userpic);
 		  fser.changePic(map);
 		  
