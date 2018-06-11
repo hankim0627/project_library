@@ -21,6 +21,9 @@ public class MemberVO {
 		this.m_name = m_name;
 		this.m_pic = m_pic;
 	}
+	public MemberVO(int attribute, String id, String pw, String name, String phone) {
+		// TODO Auto-generated constructor stub
+	}
 	public int getL_id() {
 		return l_id;
 	}

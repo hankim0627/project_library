@@ -108,7 +108,7 @@ public class LibraryController {
 		
 		List<LibraryVO> list = service.librarylist();
 
-		MemberVO vo = new MemberVO((String)session.getAttribute("l_id"), id, pw, name, phone);
+		MemberVO vo = new MemberVO((Integer) session.getAttribute("l_id"), id, pw, name, phone);
 		
 		service.insertmember(vo);
 		

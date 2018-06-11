@@ -1,4 +1,4 @@
-package multi.project.library;
+package multi.project.library.studyRoom;
 
 import java.util.HashMap;
 import java.util.List;
