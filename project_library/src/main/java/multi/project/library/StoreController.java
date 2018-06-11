@@ -87,8 +87,9 @@ public class StoreController {
 	public void write(){}
 	
 	@RequestMapping(value="/writesuccess", method=RequestMethod.POST)
-	public void writeSuccess(StoreVO vo){
-		System.out.println(vo);
+	public void writeSuccess(StoreVO vo, HttpSession session){
+		int l_id = (Integer)session.getAttribute("l_id");
+		vo.setL_id(l_id);
 		service.insertStore(vo); //store DB에 저장
 	}
 	

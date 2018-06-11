@@ -75,6 +75,7 @@ public class LibraryController {
 			mv.addObject("memberVO", vo);			
 			mv.setViewName("/LibraryMain");
 			session.setAttribute("member_id", id);
+			session.setAttribute("l_id", vo.getL_id());
 		}
 
 		return mv;

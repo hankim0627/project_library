@@ -1,7 +1,7 @@
 package multi.project.library;
 
 public class StoreVO {
-	private String l_id;
+	private int l_id;
 	private String st_num;
 	private String st_title;
 	private String st_context;
@@ -9,10 +9,10 @@ public class StoreVO {
 	private String st_pw;
 	private String st_date;
 	
-	public String getL_id() {
+	public int getL_id() {
 		return l_id;
 	}
-	public void setL_id(String l_id) {
+	public void setL_id(int l_id) {
 		this.l_id = l_id;
 	}
 	public String getSt_num() {

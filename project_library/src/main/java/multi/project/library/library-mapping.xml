@@ -55,7 +55,7 @@
 	</insert>
 	
 	<insert id="insertStore" parameterType="store">
-		INSERT INTO STORE VALUES('test', st_num_seq.nextval, 
+		INSERT INTO STORE VALUES(#{l_id}, st_num_seq.nextval, 
 		#{st_title}, #{st_context}, #{st_m_id}, #{st_pw}, sysdate)
 	</insert>
 		
