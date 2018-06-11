@@ -69,12 +69,12 @@ body
 </style>
 </head>
 <body>
-<div id="userIdTag"><c:forEach items="${user}" var="userInfo">
+<div id="userIdTag"><c:forEach items="${memberVO}" var="userInfo">
 <table id= "userinfo">
 <tr><td class="u">
 <a href="#">
 <span class="d-none d-lg-block">
-<img class="img-fluid img-profile rounded-circle mx-auto mb-2" name='<%=session.getAttribute("userid")%>' id='userpic' alt='No Image' src='/library/resources/${userInfo.m_pic}'>
+<img class="img-fluid img-profile rounded-circle mx-auto mb-2" name='<%=session.getAttribute("l_id")%>' id='userpic' alt='No Image' src='/library/resources/${userInfo.m_pic}'>
 </span>
 </a>
 </td>

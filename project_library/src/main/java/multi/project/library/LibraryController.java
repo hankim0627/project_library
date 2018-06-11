@@ -72,8 +72,9 @@ public class LibraryController {
 			mv.setViewName("loginform");
 		}else{
 			//로그인 성공
-			mv.addObject("memberVO", vo);			
-			mv.setViewName("/LibraryMain");
+			mv.addObject("memberVO", vo);
+			
+			mv.setViewName("redirect:/LibraryMain");
 			session.setAttribute("member_id", id);
 			session.setAttribute("l_id", vo.getL_id());
 		}

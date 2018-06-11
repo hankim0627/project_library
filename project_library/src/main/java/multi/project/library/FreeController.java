@@ -29,6 +29,8 @@ public class FreeController {
 		 // sessionId.setAttribute("member_id", "Park");//임의로 세션아이디 생성
 		  ModelAndView mv = new ModelAndView();
 		  int libraryId=(Integer)sessionId.getAttribute("l_id");//도서관 아이디 세션 넣을자리
+		 // System.out.println(libraryId);
+		  
 		  LibraryVO lib=fser.location(libraryId);
 		  List<MemberVO> mem= fser.memberInfo((String) sessionId.getAttribute("member_id"));//회원아이디 세션 넣을 자리
 		  mv.addObject("lat",lib.getL_latitude());//위도
@@ -210,10 +212,10 @@ public class FreeController {
 	  
 	  
 	  @RequestMapping(value="/LibraryLocation", method=RequestMethod.GET)
-	  public String location(String lat,String lon, HttpServletRequest re){
+	  public String location(String lat,String lon, HttpServletRequest request){
 		 //System.out.println("좌표"+lat+" "+lon);
-		  re.setAttribute("lat", lat);
-		  re.setAttribute("lon", lon);
+		  request.setAttribute("lat", lat);
+		  request.setAttribute("lon", lon);
 		  return "LibraryLocation";
 	  }//도서관 위치보기
 	  @RequestMapping("/FreeContDelete")
