@@ -146,5 +146,24 @@
 			ST_CONTEXT LIKE '%'||#{value}||'%'
 		</if>
 	</select>
+		
+	<!-- login -->
+	<select id="checkmember" parameterType="java.util.Map" resultType="mem">
+		SELECT l_id, m_id, m_pw, m_name, m_phone FROM l_member
+		WHERE m_id = #{map_id} and l_id = #{map_l_id}  and m_pw =  #{map_pw}
+	</select> 
 	
+	<select id="checkid" parameterType="String" resultType="String">
+		SELECT m_id FROM l_member
+		WHERE m_id = #{a} 
+	</select> 
+
+	<select id="librarylist" resultType="lib">
+		SELECT * FROM library
+	</select> 
+	
+	<insert id="insertmember" parameterType="mem">
+		INSERT INTO l_member(l_id, m_id, m_pw, m_name, m_phone)
+		VALUES(#{l_id}, #{m_id}, #{m_pw}, #{m_name}, #{m_phone}) <!-- EmpVO객체 저장 값 사용 -->
+	</insert>
 </mapper>
