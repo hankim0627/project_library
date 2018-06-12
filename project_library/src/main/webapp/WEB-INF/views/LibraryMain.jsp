@@ -12,7 +12,7 @@
 
 <style type="text/css">
 #userIdTag
-{background-color: lightblue;
+{background-color: rgb(109, 124, 163);
 padding-left: 20px;}
 #userpic
 {width: 40px;
@@ -23,7 +23,7 @@ height: 40px;}
 .u
 {border: 0px;}
 
-.item2 { grid-area: menu; font-size: 30px;}
+.item2 { grid-area: menu; font-size: 30px; padding: 0px;}
 .item3 { grid-area: main; padding: 0px;}
 .item4 { grid-area: right; }
 .item5 { grid-area: footer; font-size: 2px; margin: auto;}
@@ -31,15 +31,14 @@ height: 40px;}
 .grid-container {
   display: grid;
   grid-template-areas:
-    
     'menu main main'
     'footer footer footer';
   grid-gap: 10px;
   /* background-color: #2196F3; */
-  padding: 10px;
+/*   padding: 10px; */
 }
 .grid-container>div {
-  /* background-color: rgba(255, 255, 255, 0.8); */
+  /*  background-color: rgba(255, 255, 255, 0.8);  */
   text-align: center;
   padding:20px 0;
     
@@ -66,6 +65,10 @@ body
   max-width: 100%;
   height: auto;
 }
+#menuback
+{background-color: rgba(158, 168, 194,0.7);
+padding:5px;
+border-radius: 5%;}
 </style>
 </head>
 <body>
@@ -82,9 +85,12 @@ body
 </td>
 <td class="u"><h2>${userInfo.m_id}</h2></td></tr></table>
 </c:forEach></div>
+<hr>
 <div class="grid-container">
  
-  <div class="item2">Menu
+ <br>
+  <div class="item2">
+  <div id='menuback'>Menu
   <br>
   <br>
   
@@ -96,7 +102,7 @@ body
   <div class='menu' id='map'><a href='#'>도서관 위치</a></div><br>
      
   </div>
-       
+  </div>     
   <div id='board' class="item3">
   
   <iframe src=<%=request.getAttribute("libraryWebsite") %> width=1050 height=900 ></iframe>
@@ -145,7 +151,7 @@ $("#store>a").on('click',function(){
 }) 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src=<%=request.getAttribute("libraryWebsite")%> width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe src='<%=request.getAttribute("libraryWebsite")%>' width=1050 height=900 ></iframe>")
 })
 
 $('#userpic').on("click",function(){

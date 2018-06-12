@@ -52,8 +52,8 @@ height: 30px;}
 {border: 0px;}
 a 
 { text-decoration:none } 
-body
-{background-color: rgb(217, 217, 217)}
+ body
+{background-color: rgb(217, 217, 217)} 
 .rounded-circle {
   border-radius: 50% !important;
 }
