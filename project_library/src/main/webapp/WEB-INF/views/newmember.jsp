@@ -62,7 +62,7 @@ body {
 		
 		<br>
 		
-		<input type=submit value='가입하기' style="width:70px; height:35px; onclick="alert('가입성공')">
+		<input type=submit value='가입하기' style="width:70px" height:35px >
 </body>
 <script src="/library/resources/jquery-3.2.1.min.js"></script>
 

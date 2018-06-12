@@ -66,7 +66,7 @@ hr{
 <form action="?">
 <select name = library>
 	<c:forEach items = "${librarylist }" var = "vo">
-		<option> ${vo.l_name }
+		<option  > ${vo.l_name }
 	</c:forEach>
 </select>
 <input type=submit value='정보 조회'>
@@ -91,6 +91,7 @@ hr{
 			if(s.equals(list.get(i).getL_name())){
 				session.setAttribute("l_id", list.get(i).getL_id());
 				session.setAttribute("l_name", list.get(i).getL_name());
+				out.println("<div hidden='true' id='l_name'>"+list.get(i).getL_name()+"</div>");
 				out.println("<table>");
 				out.println("<tr><th>도서관 이름 </th><td>"+list.get(i).getL_name()+"</td></tr>");
 				out.println("<tr><th>주소 </th><td>"+list.get(i).getL_location()+"</td></tr>");
@@ -109,13 +110,33 @@ hr{
 <br><br><br>
 
 <p>
-<button type="button" onclick="location.href='/library/new'">회원가입</button>
-<button type="button" onclick="location.href='/library/login'">로그인</button>
+<button type="button" id = "new" onclick="signin()">회원가입</button>
+<button type="button" id = "login" onclick="login()">로그인</button>
 </p>
 
 
 
 </body>
+<script src="/library/resources/jquery-3.2.1.min.js"></script>
+<script>
 
+function login(){
+	var library = $('#l_name').html();
+	if(!confirm('선택 도서관: '+library)){
+		return;
+	}else{
+		  window.location.replace('/library/login');
+	}
+}
+
+function signin(){
+	var library = $('#l_name').html();
+	if(!confirm('선택 도서관: '+library)){
+		return;
+	}else{
+		  window.location.replace('/library/new');
+	}
+}
+</script>
 
 </html>
