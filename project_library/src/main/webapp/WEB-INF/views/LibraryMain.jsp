@@ -144,7 +144,7 @@ $("#map").on('click',function(){
 
 $("#store>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/store' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe src='/library/show' width=1050 height=900 ></iframe>")
 }) 
 
 

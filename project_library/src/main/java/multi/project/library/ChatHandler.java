@@ -2,7 +2,13 @@ package multi.project.library;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
@@ -25,8 +31,10 @@ public class ChatHandler implements WebSocketHandler{
 
 	@Override
 	public void handleMessage(WebSocketSession arg0, WebSocketMessage<?> arg1) throws Exception {
-		String msg = (String) arg1.getPayload(); //메세지
+		Map<String,Object> map = arg0.getAttributes();
+		String loginid = (String)map.get("member_id");
 		
+		String msg = loginid+" : "+(String) arg1.getPayload(); //메세지
 		for(WebSocketSession socket : list){
 			WebSocketMessage<String> sendmsg = new TextMessage(msg);
 			socket.sendMessage(sendmsg);

@@ -28,6 +28,9 @@
 	
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/chatws"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
 	<context:component-scan base-package="multi.project.library" />
