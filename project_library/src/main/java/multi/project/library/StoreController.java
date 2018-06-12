@@ -207,6 +207,13 @@ public class StoreController {
 		mv.addObject("list", list);
 		mv.addObject("memList", memList); //거래신청현황
 		mv.addObject("tradeList", tradeList); //거래완료현황
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("stnum", "글번호");
+		map.put("title", "글제목");
+		map.put("trade", "거래신청");
+		map.put("isComplete", "완료여부");
+		mv.addObject("columnMap", map);
 
 		return mv;
 	}
@@ -280,5 +287,19 @@ public class StoreController {
 		List<StoreVO> list = service.searchStoreVO(map);
 		
 		return list;
+	}
+	
+	//상세조회한 게시물이 완료되었는지 여부
+	@ResponseBody
+	@RequestMapping("/isComplete")
+	public String isComplete(String stnum){
+		List<MemberStoreVO> list = service.selectMemStore(stnum);
+		if(list.size() == 0) return "wait";
+		for(MemberStoreVO vo : list){
+			if(vo.getFlag() == 1){ //하나라도 거래가 완료되었다면 1로 리턴
+				return "complete";
+			}
+		}
+		return "ing";
 	}
 }

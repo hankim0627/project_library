@@ -21,13 +21,13 @@ td{background-color: pink;}
 
 내가 쓴 글 갯수 : <a href="0" id="countStore">${countStore}</a>
 
-<div id="storeList" >
-<table>
+<div id="storeList">
+<table border="1">
 <tr>
-<td>글번호</td>
-<td>글제목</td>
-<td>거래신청</td>
-<td>완료여부</td>
+<td>${columnMap.stnum}</td>
+<td>${columnMap.title}</td>
+<td>${columnMap.trade}</td>
+<td>${columnMap.isComplete}</td>
 </tr>
 <c:forEach var="vo" items="${list}" varStatus="vs">
 <tr>
