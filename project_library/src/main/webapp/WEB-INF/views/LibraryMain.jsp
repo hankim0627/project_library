@@ -100,9 +100,9 @@ border-radius: 5%;}
      
   <div class='menu' id='lib'><a href='#'>도서관 정보</a></div><br>
   <div class='menu' id='free'><a href='#'>자유 게시판</a></div><br>
-  <div class='menu' id='store'><a href='#'>거래 게시판</a></div><br>
-  <div class='menu' id='studyroom'><a href='#'>스터디 게시판</a></div><br>
-  <div class='menu' id='map'><a href='#'>도서관 위치</a></div><br>
+  <div class='menu' id='store'><a href='#'>중고 장터</a></div><br>
+  <div class='menu' id='studyroom'><a href='#'>스터디 룸</a></div><br>
+  <div class='menu' id='map'><a href='#'>Location</a></div><br>
      
   </div>
   </div>     
