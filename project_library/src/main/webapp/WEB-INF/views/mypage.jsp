@@ -12,6 +12,8 @@ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
+body{background-color: rgb(217, 217, 217); text-align: center;}
+table{margin: 0px auto;}
 td{background-color: pink;}
 </style>
 </head>
@@ -106,25 +108,25 @@ $("#storeList").on('click', '.send', function(event){
 			$("#tradeComment").html('');
 			$("#tradeSendId").html('');
 			if(result.commentList.length!=0){
-				$("#tradeComment").append("댓글리스트<br><table>");
+				$("#tradeComment").append("댓글리스트<br><table id='commentList'>");
 			 for(var i = 0; i < result.commentList.length; i++){
-				$("#tradeComment").append(
+				$("#commentList").append(
 						"<tr><td>"+
 						result.commentList[i].c_m_id+"</td><td>"+
 						result.commentList[i].c_content+"</td></tr>");
 			}
-				$("#tradeComment").append("</table>");
+				$("#commentList").append("</table>");
 			}
 			if(result.memStoreList.length!=0){
-				$("#tradeSendId").append("거래신청 리스트<br><table>");
+				$("#tradeSendId").append("거래신청 리스트<br><table id='sendlist'>");
 			for(var i = 0; i < result.memStoreList.length; i++){
-				$("#tradeSendId").append(
+				$("#sendlist").append(
 						"<tr><td>"+
 						result.memStoreList[i].send_id+"</td><td>"+
 						"<input type='button' value='거래수락' id='ok'>"+
 						"</td></tr>"); 
 			}
-				$("#tradeSendId").append("</table>");
+				$("#sendlist").append("</table>");
 			}
 		}//success-end
 	})

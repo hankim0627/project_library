@@ -11,7 +11,8 @@
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 <style type="text/css">
-table{text-align: center; border: solid 1px;}
+body{background-color: rgb(217, 217, 217); text-align: center;}
+table{text-align: center; border: solid 1px; margin: 0px auto;}
 td{border: solid 1px;}
 #result_content{background-color: pink;}
 </style>
@@ -106,7 +107,7 @@ $(document).ready(function(){
 		})
 	})
 	
-	//댓글달기
+	//댓글보기
 	$("#result").on('click',"a[id='cmt']", function(event){
 		event.preventDefault();
 		$.ajax({
@@ -119,23 +120,14 @@ $(document).ready(function(){
 				$("#write_comment").attr('hidden',false);
 				$("#result_comment").html("<table id='result_content2'>");
 				for(var i = 0; i < result.length; i++){
-					$("#result_comment").append(
+					$("#result_content2").append(
 							"<tr>"+
 							"<td>"+result[i].c_m_id+"</td>"+
 							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
 							"</tr>");
 				}
-				$("#result_comment").append("</table>"); 
-				/* 
-				$("#result").append("<table>");
-				for(var i = 0; i < result.length; i++){
-					$("#result").append(
-							"<tr>"+
-							"<td>"+result[i].c_m_id+"</td>"+
-							"<td width='100' align='right'>"+result[i].c_content+"</td>"+
-							"</tr>");
-				}
-				$("#result").append("</table>");  */
+				$("#result_content2").append("</table>"); 
+
 			}//success-end	
 		})//ajax-end
 	})//on-click-end
@@ -153,15 +145,15 @@ $(document).ready(function(){
 			success : function(result){
 				$("#result_comment").attr('hidden',false);
 				$("#write_comment").attr('hidden',false);
-				$("#result_comment").html("<table id='result_content2'>");
+				$("#result_comment").html("<table id='result_content3'>");
 				for(var i = 0; i < result.length; i++){
-					$("#result_comment").append(
+					$("result_content3").append(
 							"<tr>"+
 							"<td>"+result[i].c_m_id+"</td>"+
 							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
 							"</tr>");
 				}
-				$("#result_comment").append("</table>"); 
+				$("#result_content3").append("</table>"); 
 			}
 		})//ajax-end
 	})

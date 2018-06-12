@@ -226,7 +226,12 @@ public class StoreController {
 		map.put("trade", "거래신청");
 		map.put("isComplete", "완료여부");
 		mv.addObject("columnMap", map);
-
+		
+		List<MemberStoreVO> list2 = service.selectMySend(loginid);
+		mv.addObject("mySendCount", list2.size()); //요청한 거래 갯수
+		
+		int countStore = service.countStoreWithId(loginid);
+		mv.addObject("countStore", countStore);
 		return mv;
 	}
 	

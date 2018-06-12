@@ -7,8 +7,13 @@
 <meta charset=UTF-8">
 <title>Insert title here</title>
 
+
 <link rel="stylesheet" 
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<style type="text/css">
+body{background-color: rgb(217, 217, 217); text-align: center;}
+table{margin: 0px auto;}
+</style>
 
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
@@ -119,15 +124,15 @@ $(document).ready(function(){
 			success: function(result){
 				$("#result_comment").attr('hidden',false);
 				$("#write_comment").attr('hidden',false);
-				$("#result_comment").html("<table id='result_content2' border='1'>");
+				$("#result_comment").html("<table id='result_content1' border='1'>");
 				for(var i = 0; i < result.length; i++){
-					$("#result_comment").append(
+					$("#result_content1").append(
 							"<tr>"+
 							"<td>"+result[i].c_m_id+"</td>"+
 							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
 							"</tr>");
 				}
-				$("#result_comment").append("</table>");
+				$("#result_content1").append("</table>");
 			}//success-end
 	})//ajax-end
 	})//댓글보기
@@ -166,13 +171,13 @@ $(document).ready(function(){
 				$("#write_comment").attr('hidden',false);
 				$("#result_comment").html("<table id='result_content2'>");
 				for(var i = 0; i < result.length; i++){
-					$("#result_comment").append(
+					$("#result_content2").append(
 							"<tr>"+
 							"<td>"+result[i].c_m_id+"</td>"+
 							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
 							"</tr>");
 				}
-				$("#result_comment").append("</table>"); 
+				$("#result_content2").append("</table>"); 
 			}
 		})//ajax-end
 	})//댓글달기
