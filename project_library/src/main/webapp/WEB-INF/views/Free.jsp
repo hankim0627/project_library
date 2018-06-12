@@ -26,6 +26,12 @@ table
  margin-bottom: 2px; 
  border-collapse: collapse; 
  width: 530px;}
+ .num
+ {width: 75px;
+ font-weight: bold;
+ text-align: center;}
+ .col
+ {text-align: center;}
 td
 {border: solid black 2px; }
 .tit
@@ -72,9 +78,9 @@ font-weight: bold;}
 </div>
 
 <table>
-<tr class='ts'><td>글번호</td><td>ID</td><td>제목</td><td>작성시간</td></tr>
+<tr class='ts'><td class='col'>글번호</td><td class='col'>ID</td><td class='col'>제목</td><td class='col'>작성시간</td></tr>
 <c:forEach items="${freelist}" var="li">
-<tr><td id="num">${li.f_Num }</td>
+<tr><td class='num'>${li.f_Num }</td>
 <td id="id">${li.f_m_Id }</td>
 <td class="title"  id="${li.f_Num }" ><a href="#">${li.f_Title }</a></td>
 <td id="date">${li.f_Date }</td></tr></c:forEach>
@@ -134,8 +140,8 @@ font-weight: bold;}
 	    	success:function(server){
 	    		if(server.f_m_Id==userid){
 	    			result= 
-		    			"<table class='re'><tr class='ts'><td>글번호</td><td>ID</td><td>제목</td><td>작성시간</td></tr>"+
-		    			"<tr><td>"+server.f_Num+"</td>"+
+		    			"<table class='re'><tr class='ts'><td class='col'>글번호</td><td class='col'>ID</td><td class='col'>제목</td><td class='col'>작성시간</td></tr>"+
+		    			"<tr><td class='num'>"+server.f_Num+"</td>"+
 		  		        "<td>"+server.f_m_Id+"</td>"+
 		  		        "<td class='tit'>"+server.f_Title+"</td>"+
 		  		        "<td>"+server.f_Date+"</td></tr>"+
@@ -146,8 +152,8 @@ font-weight: bold;}
 		  		      $("#cont").html(result);   	
 		    		}else{
 		    		result= 
-		    			"<table class='re'><tr class='ts'><td>글번호</td><td>ID</td><td>제목</td><td>작성시간</td></tr>"+
-		    			"<tr><td>"+server.f_Num+"</td>"+
+		    			"<table class='re'><tr class='ts'><td class='col'>글번호</td><td class='col'>ID</td><td class='col'>제목</td><td class='col'>작성시간</td></tr>"+
+		    			"<tr><td class='num'>"+server.f_Num+"</td>"+
 		  		        "<td>"+server.f_m_Id+"</td>"+
 		  		        "<td class='tit'>"+server.f_Title+"</td>"+
 		  		        "<td>"+server.f_Date+"</td></tr>"+
