@@ -1,4 +1,4 @@
-package multi.project.library.studyRoom;
+package multi.project.library;
 
 import java.util.List;
 import java.util.Map;
@@ -35,11 +35,29 @@ public class StudyRoomDAO {
 		session.update("library.updateStudyRoomViewNum", inputMap);
 	}
 	
-	
-	public int selectCntMakeStudyRoomWithId(String sessionId){
-		return session.selectOne("library.selectCntMakeStudyRoomWithId", sessionId);
+	public int selectCntMakeStudyRoomWithId(Map<String, Object> inputMap){
+		return session.selectOne("library.selectCntMakeStudyRoomWithId", inputMap);
 	}			    		 
 	public List<StudyRoomVO> selectListMakeStudyRoomWithId(Map<String, Object> inputMap){
 		return session.selectList("library.selectListMakeStudyRoomWithId", inputMap);
+	}
+	public int selectCntJoinStudyRoomWithId(Map<String, Object> inputMap){
+		return session.selectOne("library.selectCntJoinStudyRoomWithId", inputMap);
+	}
+	public List<StudyRoomVO> selectListJoinStudyRoomWithId(Map<String, Object> inputMap){
+		return session.selectList("library.selectListJoinStudyRoomWithId", inputMap);
+	}
+	public int selectCntEnterStudyRoomWithId(Map<String, Object> inputMap){
+		return session.selectOne("library.selectCntEnterStudyRoomWithId", inputMap);
+	}
+	public List<StudyRoomVO> selectListEnterStudyRoomWithId(Map<String, Object> inputMap){
+		return session.selectList("library.selectListEnterStudyRoomWithId", inputMap);
+	}
+	
+	public void insertStudyRoomJoinRequest(Map<String, Object> inputMap){		// 스터디룸에 신청했을 떄 테이블에 insert
+		session.insert("library.insertStudyRoomJoinRequest", inputMap);
+	}
+	public int selectStudyRoomJoinCheck(Map<String, Object> inputMap){			// 스터디룸을 이미 신청햇는지 아닌지 확인, 신청 했을 경우  count(*) -> 1 반환
+		return session.selectOne("library.selectStudyRoomJoinCheck", inputMap);
 	}
 }

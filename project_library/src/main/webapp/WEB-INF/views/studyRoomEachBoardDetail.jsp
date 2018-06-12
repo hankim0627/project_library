@@ -73,9 +73,6 @@
 	<input type="hidden" id="sr_m_name" value="${studyRoomDetail.getM_name() }">
 	<!-- ===================================================-->
 	
-	
-	<!-- 남이 올린 글만 신청 태그 보임-->
-	<a href="#" id="studyRoomJoin" style="${studyRoomJoinRequestDisplay}">스터디룸 신청하기</a>
 </body>
 
 
@@ -209,16 +206,7 @@
 				}
 			});		// ajax 종료
 	});			// function 종료
-	
 
- 	$('#studyRoomJoin').on('click', 
-		function(){
-			var url = "/library/studyRoomJoinPopup?sr_num=" + $('#sr_num').val() + "&sr_m_name=" +$('#sr_m_name').val();
-			var windowObj = window.open(url,"studyRoomJoinPopup", "width=500, height=300, left=100, top=50");
-			windowObj.focus();
-		}
-	); 
-	
 	
 </script>
 

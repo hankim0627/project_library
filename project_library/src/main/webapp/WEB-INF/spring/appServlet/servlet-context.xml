@@ -26,6 +26,8 @@
 	<!-- ChatHandler 객체생성 -->
 	<beans:bean id="chatHandler" class="multi.project.library.ChatHandler"/>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/chatws"/>
 		<websocket:handshake-interceptors>

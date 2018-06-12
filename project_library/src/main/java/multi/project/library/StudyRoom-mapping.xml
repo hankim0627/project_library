@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="library">
+	<!-- parameter에 도서관 번호/ 페이지 번호  -->
+	
+	<!-- 스터디룸 게시글 목록 -->
+	<select id="selectStudyRoomList" parameterType="java.util.Map" resultType="studyRoomVO">
+		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
+		from (select rownum r, imsi_t.* 
+			from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num 
+					from member m, studyroom s 
+					where s.m_id=m.m_id and l_id like #{map_l_id} 
+					order by sr_date desc) imsi_t) 
+		where r between #{map_start_rownum} and #{map_end_rownum} 
+	</select>
+	
+	<!-- 스터디룸 게시글 전체 갯수  -->
+	<select id="selectStudyRoomAllCnt" resultType="int">
+		select count(*) from studyroom
+	</select> 
+	
+	<!-- 참여한 스터디룸의 게시글 목록 --> 
+	<select id="selectStudyRoomEachBoardList" parameterType="java.util.Map" resultType="studyRoomEachBoardVO">
+		select * 
+		from (select rownum r, imsi_t.* 
+			from (select m_name, s.* 
+					from member m, studyroomeachboard s 
+					where s.m_id=m.m_id and l_id=#{map_l_id} and sr_num=#{map_sr_num} 
+					order by sr_date desc) imsi_t) 
+		where r between #{map_start_rownum} and #{map_end_rownum} 
+	</select>
+	
+	<!-- 참여한 스터디룸 게시글 전체 갯수  -->
+	<select id="selectStudyRoomEachBoardListCnt" resultType="int">
+		select count(*) from studyroomeachboard
+	</select> 
+	
+	
+	<!-- 스터디룸 게시글 검색 -->
+	<select id="selectStudyRoomSearch" parameterType="java.util.Map" resultType="studyRoomVO">
+		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
+		from (select rownum r, imsi_t.* 
+			from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num 
+					from member m, studyroom s 
+					where s.m_id=m.m_id and l_id like #{map_l_id} 
+					<if test="map_sr_type=='제목'">
+						and sr_title like '%'||#{map_sr_word}||'%' 
+					</if>
+					<if test="map_sr_type=='카테고리'">
+						and sr_cate like '%'||#{map_sr_word}||'%'
+					</if>
+						and (to_date(to_char(sysdate, 'YY/MM/DD'))-to_date(sr_date)) between 0 and #{map_sr_date} 
+					order by sr_date desc) imsi_t) 
+		where r between #{map_start_rownum} and #{map_end_rownum} <if test="map_sr_type=='작성자'">and m_name like '%'||#{map_sr_word}||'%'</if>
+	</select>
+	
+	<!-- 스터디룸 게시글 검색 갯수  -->
+	<select id="selectStudyRoomSearchCnt" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from (
+				select m_name
+				from member m, studyroom s  
+				where s.m_id=m.m_id and l_id like #{map_l_id} 
+					<if test="map_sr_type=='제목'">
+						and sr_title like '%'||#{map_sr_word}||'%' 
+					</if>
+					<if test="map_sr_type=='카테고리'">
+						and sr_cate like '%'||#{map_sr_word}||'%' 
+					</if>
+			 			and (to_date(to_char(sysdate, 'YY/MM/DD'))-to_date(sr_date)) between 0 and #{map_sr_date} 
+			 )
+		<if test="map_sr_type=='작성자'">where m_name like '%'||#{map_sr_word}||'%'</if>	
+	</select>
+
+
+	<!-- 참여한 스터디룸 게시글 검색 -->
+	<select id="selectStudyRoomEachBoardSearch" parameterType="java.util.Map" resultType="studyRoomEachBoardVO">
+		select * 
+		from (select rownum r, imsi_t.* 
+			from (select m_name, s.*
+					from member m, studyroomeachboard s 
+					where s.m_id=m.m_id and l_id=#{map_l_id} and sr_num=#{map_sr_num}  
+					<if test="map_sr_type=='제목'">
+						and sr_title like '%'||#{map_sr_word}||'%' 
+					</if>
+					<if test="map_sr_type=='카테고리'">
+						and sr_cate like '%'||#{map_sr_word}||'%'
+					</if>
+						and (to_date(to_char(sysdate, 'YY/MM/DD'))-to_date(sr_date)) between 0 and #{map_sr_date} 
+					order by sr_date desc) imsi_t) 
+		where r between #{map_start_rownum} and #{map_end_rownum} <if test="map_sr_type=='작성자'">and m_name like '%'||#{map_sr_word}||'%'</if>
+	</select>
+	
+	<!-- 참여한 스터디룸 게시글 검색 갯수  -->
+	<select id="selectStudyRoomEachBoardSearchCnt" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from (
+				select m_name
+				from member m, studyroomeachboard s  
+				where s.m_id=m.m_id and l_id=#{map_l_id} and sr_num=#{map_sr_num}  
+					<if test="map_sr_type=='제목'">
+						and sr_title like '%'||#{map_sr_word}||'%' 
+					</if>
+					<if test="map_sr_type=='카테고리'">
+						and sr_cate like '%'||#{map_sr_word}||'%' 
+					</if>
+			 			and (to_date(to_char(sysdate, 'YY/MM/DD'))-to_date(sr_date)) between 0 and #{map_sr_date} 
+			 )
+		<if test="map_sr_type=='작성자'">where m_name like '%'||#{map_sr_word}||'%'</if>	
+	</select>
+
+	
+	<!-- 글쓰기 등록 했을 때  --> 
+	<insert id="insertStudyRoomWrite" parameterType="studyRoomVO">
+		insert into studyroom values (sr_num.nextval, #{sr_title}, #{l_id}, #{sr_content}, #{m_id}, #{sr_pw}, sysdate, #{sr_cate}, 0)
+	</insert>
+
+	<!-- 참여한 스터디룸 게시판에 글쓰기 했을 때  -->
+	<insert id="insertStudyRoomEachBoardWrite" parameterType="studyRoomEachBoardVO">
+		insert into studyroomeachboard values (sr_eb_num.nextval, #{sr_num}, #{sr_title}, #{l_id}, #{sr_content}, #{m_id}, #{sr_pw}, sysdate, #{sr_cate}, 0, #{sr_file_name1}, #{sr_file_name2}, #{sr_file_name3})
+	</insert>
+
+
+
+
+	<!-- 스터디룸 게시판 글 상세보기 -->
+	<select id="selectStudyRoomDetail" parameterType="java.util.Map" resultType="studyRoomVO">
+		select m_name, s.* 
+		from member m, studyroom s 
+		where s.m_id=m.m_id and sr_num=#{map_sr_num} 
+	</select>
+	
+	<!-- 게시판 글 상세봤을 때 조회 수 업뎃 -->
+	<update id="updateStudyRoomViewNum" parameterType="java.util.Map" >
+		update studyroom set sr_view_num=sr_view_num+1 where sr_num=#{map_sr_num}
+	</update>
+
+
+
+	<!-- 참여한 스터디룸 게시판 글 상세보기 -->
+	<select id="selectStudyRoomEachBoardDetail" parameterType="java.util.Map" resultType="studyRoomEachBoardVO">
+		select m_name, s.* 
+		from member m, studyroomeachboard s 
+		where s.m_id=m.m_id and sr_num=#{map_sr_num} and sr_eb_num=#{map_sr_eb_num} 
+	</select>
+	
+	<!-- 참여한 스터디룸 게시판 글 상세봤을 때 조회 수 업뎃 -->
+	<update id="updateStudyRoomEachBoardViewNum" parameterType="java.util.Map" >
+		update studyroomeachboard set sr_view_num=sr_view_num+1 where sr_num=#{map_sr_num} and sr_eb_num=#{map_sr_eb_num} 
+	</update>
+
+
+
+
+
+	<!-- 그냥 댓글 입력시  -->
+	<insert id="insertStudyRoomCommentWrite" parameterType="studyRoomCommentVO">
+		insert into sr_comment values (#{sr_num}, sr_comment_num.nextval, #{sr_comment_id}, sysdate, #{sr_comment_content}, -1)
+	</insert>
+	
+	<!-- 댓글의 댓글 입력시 -->
+	<insert id="insertStudyRoomReCommentWrite" parameterType="studyRoomCommentVO">
+		insert into sr_recomment values (#{sr_num}, #{sr_comment_num}, sr_recomment_num.nextval, #{sr_comment_id}, sysdate, #{sr_comment_content})
+	</insert>
+
+	<update id="updateStudyRoomCommentRecommentFlag" parameterType="java.util.Map" >
+		update sr_comment set sr_recomment_flag=1 where sr_num=#{map_sr_num} and sr_comment_num=#{map_sr_comment_num}
+	</update>
+	
+	<select id="selectStudyRoomRecommentList" parameterType="java.util.Map" resultType="studyRoomCommentVO">
+		select * 
+		from sr_recomment 
+		where sr_num=#{map_sr_num} and sr_comment_num=#{map_sr_comment_num} 
+		order by sr_comment_date asc 
+	</select>
+	<select id="selectStudyRoomReCommentAddList" parameterType="java.util.Map" resultType="studyRoomCommentVO">
+		select *  
+		from (
+			select rownum r, imsi_t.*   
+			from (
+					select * 
+					from sr_recomment 
+					where sr_num=#{map_sr_num} and sr_comment_num=#{map_sr_comment_num} 
+					order by sr_comment_date asc 
+			) imsi_t
+		)
+		where r between #{map_start_rownum} and #{map_end_rownum}
+	</select>
+	
+
+	
+	<!-- ====================글 들어갔을 때 댓글보기 =============-->
+	<select id="selectStudyRoomCommentList" parameterType="java.util.Map" resultType="studyRoomCommentVO">
+		select *  
+		from (
+			select rownum r, imsi_t.*   
+			from (
+				select * from sr_comment where sr_num=#{map_sr_num} order by sr_comment_date asc
+			) imsi_t
+		)
+		where r between #{map_start_rownum} and #{map_end_rownum}
+	</select>
+
+	<select id="selectStudyRoomCommentCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from sr_comment where sr_num=#{map_sr_num}
+	</select>
+	<!-- ====================================================== -->
+	
+	
+	<!-- ====================참여한 스터디룸 글 들어갔을 떄 댓글보기 ================-->
+	<select id="selectStudyRoomEachBoardCommentList" parameterType="java.util.Map" resultType="studyRoomCommentVO">
+		select *  
+		from (
+			select rownum r, imsi_t.*   
+			from (
+				select * from sr_eb_comment where sr_num=#{map_sr_num} and sr_eb_num=#{map_sr_eb_num} 
+				order by sr_comment_date asc
+			) imsi_t
+		)
+		where r between #{map_start_rownum} and #{map_end_rownum}
+	</select>
+
+	<select id="selectStudyRoomEachBoardCommentCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from sr_eb_comment where sr_num=#{map_sr_num} and sr_eb_num=#{map_sr_eb_num}
+	</select>
+	<!-- ================================================================= -->
+
+
+
+	<!-- 내가 개설한 스터디룸 목록 -->
+	<select id="selectCntMakeStudyRoomWithId" parameterType="java.util.Map" resultType="int">
+		select count(*) from studyroom where m_id=#{map_m_id} and l_id=#{map_l_id}
+	</select>
+
+	<select id="selectListMakeStudyRoomWithId" parameterType="java.util.Map" resultType="studyRoomVO">
+		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
+		from (select rownum r, imsi_t.* 
+			from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num 
+					from member m, studyroom s 
+					where s.m_id=m.m_id and l_id like #{map_l_id} and s.m_id=#{map_m_id} 
+					order by sr_date desc) imsi_t) 
+		where r between #{map_make_start_rownum} and #{map_make_end_rownum} 
+	</select>
+	
+	
+	<!-- 내가 개설한 스터디룸 목록에 신청한 사람들 --> 
+	<select id="selectmakeStudyRoomCondition" parameterType="java.util.Map" resultType="studyRoomJoinVO">
+		select m.m_name, s.* 
+		from studyroomjoinlist s, member m 
+		where m.m_id=s.m_id and s.l_id=#{map_l_id} and s.sr_num=#{map_sr_num}
+		order by sr_join_flag asc
+	</select>
+	
+	<!-- 내가 개설한 스터디룸 목록에 신청한 사람들 수락 or 거절 --> 
+	<select id="updateMakeStudyRoomJoinSubmit" parameterType="java.util.Map">
+		update studyroomjoinlist 
+		set sr_join_flag=#{map_sr_join_flag} 
+		where l_id=#{map_l_id} and sr_num=#{map_sr_num} and m_id=#{map_m_id} 
+	</select>
+
+	<!-- 내가 신청한 스터디룸 목록 -->
+	<select id="selectCntJoinStudyRoomWithId" parameterType="java.util.Map" resultType="int">
+		select count(*) from studyroomjoinlist where m_id=#{map_m_id} and l_id=#{map_l_id} and sr_join_flag!=1 
+	</select>
+	
+	<select id="selectListJoinStudyRoomWithId" parameterType="java.util.Map" resultType="studyRoomVO">
+		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
+		from (select rownum r, imsi.*  
+			  from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num			<!-- 수락 대기중 :0, 거절:2 -->
+	 			   	from member m, (select s.* from STUDYROOMJOINLIST j, studyroom s where sr_join_flag!=1 and j.m_id=#{map_m_id} and s.sr_num=j.sr_num and s.l_id=#{map_l_id}) imsi_t 
+				    where imsi_t.m_id=m.m_id 
+				    order by sr_date desc) imsi)
+		where r between #{map_join_start_rownum} and #{map_join_end_rownum}
+	</select>
+	
+	<!-- 참여한 스터디룸 목록, 스터디룸 참여 신청해서 수락된 것 -->
+	<select id="selectCntEnterStudyRoomWithId" parameterType="java.util.Map" resultType="int">
+		select count(*) from studyroomjoinlist where m_id=#{map_m_id} and l_id=#{map_l_id} and sr_join_flag=1 
+	</select>
+	
+	<select id="selectListEnterStudyRoomWithId" parameterType="java.util.Map" resultType="studyRoomVO">
+		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
+		from (select rownum r, imsi.*  
+			  from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num			<!-- 수락된 것 -->
+	 			   	from member m, (select s.* from STUDYROOMJOINLIST j, studyroom s where sr_join_flag=1 and j.m_id=#{map_m_id} and s.sr_num=j.sr_num and s.l_id=#{map_l_id}) imsi_t 
+				    where imsi_t.m_id=m.m_id 
+				    order by sr_date desc) imsi)
+		where r between #{map_join_start_rownum} and #{map_join_end_rownum}
+	</select>
+	
+	<!-- 내가 신청한 스터디룸 상태 -->
+	<select id="selectJoinStudyRoomCondition" parameterType="java.util.Map" resultType="studyRoomJoinVO">
+		select m.m_name, s.* 
+		from studyroomjoinlist s, member m 
+		where m.m_id=s.m_id and s.l_id=#{map_l_id} and s.sr_num=#{map_sr_num} and s.m_id=#{map_m_id}  
+	</select>
+	
+	<!-- 스터디룸 신청하기 했을 때 -->
+	<insert id="insertStudyRoomJoinRequest" parameterType="java.util.Map">
+		insert into studyroomjoinlist values (#{map_l_id}, #{map_sr_num}, #{map_m_id}, 0, #{map_sr_join_content})
+	</insert>
+
+	<select id="selectStudyRoomJoinCheck" parameterType="java.util.Map" resultType="int">
+		select count(*) from studyroomjoinlist where l_id=#{map_l_id} and sr_num=#{map_sr_num} and m_id=#{map_m_id}
+	</select> 
+	
+	
+</mapper>

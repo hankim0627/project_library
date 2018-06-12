@@ -1,4 +1,4 @@
-package multi.project.library.studyRoom;
+package multi.project.library;
 
 public class StudyRoomVO {
 	int l_id;
@@ -85,6 +85,15 @@ public class StudyRoomVO {
 	public void setSr_view_num(int sr_view_num) {
 		this.sr_view_num = sr_view_num;
 	}
+
+	@Override
+	public String toString() {
+		return "StudyRoomVO [l_id=" + l_id + ", sr_num=" + sr_num + ", sr_title=" + sr_title + ", m_id=" + m_id
+				+ ", m_name=" + m_name + ", sr_date=" + sr_date + ", sr_cate=" + sr_cate + ", sr_view_num="
+				+ sr_view_num + ", sr_content=" + sr_content + ", sr_pw=" + sr_pw + "]";
+	}
+	
+	
 	
 	
 }

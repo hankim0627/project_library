@@ -1,6 +1,7 @@
-package multi.project.library.studyRoom;
+package multi.project.library;
 
 public class StudyRoomCommentVO {
+	int sr_eb_num;
 	int sr_num;
 	int sr_comment_num = -1;
 	int sr_recomment_num = -1;	// 그냥 댓글일 경우 sr_recomment_num -1, recomment일 경우에는 sequence로  계속 값 증가 !
