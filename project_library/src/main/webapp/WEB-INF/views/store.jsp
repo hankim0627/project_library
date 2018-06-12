@@ -20,6 +20,7 @@ td{border: solid 1px;}
 <script>
 $(document).ready(function(){
 	var stnum; //글번호
+	
 	$('.selectTitle').on('click',function(event){
 		event.preventDefault();
 		$("#result_comment").attr('hidden',true);

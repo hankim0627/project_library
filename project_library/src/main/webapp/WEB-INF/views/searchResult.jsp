@@ -13,6 +13,8 @@ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 $(document).ready(function(){
+	var stnum; //상세조회 한 글번호 //상세조회하면 초기화됨 //전역변수
+	
 	$('td').on('click','a[href="more"]',function(event){
 		event.preventDefault();		
 		var currAmount = Number($(this).attr('id'))+1;
@@ -50,15 +52,33 @@ $(document).ready(function(){
 	
 	$('table').on('click','.selectTitle',function(event){
 		event.preventDefault();
-		var stnum = $(this).closest("tr").children().eq(0).text();
+		$("#result_comment").attr('hidden',true);
+		$("#write_comment").attr('hidden',true);
+		stnum = $(this).closest("tr").children().eq(0).text();
 		var writer = $(this).closest("tr").children().eq(2).text();
+		var isComplete = "";
+		$.ajax({
+			url : "/library/isComplete",
+			data : {"stnum" : stnum},
+			success : function(result){
+				if(result == "complete"){ //거래완료
+					isComplete = "<font color='blue' style='font-style: italic;'>거래완료</font>";
+				}
+				else if(result == "wait"){ //거래대기
+					isComplete = "거래대기";
+				}
+				else if(result == "ing"){ //거래중
+					isComplete = "거래중";
+				}
+			}
+		})
 		$.ajax({
 			url : "/library/store.stnum",
 			data : {"stnum" : stnum,
 					"writer" : writer},
 			success : function(result){
 				$("#detail").html(
-						"<table border='1'>"+
+						"<table>"+
 						"<tr>"+
 						"<td>제목</td>"+
 						"<td>"+result.st_title+"</td>"+
@@ -71,7 +91,11 @@ $(document).ready(function(){
 						"<td>작성일</td>"+
 						"<td>"+result.st_date+"</td>"+
 						"</tr>"+
-						"<tr id='content'>"+
+						"<tr>"+
+						"<td>거래상태</td>"+
+						"<td>"+isComplete+"</td>"+
+						"</tr>"+
+						"<tr>"+
 						"<td>내용</td>"+
 						"<td>"+
 						result.st_context+
@@ -83,22 +107,75 @@ $(document).ready(function(){
 						"</table>");
 			}
 		})
+	})//상세조회
+	
+	$("#detail").on('click','a[id="cmt"]',function(event){
+		event.preventDefault();
 		$.ajax({
-			url : "/library/isComplete",
+			type: 'POST',
+			dataType : 'JSON',
 			data : {"stnum" : stnum},
+			url: "/library/comment",
+			success: function(result){
+				$("#result_comment").attr('hidden',false);
+				$("#write_comment").attr('hidden',false);
+				$("#result_comment").html("<table id='result_content2' border='1'>");
+				for(var i = 0; i < result.length; i++){
+					$("#result_comment").append(
+							"<tr>"+
+							"<td>"+result[i].c_m_id+"</td>"+
+							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
+							"</tr>");
+				}
+				$("#result_comment").append("</table>");
+			}//success-end
+	})//ajax-end
+	})//댓글보기
+	
+	$("#detail").on('click','input[id="delete"]',function(){
+		var inputPw = prompt("작성시 비밀번호를 입력해주세요");
+		$.ajax({
+			type : 'POST',
+			dataType : 'JSON',
+			data : {"stnum" : stnum},
+			url : '/library/store.stnum',
 			success : function(result){
-				if(result == "complete"){ //거래완료
-					$("#content").before("<tr><td>거래상태</td><td>거래완료</td></tr>");
+				var pw = result.st_pw;
+				if(inputPw == pw){
+					$(location).attr('href',"/library/delete");
 				}
-				else if(result == "wait"){ //거래대기
-					$("#content").before("<tr><td>거래상태</td><td>거래대기</td></tr>");
-				}
-				else if(result == "ing"){ //거래중
-					$("#content").before("<tr><td>거래상태</td><td>거래중</td></tr>");
+				else{
+					//비밀번호가 틀림
+					alert("비밀번호를 확인해주세요");
 				}
 			}
 		})
-	})
+	})//글삭제
+	
+	$("#detail").on('click','input[id="send"]',function(){
+		$(location).attr('href',"/library/send.memstore");
+	})//거래신청
+	
+	$("#commentBtn").on('click', function(){
+		var c_content = $("#c_content").val();
+		$.ajax({
+			data : {"c_content" : c_content},
+			url : "/library/writecomment",
+			success : function(result){
+				$("#result_comment").attr('hidden',false);
+				$("#write_comment").attr('hidden',false);
+				$("#result_comment").html("<table id='result_content2'>");
+				for(var i = 0; i < result.length; i++){
+					$("#result_comment").append(
+							"<tr>"+
+							"<td>"+result[i].c_m_id+"</td>"+
+							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
+							"</tr>");
+				}
+				$("#result_comment").append("</table>"); 
+			}
+		})//ajax-end
+	})//댓글달기
 })
 </script>
 </head>
@@ -136,6 +213,17 @@ $(document).ready(function(){
 <br>
 
 <div id="detail">
+</div>
+
+<br><br>
+<div id="result_comment" hidden="true">
+</div>
+
+<div id="write_comment" hidden="true">
+	<form action="/library/writecomment">
+		<input type="text" id="c_content">
+		<input type="button" id="commentBtn" value="댓글달기">
+	</form>
 </div>
 
 </body>
