@@ -36,7 +36,7 @@ body
 <td><h3><%=request.getAttribute("libraryName")%></h3></td><td>아이디<h3>${myinfo.m_id}</h3></td></tr>
 <tr><td>이름<h3>${myinfo.m_name}</h3></td><td>전화번호<h3>${myinfo.m_phone}</h3></td></tr>
 <tr><td>자유게시판 작성글수<h3><%=request.getAttribute("freecnt") %></h3></td><td>자유게시판 작성리플수<h3><%=request.getAttribute("freereplycnt") %></h3></td></tr>
-<tr><td>거래게시판 작성글수<h3><%=request.getAttribute("countStore")%></h3></td><td></td></tr>
+<tr><td>거래게시판 작성글수<h3><%=request.getAttribute("countStore")%></h3></td><td>거래게시판 작성리플수<h3><%=request.getAttribute("commentCount")%></h3></td></tr>
 </table>
 </c:forEach>
 </body>

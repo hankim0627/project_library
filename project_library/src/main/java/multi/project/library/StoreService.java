@@ -24,4 +24,5 @@ public interface StoreService {
 	public List<StoreVO> searchStoreVO(Map<String, String> map);
 	public int countSearch(Map<String, String> map);
 	public List<MemberStoreVO> selectMySend(String id);
+	public int commentCountById(String myid);
 }

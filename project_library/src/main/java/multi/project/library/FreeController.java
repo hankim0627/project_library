@@ -282,11 +282,12 @@ public class FreeController {
 		 List<MemberVO> info= fser.memberInfo(myid);
 		 int freecnt=fser.myfree(myid);
 		 int countStore = service.countStoreWithId(myid);
-		 
+		 int commentCount = service.commentCountById(myid);
 		 int freereplycnt=fser.myreply(myid);
 		 int libraryId=(Integer)sessionId.getAttribute("l_id");
 		 LibraryVO lib=fser.location(libraryId);//도서관 아이디 세션 넣을자리
 		 mv.addObject("countStore", countStore);//거래게시판 글갯수
+		 mv.addObject("commentCount",commentCount);
 		 mv.addObject("info",info);//내정보
 		 mv.addObject("libraryName",lib.getL_name());//도서관이름
 		 mv.addObject("freecnt",freecnt);//자유게시판 글갯수

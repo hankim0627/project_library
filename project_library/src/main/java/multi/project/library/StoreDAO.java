@@ -97,4 +97,8 @@ public class StoreDAO {
 	public List<MemberStoreVO> selectMySend(String id){
 		return session.selectList("store.selectMySend", id);
 	}
+
+	public int commentCountById(String myid) {
+		return session.selectOne("store.commentCountById",myid);
+	}
 }
