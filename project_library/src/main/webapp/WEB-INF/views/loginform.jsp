@@ -15,12 +15,17 @@ h1 {
 	text-align: center;
 }
 body{background-color: rgb(217, 217, 217)}
+p {
+	color:  red;
+	text-align: center;
+}
+
 </style>
 </head>
 
 <body>
 	<h1>로그인 페이지</h1>
-	<hr width=100% color=#d0858a size=5>
+	<hr width=100% color=#6D7CA3 size=5>
 
 	<br>
 
@@ -40,7 +45,7 @@ body{background-color: rgb(217, 217, 217)}
 		</table>
 	</form>
 
-	<br> ${error }
+	<p> ${error } </p>
 
 </body>
 </html>

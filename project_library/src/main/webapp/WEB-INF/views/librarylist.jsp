@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <style>
 h1 {
-	color: rgba(165, 141, 218, 0.8);
+	color:  rgb(109, 124, 163);
 	font-family: times; /* 여러개 중에 앞에서부터 있는 거 사용 */
 	font-size: 40px;
 	font-weight: bold;
@@ -28,7 +28,7 @@ padding-left: 20px;
 section#choose{
  display: table-cell;
  padding: 15px;
- border-right: 5px solid rgba(165, 141, 218, 0.8);
+ border-right: 5px solid rgb(109, 124, 163);
 }
 
 section#info{
@@ -57,7 +57,7 @@ hr{
 
 <h1> Library Talk </h1>
 
-<hr color="lightpurple" size = 5>
+<hr color="#6D7CA3" size = 5>
 
 <section id = choose>
 
