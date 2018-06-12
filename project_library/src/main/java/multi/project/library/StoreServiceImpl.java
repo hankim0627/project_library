@@ -90,4 +90,10 @@ public class StoreServiceImpl implements StoreService{
 	public List<MemberStoreVO> selectMySend(String id) {
 		return storeDAO.selectMySend(id);
 	}
+
+	
+	public int commentCountById(String myid) {
+		
+		return storeDAO.commentCountById(myid);
+	}
 }
