@@ -54,15 +54,38 @@ td{background-color: pink;}
 <div id="tradeSendId">
 </div>
 
-<div id="mySendList">
 내가 신청한 거래 : <a href="" id="mySendCount">${mySendCount}</a>
+<div id="mySendList">
 </div>
 
 
 <script>
 $("#mySendCount").on('click', function(event){
 	event.preventDefault();
-	
+	$.ajax({
+		url:"/library/mySendList",
+		success: function(result){
+			$("#mySendList").html("<table id='sendList' border='1'>"
+					+"<tr><td>글번호</td><td>상대ID</td><td>거래상태</td></tr>");
+			for(var i = 0; i < result.length; i++){
+				var temp;
+				if(result[i].flag == "1"){
+					temp = "거래완료";
+				}
+				else if(result[i].flag == "0"){
+					temp = "수락대기";
+				}
+				
+				$("#sendList").append(
+				"<tr>"+
+				"<td>"+result[i].ms_st_num+"</td>"+
+				"<td>"+result[i].ms_m_id+"</td>"+
+				"<td>"+temp+"</td>"+
+				"</tr>");
+			}
+			$("#sendList").append("</table>");
+		}
+	})
 })
 
 $("#countStore").on('click', function(event){
