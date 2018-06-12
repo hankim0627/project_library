@@ -17,12 +17,13 @@
 body
 {background-color: rgb(217, 217, 217)}
 div
-{background-color: pink;
+{background-color: rgb(109, 124, 163);
 padding: 10px;
 border-style: double;}
 </style>
 </head>
 <body>
+
 <form action="/library/Insert/" method="post" >
 <div class="form-group">
 <h1>게시물 작성</h1>

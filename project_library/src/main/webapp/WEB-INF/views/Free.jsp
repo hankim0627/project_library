@@ -39,9 +39,7 @@ padding: 2px;}
 #main
 {margin: 20px;}
 
-#userIdTag
-{background-color: lightblue;
-padding-left: 20px;}
+
 #userpic
 {width: 30px;
 height: 30px;}
@@ -57,7 +55,10 @@ a
 .rounded-circle {
   border-radius: 50% !important;
 }
-
+a, a:hover,a:VISITED,a:ACTIVE,a:LINK
+{ text-decoration:none;  
+display: inline-block;
+font-weight: bold;} 
 
 </style>
 </head>
