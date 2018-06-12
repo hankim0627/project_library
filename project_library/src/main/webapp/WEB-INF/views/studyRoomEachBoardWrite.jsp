@@ -42,7 +42,7 @@
 	<p>파일3  <input type="file" name="file3"></p>
 	</div>
 	
-	<input type="hidden" name="l_id" value="<%=session.getAttribute("sessionlibrary") %>">
+	<input type="hidden" name="l_id" value="<%=session.getAttribute("l_id") %>">
 	<input type="hidden" name="sr_num" value="${sr_num }">
 	<input type="submit" value="확인">
 </form>

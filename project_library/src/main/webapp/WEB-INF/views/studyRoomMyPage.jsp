@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h2>마이페이지</h2>
-	<h5><a href="/library/studyRoomMain?l_id=<%=session.getAttribute("sessionlibrary")%>">◀스터디룸으로 돌아가기</a></h5>
+	<h5><a href="/library/studyRoomMain?l_id=<%=session.getAttribute("l_id")%>">◀스터디룸으로 돌아가기</a></h5>
 	
 	<div>
 		<p>신청한 스터디룸 : <a href="#" onclick="showJoinStudyRoomWithId();">${cntJoinStudyRoomWithId}</a></p>								<!-- toggle 기능 넣기 -->

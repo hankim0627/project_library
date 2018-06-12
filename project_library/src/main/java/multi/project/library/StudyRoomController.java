@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,7 @@ public class StudyRoomController {
 		
 		inputMap.put("map_start_rownum", (Integer)(page-1)*10+1);
 		inputMap.put("map_end_rownum", (Integer)page*10);
-		inputMap.put("map_l_id", (Integer)l_id);
+		inputMap.put("map_l_id", (l_id));
 		inputMap.put("map_sr_date", (Integer)searchDate);
 		inputMap.put("map_sr_type", (String)searchType);
 		inputMap.put("map_sr_word", (String)searchWord);
@@ -71,13 +72,13 @@ public class StudyRoomController {
 		}else{
 			totalPage = StudyRoomAllCnt/10+1;
 		}
-		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("searchDate", searchDate);
 		mv.addObject("searchType", searchType);
 		mv.addObject("searchWord", searchWord);
 		mv.addObject("totalPage", totalPage);
 		mv.addObject("studyRoomList", (List<StudyRoomVO>)selectMap.get("studyRoomSearchList"));
+		mv.addObject("l_id", l_id);
 		mv.setViewName("studyRoomMain");
 		return mv;
 	}
@@ -102,7 +103,7 @@ public class StudyRoomController {
 		mv.addObject("studyRoomComment", commentList);
 		mv.addObject("studyRoomCommentCnt", sr_Service.selectStudyRoomCommentCnt(inputMap));
 		
-		if(session.getAttribute("sessionid").equals(detail.getM_id())){
+		if(session.getAttribute("member_id").equals(detail.getM_id())){
 			mv.addObject("studyRoomJoinRequestDisplay", "display: none;");
 		} else {
 			mv.addObject("studyRoomJoinRequestDisplay", "");
@@ -172,8 +173,8 @@ public class StudyRoomController {
 			@RequestParam(value="enterPage", defaultValue="1") int enterPage, @RequestParam(value="enterDisplay", defaultValue="0") int enterDisplay){
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();			// 목록 불러올 때 쓸 map
-		inputMap.put("map_m_id", (String)session.getAttribute("sessionid"));
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+		inputMap.put("map_m_id", (String)session.getAttribute("member_id"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_make_start_rownum", (MakePage-1)*10+1);
 		inputMap.put("map_make_end_rownum", (MakePage)*10);
 		inputMap.put("map_join_start_rownum", (JoinPage-1)*10+1);
@@ -248,8 +249,8 @@ public class StudyRoomController {
 	@ResponseBody
 	public int studyRoomJoinRequest(HttpSession session, int sr_num, String sr_join_content){
 		Map<String, Object> inputMap = new HashMap<String,Object>();
-		inputMap.put("map_m_id", (String)session.getAttribute("sessionid"));
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+		inputMap.put("map_m_id", (String)session.getAttribute("member_id"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_sr_num", sr_num);
 		inputMap.put("map_sr_join_content", sr_join_content);
 		System.out.println(sr_num);
@@ -275,7 +276,7 @@ public class StudyRoomController {
 	@ResponseBody
 	public List<StudyRoomJoinVO> makeStudyRoomCondition(HttpSession session, int sr_num){
 		Map<String, Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_sr_num", sr_num);
 		return sr_Service.selectmakeStudyRoomCondition(inputMap);
 	}
@@ -284,7 +285,7 @@ public class StudyRoomController {
 	@ResponseBody
 	public int makeStudyRoomJoinSubmit(HttpSession session, int sr_num, String m_id, int sr_join_flag){
 		Map<String, Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_sr_num", sr_num);
 		inputMap.put("map_m_id", m_id);
 		inputMap.put("map_sr_join_flag", sr_join_flag);
@@ -298,8 +299,8 @@ public class StudyRoomController {
 	@ResponseBody
 	public List<StudyRoomJoinVO> joinStudyRoomCondition(HttpSession session, int sr_num){
 		Map<String, Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
-		inputMap.put("map_m_id", session.getAttribute("sessionid"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
+		inputMap.put("map_m_id", session.getAttribute("member_id"));
 		inputMap.put("map_sr_num", sr_num);
 		return sr_Service.selectJoinStudyRoomCondition(inputMap);
 	}

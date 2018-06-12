@@ -27,15 +27,17 @@
 
 <c:if test="${empty searchWord }">
 	<c:forEach var="page" begin="1" end="${totalPage }">
-		<a href="/library/studyRoomMain?page=${page }&l_id=0">${page }</a>
+		<a href="/library/studyRoomMain?page=${page }&l_id=<%=session.getAttribute("l_id") %>">${page }</a>
 	</c:forEach>
 </c:if>
 
+
 <c:if test="${not empty searchWord }">
 	<c:forEach var="page" begin="1" end="${totalPage }">
-		<a href="/library/studyRoomSearch?page=${page }&l_id=0&searchDate=${searchDate}&searchType=${searchType}&searchWord=${searchWord}">${page }</a>
+		<a href="/library/studyRoomSearch?page=${page }&l_id=<%=session.getAttribute("l_id") %>&searchDate=${searchDate}&searchType=${searchType}&searchWord=${searchWord}">${page }</a>
 	</c:forEach>
 </c:if>
+
 
 <form action="/library/studyRoomSearch" >
 	<select name="searchDate" >
@@ -52,11 +54,11 @@
 	</select>
 	
 	<input type="text" name="searchWord" <c:if test="${not empty searchWord}">value=${searchWord }</c:if>>
-	<input type="hidden" value="0" name="l_id">
+	<input type="hidden" value="<%=session.getAttribute("l_id") %>" name="l_id">
 	<input type="submit" value="검색">
 	
 	<input type="button" value="글쓰기" onclick="location.href='/library/studyRoomWrite'">
-	<input type="button" value="전체보기" onclick="location.href='/library/studyRoomMain?l_id=<%=session.getAttribute("sessionlibrary")%>'">
+	<input type="button" value="전체보기" onclick="location.href='/library/studyRoomMain?l_id=<%=session.getAttribute("l_id")%>'">
 </form>
 
 

@@ -18,6 +18,7 @@ public class StudyRoomEachBoardVO {
 	
 	public StudyRoomEachBoardVO(){}
 	
+	
 	public StudyRoomEachBoardVO(int sr_num, String sr_title, int l_id, String sr_content, String m_id, String sr_pw,
 			String sr_cate) {
 		super();
@@ -28,7 +29,6 @@ public class StudyRoomEachBoardVO {
 		this.m_id = m_id;
 		this.sr_pw = sr_pw;
 		this.sr_cate = sr_cate;
-
 	}
 	
 	public String getSr_file_name2() {

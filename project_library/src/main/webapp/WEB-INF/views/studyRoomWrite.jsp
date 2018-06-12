@@ -33,9 +33,9 @@
 	제목	<input type="text" name="sr_title" placeholder="게시글 제목을 입력하세요" ><br>
 	내용	<input type="text" name="sr_content"><br>
 	
-	<input type="hidden" name="l_id" value="<%=session.getAttribute("sessionlibrary") %>">
-	<input type="hidden" name="m_id" value="<%=session.getAttribute("sessionid") %>">
-	<input type="hidden" name="sr_pw" value="<%=session.getAttribute("sessionpw") %>">
+	<input type="hidden" name="l_id" value="<%=session.getAttribute("l_id")%>">
+	<input type="hidden" name="m_id" value="<%=session.getAttribute("member_id") %>">
+	<input type="hidden" name="sr_pw" value="<%=session.getAttribute("member_pw") %>">
 	<input type="submit" value="확인">
 </form>
 

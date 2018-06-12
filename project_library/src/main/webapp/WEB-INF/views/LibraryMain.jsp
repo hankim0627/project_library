@@ -150,7 +150,7 @@ $("#store>a").on('click',function(){
 
  $("#studyroom>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/studyRoomMain' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe src='/library/studyRoomMain?page=1&l_id=<%=session.getAttribute("l_id")%>' width=1050 height=900 ></iframe>")
 }) 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');

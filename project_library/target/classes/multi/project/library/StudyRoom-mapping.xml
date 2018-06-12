@@ -9,9 +9,9 @@
 	<select id="selectStudyRoomList" parameterType="java.util.Map" resultType="studyRoomVO">
 		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
 		from (select rownum r, imsi_t.* 
-			from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num 
+			from (select m.m_name, s.*
 					from member m, studyroom s 
-					where s.m_id=m.m_id and l_id like #{map_l_id} 
+					where s.m_id=m.m_id and s.l_id=#{map_l_id} 
 					order by sr_date desc) imsi_t) 
 		where r between #{map_start_rownum} and #{map_end_rownum} 
 	</select>
@@ -27,7 +27,7 @@
 		from (select rownum r, imsi_t.* 
 			from (select m_name, s.* 
 					from member m, studyroomeachboard s 
-					where s.m_id=m.m_id and l_id=#{map_l_id} and sr_num=#{map_sr_num} 
+					where s.m_id=m.m_id and s.l_id=#{map_l_id} and sr_num=#{map_sr_num} 
 					order by sr_date desc) imsi_t) 
 		where r between #{map_start_rownum} and #{map_end_rownum} 
 	</select>
@@ -42,14 +42,14 @@
 	<select id="selectStudyRoomSearch" parameterType="java.util.Map" resultType="studyRoomVO">
 		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
 		from (select rownum r, imsi_t.* 
-			from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num 
+			from (select m.m_name, s.* 
 					from member m, studyroom s 
-					where s.m_id=m.m_id and l_id like #{map_l_id} 
+					where s.m_id=m.m_id and s.l_id=#{map_l_id} 
 					<if test="map_sr_type=='제목'">
-						and sr_title like '%'||#{map_sr_word}||'%' 
+						and s.sr_title like '%'||#{map_sr_word}||'%' 
 					</if>
 					<if test="map_sr_type=='카테고리'">
-						and sr_cate like '%'||#{map_sr_word}||'%'
+						and s.sr_cate like '%'||#{map_sr_word}||'%'
 					</if>
 						and (to_date(to_char(sysdate, 'YY/MM/DD'))-to_date(sr_date)) between 0 and #{map_sr_date} 
 					order by sr_date desc) imsi_t) 
@@ -62,7 +62,7 @@
 		from (
 				select m_name
 				from member m, studyroom s  
-				where s.m_id=m.m_id and l_id like #{map_l_id} 
+				where s.m_id=m.m_id and s.l_id like #{map_l_id} 
 					<if test="map_sr_type=='제목'">
 						and sr_title like '%'||#{map_sr_word}||'%' 
 					</if>
@@ -81,7 +81,7 @@
 		from (select rownum r, imsi_t.* 
 			from (select m_name, s.*
 					from member m, studyroomeachboard s 
-					where s.m_id=m.m_id and l_id=#{map_l_id} and sr_num=#{map_sr_num}  
+					where s.m_id=m.m_id and s.l_id=#{map_l_id} and sr_num=#{map_sr_num}  
 					<if test="map_sr_type=='제목'">
 						and sr_title like '%'||#{map_sr_word}||'%' 
 					</if>
@@ -99,7 +99,7 @@
 		from (
 				select m_name
 				from member m, studyroomeachboard s  
-				where s.m_id=m.m_id and l_id=#{map_l_id} and sr_num=#{map_sr_num}  
+				where s.m_id=m.m_id and s.l_id=#{map_l_id} and sr_num=#{map_sr_num}  
 					<if test="map_sr_type=='제목'">
 						and sr_title like '%'||#{map_sr_word}||'%' 
 					</if>
@@ -237,9 +237,9 @@
 	<select id="selectListMakeStudyRoomWithId" parameterType="java.util.Map" resultType="studyRoomVO">
 		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
 		from (select rownum r, imsi_t.* 
-			from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num 
+			from (select m_name, s.* 
 					from member m, studyroom s 
-					where s.m_id=m.m_id and l_id like #{map_l_id} and s.m_id=#{map_m_id} 
+					where s.m_id=m.m_id and s.l_id=#{map_l_id} and s.m_id=#{map_m_id} 
 					order by sr_date desc) imsi_t) 
 		where r between #{map_make_start_rownum} and #{map_make_end_rownum} 
 	</select>
@@ -268,8 +268,8 @@
 	<select id="selectListJoinStudyRoomWithId" parameterType="java.util.Map" resultType="studyRoomVO">
 		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
 		from (select rownum r, imsi.*  
-			  from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num			<!-- 수락 대기중 :0, 거절:2 -->
-	 			   	from member m, (select s.* from STUDYROOMJOINLIST j, studyroom s where sr_join_flag!=1 and j.m_id=#{map_m_id} and s.sr_num=j.sr_num and s.l_id=#{map_l_id}) imsi_t 
+			  from (select m_name, imsi_t.* 			<!-- 수락 대기중 :0, 거절:2 -->
+	 			   	from member m, (select s.* from STUDYROOMJOINLIST j, studyroom s where j.sr_join_flag!=1 and j.m_id=#{map_m_id} and s.sr_num=j.sr_num and s.l_id=#{map_l_id}) imsi_t 
 				    where imsi_t.m_id=m.m_id 
 				    order by sr_date desc) imsi)
 		where r between #{map_join_start_rownum} and #{map_join_end_rownum}
@@ -283,7 +283,7 @@
 	<select id="selectListEnterStudyRoomWithId" parameterType="java.util.Map" resultType="studyRoomVO">
 		select l_id, sr_num, sr_title, m_name, sr_date, sr_cate, sr_view_num 
 		from (select rownum r, imsi.*  
-			  from (select l_id, sr_num, sr_cate, sr_title, m_name, sr_date, sr_view_num			<!-- 수락된 것 -->
+			  from (select m_name, imsi_t.*			<!-- 수락된 것 -->
 	 			   	from member m, (select s.* from STUDYROOMJOINLIST j, studyroom s where sr_join_flag=1 and j.m_id=#{map_m_id} and s.sr_num=j.sr_num and s.l_id=#{map_l_id}) imsi_t 
 				    where imsi_t.m_id=m.m_id 
 				    order by sr_date desc) imsi)

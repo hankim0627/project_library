@@ -12,5 +12,9 @@
 		<typeAlias type="multi.project.library.LibraryVO" alias="lib"></typeAlias>
 		<typeAlias type="multi.project.library.FreeVO" alias="fvo"></typeAlias>
 	    <typeAlias type="multi.project.library.FreeReplyVO" alias="frvo"></typeAlias>
+	    <typeAlias alias="studyRoomVO" type="multi.project.library.StudyRoomVO"/>
+		<typeAlias alias="studyRoomCommentVO" type="multi.project.library.StudyRoomCommentVO"/>
+		<typeAlias alias="studyRoomJoinVO" type="multi.project.library.StudyRoomJoinVO"/>
+		<typeAlias alias="studyRoomEachBoardVO" type="multi.project.library.StudyRoomEachBoardVO"/>
 	</typeAliases>
 </configuration>

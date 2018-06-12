@@ -62,13 +62,13 @@
 		
 	<!-- ====================댓글 다는 양식!!!! ==================-->
 	<div id="comment">
-		<p><%=session.getAttribute("sessionid") %> 
+		<p><%=session.getAttribute("member_id") %> 
 			<input type="text" class="sr_comment_content_class" id="sr_comment_content_id" name="sr_comment_content" placeholder="댓글을 입력해주세요">
 			<input type="button" id="sr_comment_btn" value="등록">
 		</p>
 	</div>
 	<input type="hidden" id="sr_num" name="sr_num" value="${studyRoomDetail.getSr_num() }">
-	<input type="hidden" id="sr_comment_id" value=<%=session.getAttribute("sessionid") %>>
+	<input type="hidden" id="sr_comment_id" value=<%=session.getAttribute("member_id") %>>
 	<input type="hidden" id="sr_m_id" value="${studyRoomDetail.getM_id() }">
 	<input type="hidden" id="sr_m_name" value="${studyRoomDetail.getM_name() }">
 	<!-- ===================================================-->

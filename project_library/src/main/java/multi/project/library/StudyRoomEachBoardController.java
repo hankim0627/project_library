@@ -37,7 +37,7 @@ public class StudyRoomEachBoardController {
 		Map<String,Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("map_start_rownum", (page-1)*10+1);
 		inputMap.put("map_end_rownum", (page)*10);
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_sr_num", sr_num);
 		
 		Map <String, Object> selectMap = sr_Service.selectStudyRoomEachBoard(inputMap);
@@ -66,7 +66,7 @@ public class StudyRoomEachBoardController {
 		
 		inputMap.put("map_start_rownum", (Integer)(page-1)*10+1);
 		inputMap.put("map_end_rownum", (Integer)page*10);
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_sr_date", (Integer)searchDate);
 		inputMap.put("map_sr_type", (String)searchType);
 		inputMap.put("map_sr_word", (String)searchWord);
@@ -105,7 +105,8 @@ public class StudyRoomEachBoardController {
 	// ===================== 글쓰기 등록 눌렀을 떄 =========================== 
 	@RequestMapping(value="/studyRoomEachBoardWriteSubmit", method = RequestMethod.POST)
 	public ModelAndView insertStudyRoomEachBoardWriteSubmit(HttpSession session, int l_id, int sr_num, String sr_title, String sr_cate, String sr_content, MultipartHttpServletRequest mRequest){
-		StudyRoomEachBoardVO vo = new StudyRoomEachBoardVO(sr_num, sr_title, l_id, sr_content, (String)session.getAttribute("sessionid"), (String)session.getAttribute("sessionpw"), sr_cate);
+		StudyRoomEachBoardVO vo = new StudyRoomEachBoardVO(sr_num, sr_title, l_id, sr_content, (String)session.getAttribute("member_id"), "임시", sr_cate);
+		/*System.out.println((String)session.getAttribute("member_pw"));*/
 		
 		Map<String, Object> map = sr_Service.fileUpload(mRequest, vo);
 		sr_Service.insertStudyRoomEachBoardWrite((StudyRoomEachBoardVO)map.get("vo"));
