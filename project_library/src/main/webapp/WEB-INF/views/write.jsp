@@ -23,7 +23,7 @@ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 </tr>
 <tr>
 <td>작성자</td>
-<td><input type=text name="st_m_id"></td>
+<td><input type=text name="st_m_id" value="${sessionScope.member_id}"></td>
 </tr>
 <tr>
 <td>글 비밀번호</td>

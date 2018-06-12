@@ -51,7 +51,7 @@
 	
 	<insert id="insertMemStore" parameterType="memStore">
 		INSERT INTO MEMBER_STORE
-		VALUES(#{ms_m_id},#{ms_st_num},0,#{send_id})
+		VALUES(#{ms_m_id},#{ms_st_num},#{send_id},0)
 	</insert>
 	
 	<insert id="insertStore" parameterType="store">

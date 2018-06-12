@@ -82,7 +82,13 @@ $(document).ready(function(){
 
 <tr id="bottom"><td colspan="4" style="text-align: center;">
 <!-- 더보기 누를때마다 id가 증가 -->
-<a href="more" id="${amount}">▼더보기(${countSearch-amount*5})</a>
+<c:if test="${not empty amount}">
+	<c:set var="listAmount" value="${amount}*5"/>
+</c:if>
+<c:if test="${not empty amount2}">
+	<c:set var="listAmount" value="${amount2}"/>
+</c:if>
+<a href="more" id="${amount}">▼더보기(${countSearch-listAmount})</a>
 </td></tr>
 </table>
 
