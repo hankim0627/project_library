@@ -49,6 +49,12 @@
 		WHERE MS_ST_NUM = #{a}
 	</select>
 	
+	<!-- 내가 보낸 거래 조회 -->
+	<select id="selectMySend" parameterType="String" resultType="memStore">
+		SELECT * FROM MEMBER_STORE
+		WHERE SEND_ID = #{a}
+	</select>
+	
 	<insert id="insertMemStore" parameterType="memStore">
 		INSERT INTO MEMBER_STORE
 		VALUES(#{ms_m_id},#{ms_st_num},#{send_id},0)

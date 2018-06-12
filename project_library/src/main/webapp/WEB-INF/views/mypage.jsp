@@ -54,8 +54,17 @@ td{background-color: pink;}
 <div id="tradeSendId">
 </div>
 
+<div id="mySendList">
+내가 신청한 거래 : <a href="" id="mySendCount">${mySendCount}</a>
+</div>
+
 
 <script>
+$("#mySendCount").on('click', function(event){
+	event.preventDefault();
+	
+})
+
 $("#countStore").on('click', function(event){
 	event.preventDefault();
 	$("#listname").attr('hidden',false);

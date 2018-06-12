@@ -93,4 +93,8 @@ public class StoreDAO {
 	public int countSearch(Map<String, String> map){
 		return session.selectOne("store.countSearch", map);
 	}
+	
+	public List<MemberStoreVO> selectMySend(String id){
+		return session.selectList("store.selectMySend", id);
+	}
 }

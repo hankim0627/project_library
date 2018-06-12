@@ -164,6 +164,7 @@ public class StoreController {
 		return "redirect:/store";
 	} 
 	
+	//마이 페이지 첫화면
 	@RequestMapping("/mypage")
 	public ModelAndView mypage(HttpSession session){
 		String loginid = (String) session.getAttribute("member_id");
@@ -172,7 +173,18 @@ public class StoreController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("mypage");
 		mv.addObject("countStore", countStore);
+		
+		List<MemberStoreVO> list = service.selectMySend(loginid);
+		mv.addObject("mySendCount", list.size()); //요청한 거래 갯수
 		return mv;
+	}
+	
+	//내가 요청한 거래 리스트
+	@ResponseBody
+	@RequestMapping("/mySendList")
+	public List<MemberStoreVO> mySendList(HttpSession session){
+		String loginid = (String) session.getAttribute("member_id");
+		return service.selectMySend(loginid);
 	}
 	
 	@RequestMapping(value="/mypagelist")
@@ -240,13 +252,14 @@ public class StoreController {
 		return "redirect:/mypagelist";
 	}
 	
+	//거래가 완료된 id찾기
 	@ResponseBody
 	@RequestMapping("/sendId")
 	public String selectSendId(String stnum){
 		String sendId = service.selectSendId(stnum);
 		return sendId;
 	}
-	
+		
 	//검색기능
 	@RequestMapping("/search")
 	public ModelAndView searchStore(String op, String value,

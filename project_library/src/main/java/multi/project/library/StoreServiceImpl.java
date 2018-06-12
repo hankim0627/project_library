@@ -86,4 +86,8 @@ public class StoreServiceImpl implements StoreService{
 	public int countSearch(Map<String, String> map) {
 		return storeDAO.countSearch(map);
 	}
+
+	public List<MemberStoreVO> selectMySend(String id) {
+		return storeDAO.selectMySend(id);
+	}
 }

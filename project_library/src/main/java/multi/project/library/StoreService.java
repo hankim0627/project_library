@@ -23,4 +23,5 @@ public interface StoreService {
 	public String isDone(String stnum);
 	public List<StoreVO> searchStoreVO(Map<String, String> map);
 	public int countSearch(Map<String, String> map);
+	public List<MemberStoreVO> selectMySend(String id);
 }
