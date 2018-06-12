@@ -22,6 +22,9 @@ public class FreeController {
     @Autowired
     FreeService fser;
     
+    @Autowired
+	StoreService service;
+    
 	  @RequestMapping("/LibraryMain")
 	  public ModelAndView libraryMain(HttpSession sessionId){
 		 
@@ -278,14 +281,16 @@ public class FreeController {
 		  String myid=(String) sessionId.getAttribute("member_id");
 		 List<MemberVO> info= fser.memberInfo(myid);
 		 int freecnt=fser.myfree(myid);
+		 int countStore = service.countStoreWithId(myid);
 		 
 		 int freereplycnt=fser.myreply(myid);
 		 int libraryId=(Integer)sessionId.getAttribute("l_id");
 		 LibraryVO lib=fser.location(libraryId);//도서관 아이디 세션 넣을자리
-		 mv.addObject("info",info);
-		 mv.addObject("libraryName",lib.getL_name());
-		 mv.addObject("freecnt",freecnt);
-		 mv.addObject("freereplycnt",freereplycnt);
+		 mv.addObject("countStore", countStore);//거래게시판 글갯수
+		 mv.addObject("info",info);//내정보
+		 mv.addObject("libraryName",lib.getL_name());//도서관이름
+		 mv.addObject("freecnt",freecnt);//자유게시판 글갯수
+		 mv.addObject("freereplycnt",freereplycnt);//자유게시판 댓글수
 		 mv.setViewName("/myinfo");
 		return mv;
 	  }

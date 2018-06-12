@@ -30,12 +30,13 @@ body
 </head>
 <body>
 <c:forEach items='${info}' var="myinfo">
-<table><tr><td rowspan="3">
+<table><tr><td rowspan="4">
 <img class="img-fluid img-profile rounded-circle mx-auto mb-2" name='<%=session.getAttribute("l_id")%>' id='userpic' alt='No Image' src='/library/resources/${myinfo.m_pic}'>  <br>
 </td>
 <td><h3><%=request.getAttribute("libraryName")%></h3></td><td>아이디<h3>${myinfo.m_id}</h3></td></tr>
 <tr><td>이름<h3>${myinfo.m_name}</h3></td><td>전화번호<h3>${myinfo.m_phone}</h3></td></tr>
 <tr><td>자유게시판 작성글수<h3><%=request.getAttribute("freecnt") %></h3></td><td>자유게시판 작성리플수<h3><%=request.getAttribute("freereplycnt") %></h3></td></tr>
+<tr><td>거래게시판 작성글수<h3><%=request.getAttribute("countStore")%></h3></td><td></td></tr>
 </table>
 </c:forEach>
 </body>
