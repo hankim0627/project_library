@@ -31,6 +31,7 @@ m_pic varchar2(30)    --회원 아바타
 insert into member values(0001, 'dohye777', '123456', '010-222-8555', '김도혜', 'no image');
 
 select m_id from member where l_id = '0001' and m_id = 'dohye77'
+select * from member;
 
 create table STUDYROOM (
    sr_num      number(20)      primary key,

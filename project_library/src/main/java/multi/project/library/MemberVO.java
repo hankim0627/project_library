@@ -23,7 +23,7 @@ public class MemberVO {
 	}
 	
 
-	public MemberVO(int l_id, String m_id, String m_pw, String m_phone, String m_name) {
+	public MemberVO(int l_id, String m_id, String m_pw, String m_name, String m_phone) {
 		super();
 		this.l_id = l_id;
 		this.m_id = m_id;
