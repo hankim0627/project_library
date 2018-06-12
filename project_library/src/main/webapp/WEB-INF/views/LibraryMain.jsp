@@ -48,8 +48,11 @@ height: 40px;}
 border-radius: 50px 20px;
 font-size: 20px;
 background-color: rgba(165, 141, 218, 0.8)}
-a 
-{ text-decoration:none } 
+a, a:hover,a:VISITED,a:ACTIVE,a:LINK
+{ text-decoration:none;  
+display: inline-block;
+font-weight: bold;} 
+#myinfo{color: black;}
 body
 {background-color: rgb(217, 217, 217)}
 .img-profile {
@@ -83,7 +86,7 @@ border-radius: 5%;}
 </span>
 </a>
 </td>
-<td class="u"><h2>${userInfo.m_id}</h2></td></tr></table>
+<td class="u"><h2><a href='#' id='myinfo'>${userInfo.m_id}</a></h2></td></tr></table>
 </c:forEach></div>
 <hr>
 <div class="grid-container">
@@ -165,5 +168,16 @@ $('#userpic').on("click",function(){
 			window.open("/library/UserPicSelect", "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", location=no, toolbar=no, menubar=no, scrollbar=no, resizable=no");
 		}) //아바타 변경
 $('[data-toggle="tooltip"]').tooltip();  //툴팁
+
+$(".u>h2").on("click",function(){
+	var ww=510;    //띄울 창의 넓이
+	var wh=400;    //띄울 창의 높이
+	
+	var top=(screen.availHeight-wh)/4;
+	var left=(screen.availWidth-ww)/2;
+   
+		window.open("/library/myinfo", "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", location=no, toolbar=no, menubar=no, scrollbar=no, resizable=no");
+	
+})
 </script>
 </html>

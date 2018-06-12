@@ -24,7 +24,7 @@ td
   border-radius: 50% !important;
 }
 body
-{background-color: lightblue;}
+{background-color: rgb(109, 124, 163);}
 </style>
 </head>
 <body>

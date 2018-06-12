@@ -100,4 +100,12 @@ update member  set m_Pic = #{pic} where m_Id=#{id}
 update freereply set m_Pic = #{pic} where fr_m_Id=#{id}
 </update>
 
+
+<select id="myreply" parameterType="String" resultType="int">
+select count(*) from freereply where fr_m_Id = #{myid} 
+</select>
+
+<select id="myfree" parameterType="String" resultType="int">
+select count(*) from free where f_m_Id = #{myid} 
+</select>
 </mapper>
