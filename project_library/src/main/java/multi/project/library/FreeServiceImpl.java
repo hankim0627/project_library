@@ -96,5 +96,16 @@ public class FreeServiceImpl implements FreeService{
 		// TODO Auto-generated method stub
 		dao.changePic(map);
 	}
+
+	public int myfree(String myid){
+		return dao.myfree(myid);
+		//내가 작성한 자유게시판 글 수
+	}
+
+	
+	public int myreply(String myid){
+		return dao.myreply(myid);
+		//내가 작성한 자유게시판 리플수
+	}
 	
 }

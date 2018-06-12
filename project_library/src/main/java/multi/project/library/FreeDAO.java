@@ -90,6 +90,19 @@ public class FreeDAO {
 		se.update("Library.changePic",map);
 		se.update("Library.changeReplyPic",map);
 	}
+
+	public List<MemberVO> myinfo(String myid) {//내정보 보기
+		// TODO Auto-generated method stub
+		return se.selectList("Library.");
+	}
 	
-    
+	public int myfree(String myid) {
+		// TODO Auto-generated method stub
+		return se.selectOne("Library.myfree",myid);
+	}
+
+	public int myreply(String myid) {
+		// TODO Auto-generated method stub
+		return se.selectOne("Library.myreply",myid);
+	}
 }

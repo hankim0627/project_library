@@ -77,7 +77,7 @@ border-radius: 5%;}
 <div id="userIdTag"><c:forEach items="${user}" var="userInfo">
 <table id= "userinfo">
 <tr><td class="u">
-<a href="#">
+<a href="#" data-toggle="tooltip" data-placement="bottom" title="아바타 바꾸기!">
 <span class="d-none d-lg-block">
 <img class="img-fluid img-profile rounded-circle mx-auto mb-2" name='<%=session.getAttribute("l_id")%>' id='userpic' alt='No Image' src='/library/resources/${userInfo.m_pic}'>
 </span>
@@ -164,5 +164,6 @@ $('#userpic').on("click",function(){
 	   // alert("새글 작성")
 			window.open("/library/UserPicSelect", "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", location=no, toolbar=no, menubar=no, scrollbar=no, resizable=no");
 		}) //아바타 변경
+$('[data-toggle="tooltip"]').tooltip();  //툴팁
 </script>
 </html>

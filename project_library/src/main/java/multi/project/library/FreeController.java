@@ -272,4 +272,22 @@ public class FreeController {
 		  
 	  }//아바타 변경
 	  
+	  @RequestMapping("/myinfo")
+	  public ModelAndView myinfo(HttpSession sessionId){
+		  ModelAndView mv = new ModelAndView();
+		  String myid=(String) sessionId.getAttribute("member_id");
+		 List<MemberVO> info= fser.memberInfo(myid);
+		 int freecnt=fser.myfree(myid);
+		 
+		 int freereplycnt=fser.myreply(myid);
+		 int libraryId=(Integer)sessionId.getAttribute("l_id");
+		 LibraryVO lib=fser.location(libraryId);//도서관 아이디 세션 넣을자리
+		 mv.addObject("info",info);
+		 mv.addObject("libraryName",lib.getL_name());
+		 mv.addObject("freecnt",freecnt);
+		 mv.addObject("freereplycnt",freereplycnt);
+		 mv.setViewName("/myinfo");
+		return mv;
+	  }
+	  
 }
