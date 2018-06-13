@@ -18,5 +18,6 @@ public interface StudyRoomEachBoardService {
 	
 	
 	public Map<String, Object>  fileUpload(MultipartHttpServletRequest mRequest, StudyRoomEachBoardVO vo);
-
+	
+	public void deleteStudyRoomEachBoardWrite(Map<String, Object> inputMap);
 }

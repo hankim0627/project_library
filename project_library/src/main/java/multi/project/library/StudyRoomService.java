@@ -22,6 +22,6 @@ public interface StudyRoomService {
 	public void updateMakeStudyRoomJoinSubmit(Map<String, Object> inputMap);
 	public List<StudyRoomJoinVO> selectJoinStudyRoomCondition(Map<String, Object> inputMap);
 	
-	//public Map<String, Object> selectStudyRoomEachBoard(Map<String, Object> inputMap);
+	public void deleteStudyRoomWrite(Map<String, Object> inputMap);
 	
 }

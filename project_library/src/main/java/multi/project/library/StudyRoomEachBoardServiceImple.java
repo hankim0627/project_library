@@ -26,7 +26,7 @@ public class StudyRoomEachBoardServiceImple implements StudyRoomEachBoardService
 		
 	@Override
 	public Map<String, Object> selectStudyRoomEachBoard(Map<String, Object> inputMap) {
-		int studyRoomEachBoardListCnt = studyRoomEachBoardDAO.selectStudyRoomEachBoardListCnt();
+		int studyRoomEachBoardListCnt = studyRoomEachBoardDAO.selectStudyRoomEachBoardListCnt(inputMap);
 		List<StudyRoomVO> studyRoomEachBoardList = studyRoomEachBoardDAO.selectStudyRoomEachBoardList(inputMap);
 		
 		Map<String, Object> selectMap = new HashMap<String, Object>();
@@ -72,14 +72,14 @@ public class StudyRoomEachBoardServiceImple implements StudyRoomEachBoardService
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean isSuccess= false;
 		
-		String uploadPath = "c:/upload/";
+		String uploadPath = "c:/upload/studyroom" + vo.getSr_num() + "/write" + studyRoomEachBoardDAO.selectStudyRoomEachBoardFileUploadNum() + "/";
 		File dir = new File(uploadPath);
 		if(!dir.isDirectory()){
 			dir.mkdirs();
 		}
 		
 		Iterator<String> iter = mRequest.getFileNames();
-
+		
 		int cnt =0;
 		while(iter.hasNext()){
 			cnt++;
@@ -97,45 +97,35 @@ public class StudyRoomEachBoardServiceImple implements StudyRoomEachBoardService
 			}
 			
 			if(saveFileName != null && !saveFileName.equals("")) {
-				
-				if(new File(uploadPath + saveFileName).exists()) {
-					saveFileName = saveFileName + "_" + System.currentTimeMillis();
-				}
 				try {
 					mFile.transferTo(new File(uploadPath + saveFileName));
 					isSuccess = true;				
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-					isSuccess = false;
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					isSuccess = false;
 				}
 			}
 		}
+		if(vo.getSr_file_name1() == null || vo.getSr_file_name1().equals("")){
+			isSuccess = true;
+		}
+		insertStudyRoomEachBoardWrite(vo);			// 게시물 넣기
+		
 		map.put("isSuccess", isSuccess);
 		map.put("vo", vo);
 		return map;
 	}
 
-	
-	
-	
-	
 	@Override
 	public void insertStudyRoomEachBoardCommentWrite(StudyRoomCommentVO vo) {
-		studyRoomCommentDAO.insertStudyRoomCommentWrite(vo);
+		studyRoomCommentDAO.insertStudyRoomEachBoardCommentWrite(vo);
 	}
 
-	
-	
 	@Override
 	public List<StudyRoomCommentVO> selectStudyRoomEachBoardRecommentList(Map<String, Integer> inputMap) {
-		return studyRoomCommentDAO.selectStudyRoomRecommentList(inputMap);
+		return studyRoomCommentDAO.selectStudyRoomEachBoardRecommentList(inputMap);
 	}
 
-	
-	
 	@Override
 	public List<StudyRoomCommentVO> selectStudyRoomEachBoardCommentList(Map<String, Integer> inputMap) {
 		List<StudyRoomCommentVO> studyRoomCommentList = studyRoomCommentDAO.selectStudyRoomEachBoardCommentList(inputMap);
@@ -147,6 +137,11 @@ public class StudyRoomEachBoardServiceImple implements StudyRoomEachBoardService
 		return studyRoomCommentDAO.selectStudyRoomEachBoardCommentCnt(inputMap);
 	}
 
-	
 
+	@Override
+	public void deleteStudyRoomEachBoardWrite(Map<String, Object> inputMap) {
+		studyRoomEachBoardDAO.deleteStudyRoomEachBoardWrite(inputMap);
+	}
+	
+	
 }

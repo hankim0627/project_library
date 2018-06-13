@@ -2,13 +2,15 @@ create sequence sr_eb_num;
 create sequence sr_num;
 create sequence sr_comment_num;
 create sequence sr_recomment_num;
+create sequence sr_eb_comment_num;
+create sequence sr_eb_recomment_num;
 
 create table STUDYROOM (
 	sr_num		number(20)		primary key,
 	sr_title	varchar2(100),
 	l_id		number(10)	not null references library(l_id),
 	sr_content	varchar2(1000),
-	m_id		varchar2(50)	not null references l_member(m_id),
+	m_id		varchar2(50)	not null references member(m_id),
 	sr_pw		varchar2(100),
 	sr_date		date,
 	sr_cate		varchar2(30),
@@ -48,22 +50,29 @@ create table sr_eb_comment (
 	sr_comment_num			number(20)		primary key,
 	sr_comment_id 			varchar2(100),
 	sr_comment_date			date,
-	sr_comment_recomment	number(2),				
-	sr_comment_content		varchar2(100)
+	sr_comment_content		varchar2(100),
+	sr_recomment_flag  number(2)  
 );
+alter table sr_eb_comment add (sr_recomment_flag number(2))
+alter table sr_eb_comment drop (sr_comment_recomment);
 
 create table sr_eb_recomment (
 	sr_eb_num					number(20)	not null references studyroomeachboard(sr_eb_num),
 	sr_num 						number(20)	not null references studyroom(sr_num),
-	sr_comment_num				number(20)	not null references sr_comment(sr_comment_num),
+	sr_comment_num				number(20)	not null references sr_eb_comment(sr_comment_num),
 	sr_recomment_num			number(20)	primary key,
-	sr_recomment_id 			varchar2(100),
-	sr_recomment_date			date,
-	sr_recomment_content		varchar2(100)
+	sr_comment_id 			varchar2(100),
+	sr_comment_date			date,
+	sr_comment_content		varchar2(100)
 );
+drop table sr_eb_recomment;
+select * from sr_eb_recomment;
+select * from sr_eb_comment;
+select * from studyroomeachBoard;
+
 
 create table studyroomeachBoard(
-	sr_eb_num 	number(20)	 primary key,
+	sr_eb_num 	number(20)	 primary key,				스터디룸 게시판 글 번호
 	sr_num		number(20)		not null references studyroom(sr_num),
 	sr_title	varchar2(100),
 	l_id		number(10)	not null references library(l_id),
@@ -163,9 +172,14 @@ create table STUDYROOM (
 	sr_view_num	number(20)
 );
 select * from studyroom
+select * from studyroomeachboard;
 insert into studyroom values (sr_num.nextval, '뭐녀', 0, 'ㅇㅇ', 'yhg2yhg2', 'qwe123', sysdate, '중학생', 0);
 select * from l_member;
 delete from l_member where m_id like '%2%';
+delete from studyroomeachboard;
+delete from SR_EB_COMMENT;
+delete from SR_EB_RECOMMENT;
+select * from sr_comment where sr_num=21;
 insert into l_member values ('yhg2yhg2', '히걍2');
 insert into l_member values ('yhg3yhg3', '히걍3');
 insert into l_member values ('yhg4yhg4', '히걍4');

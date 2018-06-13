@@ -60,4 +60,14 @@ public class StudyRoomDAO {
 	public int selectStudyRoomJoinCheck(Map<String, Object> inputMap){			// 스터디룸을 이미 신청햇는지 아닌지 확인, 신청 했을 경우  count(*) -> 1 반환
 		return session.selectOne("library.selectStudyRoomJoinCheck", inputMap);
 	}
+	public void deleteStudyRoomWrite(Map<String, Object> inputMap){
+		session.delete("library.deleteStudyRoomReComment", inputMap);
+		session.delete("library.deleteStudyRoomComment", inputMap);
+		session.delete("library.deleteStudyRoomEBReComment", inputMap);
+		session.delete("library.deleteStudyRoomEBComment", inputMap);
+		session.delete("library.deleteStudyRoomJoinList", inputMap);
+		session.delete("library.deleteStudyRoomEachBoard", inputMap);
+		session.delete("library.deleteStudyRoomWrite", inputMap);
+	}
+	
 }

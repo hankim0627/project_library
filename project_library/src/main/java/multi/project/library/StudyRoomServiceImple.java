@@ -142,18 +142,12 @@ public class StudyRoomServiceImple implements StudyRoomService{
 		return studyRoomJoinDAO.selectJoinStudyRoomCondition(inputMap);
 	}
 
-	/*@Override
-	public Map<String, Object> selectStudyRoomEachBoard(Map<String, Object> inputMap) {
-		int studyRoomEachBoardListCnt = studyRoomEachBoardDAO.selectStudyRoomEachBoardListCnt();
-		List<StudyRoomVO> studyRoomEachBoardList = studyRoomEachBoardDAO.selectStudyRoomEachBoardList(inputMap);
-		
-		Map<String, Object> selectMap = new HashMap<String, Object>();
-		selectMap.put("studyRoomEachBoardListCnt", studyRoomEachBoardListCnt);
-		selectMap.put("studyRoomEachBoardList", studyRoomEachBoardList);
-		
-		return selectMap;
-	}	
-	*/
+	@Override
+	public void deleteStudyRoomWrite(Map<String, Object> inputMap) {
+		studyRoomDAO.deleteStudyRoomWrite(inputMap);
+	}
+
+	
 	
 	
 	

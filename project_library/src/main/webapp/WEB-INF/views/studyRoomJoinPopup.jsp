@@ -36,7 +36,7 @@
 				} else if(data==2){
 					alert("스터디룸 신청에 문제가 발생했습니다.");
 				} 
-				opener.parent.location.reload();
+				//opener.parent.location.href='/library/studyRoomDetail?sr_num=' + sr_num;
 				self.close(); 
 			}
 		});

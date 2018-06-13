@@ -105,8 +105,10 @@ public class StudyRoomController {
 		
 		if(session.getAttribute("member_id").equals(detail.getM_id())){
 			mv.addObject("studyRoomJoinRequestDisplay", "display: none;");
+			mv.addObject("studyRoomEdit", "");
 		} else {
 			mv.addObject("studyRoomJoinRequestDisplay", "");
+			mv.addObject("studyRoomEdit", "display: none;");
 		}
 		
 		mv.setViewName("studyRoomDetail");
@@ -169,10 +171,11 @@ public class StudyRoomController {
 	// ===================== 마이페이지 가기 눌렀을 떄=========================
 	@RequestMapping(value="/studyRoomMyPage")
 	public ModelAndView studyRoomMyPage(HttpSession session, @RequestParam(value="MakePage", defaultValue="1") int MakePage, @RequestParam(value="MakeDisplay", defaultValue="0") int MakeDisplay, 
-			@RequestParam(value="JoinPage", defaultValue="1") int JoinPage, @RequestParam(value="JoinDisplay", defaultValue="0") int JoinDisplay,
+			@RequestParam(value="JoinPage", defaultValue="1") int JoinPage, @RequestParam(value="JoinDisplay", defaultValue="1") int JoinDisplay,
 			@RequestParam(value="enterPage", defaultValue="1") int enterPage, @RequestParam(value="enterDisplay", defaultValue="0") int enterDisplay){
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();			// 목록 불러올 때 쓸 map
+		System.out.println("컨트롤러" + session.getAttribute("member_id") + "," + session.getAttribute("l_id"));
 		inputMap.put("map_m_id", (String)session.getAttribute("member_id"));
 		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_make_start_rownum", (MakePage-1)*10+1);
@@ -305,30 +308,36 @@ public class StudyRoomController {
 		return sr_Service.selectJoinStudyRoomCondition(inputMap);
 	}
 	
-	// 스터디룸마다의 게시판 열기
-/*	@RequestMapping(value="/studyRoomEachBoard")
-	public ModelAndView selectStudyRoomEachBoard(HttpSession session, @RequestParam(value="page", defaultValue="1") int page, int sr_num){
-		Map<String,Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("map_start_rownum", (page-1)*10+1);
-		inputMap.put("map_end_rownum", (page)*10);
-		inputMap.put("map_l_id", session.getAttribute("sessionlibrary"));
+	/*@RequestMapping(value="/studyRoomEdit")
+	public void studyRoomEdit(HttpSession session, int sr_num){
+		
+	}
+	
+	@RequestMapping(value="/studyRoomEditOk")
+	public StudyRoomVO studyRoomEditOk(HttpSession session, int sr_num){
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
 		inputMap.put("map_sr_num", sr_num);
 		
-		Map <String, Object> selectMap = sr_Service.selectStudyRoomEachBoard(inputMap);
+		StudyRoomVO vo = sr_Service.updateStudyRoomWrite(inputMap);
 		
-		int StudyRoomAllCnt = (Integer)selectMap.get("studyRoomEachBoardListCnt");
-		int totalPage =0;
-		if(StudyRoomAllCnt /10 == 0){
-			totalPage = StudyRoomAllCnt/10;
-		}else{
-			totalPage = StudyRoomAllCnt/10+1;
-		}
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("totalPage", totalPage);
-		mv.addObject("studyRoomEachBoardList", (List<StudyRoomVO>)selectMap.get("studyRoomEachBoardList"));
-		mv.setViewName("studyRoomEachBoard");
-		
-		return mv;
 	}*/
+	
+	@RequestMapping(value="/studyRoomDelete")
+	public ModelAndView studyRoomDelete(HttpSession session, int sr_num){
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("map_l_id", session.getAttribute("l_id"));
+		inputMap.put("map_sr_num", sr_num);
+		
+		sr_Service.deleteStudyRoomWrite(inputMap);
+
+		return selectStudyRoomMain(1,(Integer)session.getAttribute("l_id"));
+	}
+	
+	
+	@RequestMapping(value="/myPageAll")
+	public void myPageAll(){
+	}
+	
 }

@@ -12,8 +12,8 @@ public class StudyRoomEachBoardDAO {
 	@Autowired
 	SqlSession session;
 	
-	public int selectStudyRoomEachBoardListCnt(){
-		return session.selectOne("library.selectStudyRoomEachBoardListCnt");
+	public int selectStudyRoomEachBoardListCnt(Map<String, Object> inputMap){
+		return session.selectOne("library.selectStudyRoomEachBoardListCnt", inputMap);
 	}
 	public List<StudyRoomVO> selectStudyRoomEachBoardList(Map<String, Object> inputMap){
 		return session.selectList("library.selectStudyRoomEachBoardList",inputMap);
@@ -39,10 +39,21 @@ public class StudyRoomEachBoardDAO {
 	public void updateStudyRoomEachBoardViewNum(Map<String, Integer> inputMap){
 		session.update("library.updateStudyRoomEachBoardViewNum", inputMap);
 	}
+
+	// 파일 업로드 폴더명을 위해서 sr_eb_num 갖고옴
+	public int selectStudyRoomEachBoardFileUploadNum (){
+		if(session.selectOne("library.selectStudyRoomEachBoardFileUploadNum")==null){
+			return 0;
+		} else {
+			return session.selectOne("library.selectStudyRoomEachBoardFileUploadNum");
+		}
+	}
 	
-	
-	
-	
+	public void deleteStudyRoomEachBoardWrite(Map<String, Object> inputMap){
+		session.delete("library.deleteStudyRoomEachBoardReComment", inputMap);
+		session.delete("library.deleteStudyRoomEachBoardComment", inputMap);
+		session.delete("library.deleteStudyRoomEachBoardWrite", inputMap);
+	}
 	
 	
 }

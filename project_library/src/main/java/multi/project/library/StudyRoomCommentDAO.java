@@ -21,6 +21,7 @@ public class StudyRoomCommentDAO {
 			session.insert("library.insertStudyRoomReCommentWrite", vo);
 		}
 	}
+	
 	public List<StudyRoomCommentVO> selectStudyRoomRecommentList(Map<String, Integer> inputMap){
 		if(inputMap.get("map_start_rownum")==-1 && inputMap.get("map_end_rownum")==-1){
 			session.update("library.updateStudyRoomCommentRecommentFlag", inputMap);
@@ -45,14 +46,36 @@ public class StudyRoomCommentDAO {
 	
 	
 	
-	
 	// ============== 참여한 스터디룸의 댓글 ====================
+	public void insertStudyRoomEachBoardCommentWrite(StudyRoomCommentVO vo){
+		if(vo.getSr_comment_num()==-1){
+			session.insert("library.insertStudyRoomEachBoardCommentWrite", vo);
+			System.out.println(vo);
+		} else {
+			System.out.println(vo);
+			session.insert("library.insertStudyRoomEachBoardReCommentWrite", vo);
+		}
+	}
+	
+	public List<StudyRoomCommentVO> selectStudyRoomEachBoardRecommentList(Map<String, Integer> inputMap){
+		if(inputMap.get("map_start_rownum")==-1 && inputMap.get("map_end_rownum")==-1){
+			session.update("library.updateStudyRoomEachBoardCommentRecommentFlag", inputMap);
+			return session.selectList("library.selectStudyRoomEachBoardRecommentList", inputMap);
+		} else {
+			return session.selectList("library.selectStudyRoomEachBoardReCommentAddList", inputMap);
+		}
+	}
+	
 	public List<StudyRoomCommentVO> selectStudyRoomEachBoardCommentList(Map<String, Integer> inputMap){
 		return session.selectList("library.selectStudyRoomEachBoardCommentList", inputMap);
 	}
 	public int selectStudyRoomEachBoardCommentCnt(Map<String, Integer> inputMap){
 		return session.selectOne("library.selectStudyRoomEachBoardCommentCnt", inputMap);
 	}
+	
+	
+	
+	
 	
 	
 }

@@ -13,6 +13,17 @@ public class StudyRoomCommentVO {
 	
 	public StudyRoomCommentVO(){}
 	
+	
+	
+	public StudyRoomCommentVO(int sr_eb_num, int sr_num, int sr_comment_num, String sr_comment_id, String sr_comment_content) {
+		super();
+		this.sr_eb_num = sr_eb_num;
+		this.sr_num = sr_num;
+		this.sr_comment_num = sr_comment_num;
+		this.sr_comment_id = sr_comment_id;
+		this.sr_comment_content = sr_comment_content;
+	}
+
 	public StudyRoomCommentVO(int sr_num, int sr_comment_num, String sr_comment_id, String sr_comment_content) {
 		super();
 		this.sr_num = sr_num;
@@ -21,7 +32,7 @@ public class StudyRoomCommentVO {
 		this.sr_comment_content = sr_comment_content;
 	}
 
-	public StudyRoomCommentVO(int sr_num, String sr_comment_id, int sr_comment_recomment, String sr_comment_content) {
+	/*public StudyRoomCommentVO(int sr_num, String sr_comment_id, int sr_comment_recomment, String sr_comment_content) {
 		super();
 		this.sr_num = sr_num;
 		this.sr_comment_id = sr_comment_id;
@@ -36,7 +47,7 @@ public class StudyRoomCommentVO {
 		this.sr_comment_id = sr_comment_id;
 		this.sr_comment_date = sr_comment_date;
 		this.sr_comment_content = sr_comment_content;
-	}
+	}*/
 
 	public int getSr_num() {
 		return sr_num;
@@ -86,12 +97,16 @@ public class StudyRoomCommentVO {
 		this.sr_recomment_flag = sr_recomment_flag;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "StudyRoomCommentVO [sr_num=" + sr_num + ", sr_comment_num=" + sr_comment_num + ", sr_comment_id="
-				+ sr_comment_id + ", sr_comment_date=" + sr_comment_date + ", sr_comment_content=" + sr_comment_content
-				+ ", sr_recomment_num=" + sr_recomment_num + "]";
+		return "StudyRoomCommentVO [sr_eb_num=" + sr_eb_num + ", sr_num=" + sr_num + ", sr_comment_num="
+				+ sr_comment_num + ", sr_recomment_num=" + sr_recomment_num + ", sr_comment_id=" + sr_comment_id
+				+ ", sr_comment_date=" + sr_comment_date + ", sr_comment_content=" + sr_comment_content
+				+ ", sr_recomment_flag=" + sr_recomment_flag + "]";
 	}
+
 	
 	
 }

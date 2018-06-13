@@ -5,23 +5,93 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+table{
+	width: 40%;
+	border-collapse: collapse;
+	font-size: 13px;
+	left:10px;
+}
+tr.menuHead{
+	font-weight: bold;
+	text-align: center;
+}
+td{
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	padding: 7px;
+}
+td.middleText{
+	text-align: center;
+}
+div.commentForm{
+	
+}
+div.goList{
+	position: relative;
+	left: 25%;
+}
+ol.olForm{
+	width: 40%;
+	list-style: none;
+	padding-left: 0px;
+}
+li.liForm{
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	font-size: 13px;
+}
+li.a_recomment{
+	border-top: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	font-size: 13px;
+}
+a{
+	text-decoration: none;
+	font-size:13px;
+	color: #003399;
+}
+a:hover{
+	text-decoration: underline;
+}
+a:link,a:visited{
+	color:#003399;
+}
+</style>
 <script src="/library/resources/jquery-3.2.1.min.js"></script>
 <meta charset=UTF-8>
 <title>Insert title here</title>
 </head>
 <body>
 
-<a href="/library/studyRoomMyPage">마이페이지 가기</a>
+<!-- <a href="/library/studyRoomMyPage">마이페이지 가기</a> -->
 	
+<h4>${sr_num }번 스터디룸 게시물</h4>
 	<!-- ===================================글 상세 내용 !!==================== -->
 	<div>
 		<table>
-			<tr><td>${studyRoomDetail.getSr_num() } ${studyRoomDetail.getSr_cate()} ${studyRoomDetail.getSr_title() }	${studyRoomDetail.getSr_date() }</td></tr>
-			<tr><td>${studyRoomDetail.getM_name() }</td></tr>		
-			<tr><td>${studyRoomDetail.getSr_content() }</td></tr>
+			<tr><td class="middleText" width="8%">${studyRoomDetail.getSr_eb_num() }</td ><td class="middleText" width="15%">${studyRoomDetail.getSr_cate()}</td><td width="38%">${studyRoomDetail.getSr_title() }</td><td class="middleText" width="20%">${studyRoomDetail.getSr_date() }</td>
+				<td class="middleText"><a href="#" onclick="editPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEachBoardEdit}">수정</a></td><td><a href="#" onclick="delPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEachBoardEdit}">삭제</a></td></tr>
+			<tr><td style="font-weight: bold;">작성자</td><td colspan="5">${studyRoomDetail.getM_name() }</td></tr>		
+			<tr><td colspan="6" height="300px">${studyRoomDetail.getSr_content() }</td></tr>
+			<tr><td colspan="4"></td><td>댓글 <span id="studyRoomCommentCntId">${studyRoomCommentCnt }</span></td><td>조회 ${studyRoomDetail.getSr_view_num() }</td></tr>
+			<tr><td colspan="6"><p>첨부 파일 목록</p>
+			<%String [] downloadFileList = (String [])request.getAttribute("downloadFileList");
+			if(downloadFileList.length==0){
+			%>
+				<p>첨부된 파일이 없습니다.</p>
+			<%
+			} else{
+				for(String s:downloadFileList){
+				%>
+					<p><a href="<%=request.getContextPath() + "/studyRoomEachBoardDetail.file?sr_eb_num=" + request.getAttribute("sr_eb_num")+ "&sr_num=" + request.getAttribute("sr_num")+ "&filename=" + s%>"><%=s %></a></p>
+				<%
+				}
+			}
+			%>
+			</td></tr>
 		</table>
-		<p>댓글수  <span id="studyRoomCommentCntId">${studyRoomCommentCnt }</span></p>
-		<p>조회수 ${studyRoomDetail.getSr_view_num() }</p>
 	</div>
 	<!-- ================================================================= -->
 
@@ -30,10 +100,10 @@
 	<!-- ========================댓글 목록 ======================-->
 	<!-- ==================댓글 하나마다 리스트/table 로 !!!!============== -->
 	<div>
-	 	<ol id="sr_comment_add">
+	 	<ol class="olForm"  id="sr_comment_add">
 			<c:forEach items="${studyRoomComment }" var="list">
 				
-				<li id="sr_recomment_add_list${list.getSr_comment_num() }">
+				<li class="liForm" id="sr_recomment_add_list${list.getSr_comment_num() }">
 					<div>
 						<div>
 							<span>${list.getSr_comment_id() }</span>
@@ -52,7 +122,7 @@
 
 
 	<!-- ===============댓글 더보기 눌렀을 경우============================== -->
-	<div>
+	<div style="padding: 10px; ">
 		<input type="button" id="sr_comment_add_btn" value="댓글 더보기<c:if test="${studyRoomCommentCnt < 5 }">(0)</c:if><c:if test="${studyRoomCommentCnt >= 5 }">(${studyRoomCommentCnt-5})</c:if>" ><br>
 		<input type="hidden" id="sr_comment_add_num" value="<c:if test="${studyRoomCommentCnt < 5 }">${studyRoomCommentCnt }</c:if><c:if test="${studyRoomCommentCnt >= 5 }">6</c:if>">
 	</div>
@@ -61,17 +131,19 @@
 		
 		
 	<!-- ====================댓글 다는 양식!!!! ==================-->
-	<div id="comment">
-		<p><%=session.getAttribute("member_id") %> 
-			<input type="text" class="sr_comment_content_class" id="sr_comment_content_id" name="sr_comment_content" placeholder="댓글을 입력해주세요">
-			<input type="button" id="sr_comment_btn" value="등록">
-		</p>
+	<div class="commentForm" id="comment" >
+		<%-- <p><%=session.getAttribute("member_id") %> --%> 
+		<textarea class="sr_comment_content_class" id="sr_comment_content_id" name="sr_comment_content" placeholder="댓글을 입력해주세요" rows="5" cols="80" placeholder="내용을 입력하세요"></textarea>
+			<input style="height: 80px; width:70px; position:relative; bottom: 35px;" type="button" id="sr_comment_btn" value="등록">
 	</div>
+	<input type="hidden" id="sr_eb_num" name="sr_eb_num" value="${sr_eb_num }">
 	<input type="hidden" id="sr_num" name="sr_num" value="${studyRoomDetail.getSr_num() }">
 	<input type="hidden" id="sr_comment_id" value=<%=session.getAttribute("member_id") %>>
 	<input type="hidden" id="sr_m_id" value="${studyRoomDetail.getM_id() }">
 	<input type="hidden" id="sr_m_name" value="${studyRoomDetail.getM_name() }">
 	<!-- ===================================================-->
+	
+	<div class="goList" ><input type="button" onclick="history.back();" value="목록"></div>
 	
 </body>
 
@@ -80,17 +152,18 @@
 
 	// 답글 버튼 클릭 시
 	function recommentAdd(comment_num){
+		var sr_eb_num = $('#sr_eb_num').val();
 		var sr_num = $('#sr_num').val();
 		$('.a_recomment').remove();
 		$.ajax({
 			type: 'post',		// 글 번호, 보여줄 댓글 갯수, 대댓글일 경우 댓글 번호/아닐경우 -1, 댓글단 아이디, 댓글 내용
-			data: {'sr_num':sr_num, 'add_num_start':-1, 'add_num_end':-1, 'sr_comment_num':comment_num},
-			url: '/library/studyRoomRecommentAdd',
+			data: {'sr_eb_num':sr_eb_num, 'sr_num':sr_num, 'add_num_start':-1, 'add_num_end':-1, 'sr_comment_num':comment_num},
+			url: '/library/studyRoomEachBoardRecommentAdd',
 			dataType : 'json',
 			success:function(data){	
 				for(var i=0; i<data.length; i++){
 					$('#sr_recomment_add_list' +comment_num).after("<li class=\"a_recomment\">"
-							+ "<div><div><span>"+ data[i].sr_comment_id + "</span><span>" + data[i].sr_comment_date 
+							+ "<div><div><span>└</span><span>"+ data[i].sr_comment_id + "</span><span>" + data[i].sr_comment_date 
 							+ "</span></div><p>" + data[i].sr_comment_content +"</p></div></li>");
 				}
 				$('#sr_recomment_add_list' + comment_num).prepend("<input type=\"hidden\" class=\"a_recomment\" id=\"recommentcnt" + comment_num +"\" value=\"" + data.length +"\">");
@@ -98,7 +171,8 @@
 		});
 		
 		$('#sr_recomment_add_list' + comment_num).after("<li class=\"a_recomment\">"
-				+ "<div><p>" + $('#sr_comment_id').val() +"<input type=\"text\" class=\" \" id=\"sr_recomment_content_id\" placeholder=\"댓글을 입력해주세요\"><input type=\"button\" id=\"sr_comment_btn_recomment\" value=\"등록\"></p></div></li>");
+				+ "<div><p><textarea id=\"sr_recomment_content_id\" placeholder=\"댓글을 입력해주세요\" rows=\"5\" cols=\"80\" placeholder=\"내용을 입력하세요\"></textarea>"
+				+ "<input style=\"height: 80px; width:70px; position:relative; bottom: 35px;\" type=\"button\" id=\"sr_comment_btn_recomment\" value=\"등록\"></p></div></li>");
 		$('#sr_recomment_add_list' + comment_num).append("<input type=\"hidden\" class=\"a_recomment\" id=\"recommentCommentNum\" value=\""+ comment_num +"\">");
 	}	
 	
@@ -106,6 +180,7 @@
 	// 답글에서 등록 버튼 눌렀을 때
 	$("body").on('click', '#sr_comment_btn_recomment', 
 		function(){
+			var sr_eb_num = $('#sr_eb_num').val();
 			var sr_comment_num = $('#recommentCommentNum').val();		// ---> sr_comment_num의 값임 !!
 			var add_num_start = parseInt($('#recommentcnt' + sr_comment_num).val()) + parseInt(1);
 			var add_num_end = parseInt($('#recommentcnt' + + sr_comment_num).val()) + parseInt(1);
@@ -116,14 +191,14 @@
 			
 			$.ajax({
 				type: 'post',		// 글 번호, 보여줄 댓글 갯수, 대댓글일 경우 댓글 번호/아닐경우 -1, 댓글단 아이디, 댓글 내용
-				data: {'sr_num':sr_num, 'add_num_start':add_num_start, 'add_num_end':add_num_end, 'sr_comment_num':sr_comment_num, 'sr_comment_id':sr_comment_id, 'sr_comment_content':sr_comment_content },
-				url: '/library/studyRoomCommentWrite',
+				data: {'sr_eb_num':sr_eb_num, 'sr_num':sr_num, 'add_num_start':add_num_start, 'add_num_end':add_num_end, 'sr_comment_num':sr_comment_num, 'sr_comment_id':sr_comment_id, 'sr_comment_content':sr_comment_content },
+				url: '/library/studyRoomEachBoardCommentWrite',
 				dataType : 'json',
 				success:function(data){	
 					for(var i=0; i<data.length; i++){
 						
 						$('#sr_recomment_add_list' +sr_comment_num).after("<li class=\"a_recomment\">"
-								+ "<div><div><span>"+ data[i].sr_comment_id + "</span><span>" + data[i].sr_comment_date 
+								+ "<div><div><span>└</span><span>"+ data[i].sr_comment_id + "</span><span>" + data[i].sr_comment_date 
 								+ "</span></div><p>" + data[i].sr_comment_content +"</p></div></li>");
 					}
 					
@@ -148,21 +223,21 @@
 			$('#sr_comment_add_num').val((parseInt(add_num_end) + parseInt(1)));
 			$('#sr_comment_add_btn').val("댓글 더보기(0)");
 
+			var sr_eb_num = $('#sr_eb_num').val();
 			var sr_num = $('#sr_num').val();
 			var sr_comment_id = $('#sr_comment_id').val();
 			var sr_comment_content = $('#sr_comment_content_id').val();
 			
 			/* alert(add_num_start);
 			alert(add_num_end); */
-			
-			$.ajax({
+			$.ajax({				// sr_num은 글번호 들어가고, sr_comment_num -1로 똑같이 
 				type: 'post',		// 글 번호, 보여줄 댓글 갯수, 대댓글일 경우 댓글 번호/아닐경우 -1, 댓글단 아이디, 댓글 내용
-				data: {'sr_num':sr_num, 'add_num_start':add_num_start, 'add_num_end':add_num_end, 'sr_comment_num':-1, 'sr_comment_id':sr_comment_id, 'sr_comment_content':sr_comment_content },
-				url: '/library/studyRoomCommentWrite',
+				data: {'sr_eb_num':sr_eb_num, 'sr_num':sr_num, 'add_num_start':add_num_start, 'add_num_end':add_num_end, 'sr_comment_num':-1, 'sr_comment_id':sr_comment_id, 'sr_comment_content':sr_comment_content },
+				url: '/library/studyRoomEachBoardCommentWrite',
 				dataType : 'json',
 				success:function(data){	
 					for(var i=0; i<data.length; i++){
-						$('#sr_comment_add').append("<li id=\"sr_recomment_add_list" + data[i].sr_comment_num + "\">"
+						$('#sr_comment_add').append("<li class=\"liForm\" id=\"sr_recomment_add_list" + data[i].sr_comment_num + "\">"
 								+ "<div><div><span>"+ data[i].sr_comment_id + "</span><span>" + data[i].sr_comment_date 
 								+ "</span><span><a href=\"#\" onclick=\"recommentAdd('" + data[i].sr_comment_num +"');\">답글</a></span>" 
 								+ "</div><p>" + data[i].sr_comment_content +"</p></div></li>");
@@ -175,6 +250,7 @@
 	// 댓글 더보기 클릭 시 json
 	$('#sr_comment_add_btn').on('click', 
 		function(){
+			var sr_eb_num = $('#sr_eb_num').val();		
 			var sr_num = $('#sr_num').val();					// 글번호 받아오기
 			var add_num_start = $('#sr_comment_add_num').val();		/// 앞으로 추가할 댓글의 rownum 번호 받아오기
 			var add_num_end = parseInt(add_num_start) + parseInt(4);
@@ -193,12 +269,12 @@
 			
 			$.ajax({
 				type: 'post',
-				data: {'sr_num':sr_num, 'add_num_start':add_num_start, 'add_num_end':add_num_end},
-				url: '/library/studyRoomCommentAdd',
+				data: {'sr_eb_num':sr_eb_num, 'sr_num':sr_num, 'add_num_start':add_num_start, 'add_num_end':add_num_end},
+				url: '/library/studyRoomEachBoardCommentAdd',
 				dataType : 'json',
 				success:function(data){				
 					for(var i=0; i<data.length; i++){
-						$('#sr_comment_add').append("<li id=\"sr_recomment_add_list" + data[i].sr_comment_num + "\">"
+						$('#sr_comment_add').append("<li class=\"liForm\" id=\"sr_recomment_add_list" + data[i].sr_comment_num + "\">"
 								+ "<div><div><span>"+ data[i].sr_comment_id + "</span><span>" + data[i].sr_comment_date 
 								+ "</span><span><a href=\"#\" onclick=\"recommentAdd('" + data[i].sr_comment_num +"');\">답글</a></span>" 
 								+ "</div><p>" + data[i].sr_comment_content +"</p></div></li>");
@@ -207,6 +283,26 @@
 			});		// ajax 종료
 	});			// function 종료
 
+	
+	function editPwCheck(sr_pw){
+		var inputString = prompt("비밀번호를 입력하세요");
+		if(inputString == sr_pw){		// 글 수정할 경우 
+			//location.href = '/library/studyRoomEdit?sr_num=' + $('#sr_num').val();
+		} else {
+			alert("비밀번호가 틀렸습니다.");
+		}
+	}
+	function delPwCheck(sr_pw){
+		var inputString = prompt("비밀번호를 입력하세요");
+		if(inputString == sr_pw){
+			var result = confirm("정말로 삭제하시겠습니까?");
+			if(result){		// 삭제할 경우
+				location.href = '/library/studyRoomEachBoardDelete?sr_eb_num=' + $('#sr_eb_num').val() + '&sr_num=' + $('#sr_num').val();
+			}
+		} else {
+			alert("비밀번호가 틀렸습니다.");
+		}
+	}
 	
 </script>
 

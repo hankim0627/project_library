@@ -44,7 +44,9 @@ p {
 			</tr>
 		</table>
 	</form>
-
+	
+	<p><input type="button" onclick="location.href='/library/new'" value="회원가입"></p>
+	<p><input type="button" onclick="location.href='/library/librarylist'" value="도서관 선택하기"></p>
 	<p> ${error } </p>
 
 </body>

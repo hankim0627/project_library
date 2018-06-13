@@ -33,8 +33,8 @@
 	</select>
 	
 	<!-- 참여한 스터디룸 게시글 전체 갯수  -->
-	<select id="selectStudyRoomEachBoardListCnt" resultType="int">
-		select count(*) from studyroomeachboard
+	<select id="selectStudyRoomEachBoardListCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from studyroomeachboard where sr_num=#{map_sr_num}
 	</select> 
 	
 	
@@ -121,6 +121,10 @@
 	<insert id="insertStudyRoomEachBoardWrite" parameterType="studyRoomEachBoardVO">
 		insert into studyroomeachboard values (sr_eb_num.nextval, #{sr_num}, #{sr_title}, #{l_id}, #{sr_content}, #{m_id}, #{sr_pw}, sysdate, #{sr_cate}, 0, #{sr_file_name1}, #{sr_file_name2}, #{sr_file_name3})
 	</insert>
+	
+	<select id="selectStudyRoomEachBoardFileUploadNum" resultType="int">
+		select max(sr_eb_num)+1 from studyroomeachboard
+	</select>
 
 
 
@@ -159,7 +163,7 @@
 	<insert id="insertStudyRoomCommentWrite" parameterType="studyRoomCommentVO">
 		insert into sr_comment values (#{sr_num}, sr_comment_num.nextval, #{sr_comment_id}, sysdate, #{sr_comment_content}, -1)
 	</insert>
-	
+
 	<!-- 댓글의 댓글 입력시 -->
 	<insert id="insertStudyRoomReCommentWrite" parameterType="studyRoomCommentVO">
 		insert into sr_recomment values (#{sr_num}, #{sr_comment_num}, sr_recomment_num.nextval, #{sr_comment_id}, sysdate, #{sr_comment_content})
@@ -189,6 +193,52 @@
 		where r between #{map_start_rownum} and #{map_end_rownum}
 	</select>
 	
+
+
+	
+	<!-- ====================================참여한 스터디룸 게시판들 마다의 댓글 ====================================-->
+	<!-- 그냥 댓글시  -->
+	<insert id="insertStudyRoomEachBoardCommentWrite" parameterType="studyRoomCommentVO">
+		insert into sr_eb_comment values (#{sr_eb_num}, #{sr_num}, sr_eb_comment_num.nextval, #{sr_comment_id}, sysdate, #{sr_comment_content}, -1)
+	</insert>
+	
+	<!-- 댓글의 댓글 입력시 -->
+	<insert id="insertStudyRoomEachBoardReCommentWrite" parameterType="studyRoomCommentVO">
+		insert into sr_eb_recomment values (#{sr_eb_num}, #{sr_num}, #{sr_comment_num}, sr_eb_recomment_num.nextval, #{sr_comment_id}, sysdate, #{sr_comment_content})
+	</insert>
+
+	<update id="updateStudyRoomEachBoardCommentRecommentFlag" parameterType="java.util.Map" >
+		update sr_eb_comment set sr_recomment_flag=1 where sr_eb_num=#{map_sr_eb_num} and sr_num=#{map_sr_num} and sr_comment_num=#{map_sr_comment_num}
+	</update>
+	
+	<select id="selectStudyRoomEachBoardRecommentList" parameterType="java.util.Map" resultType="studyRoomCommentVO">
+		select * 
+		from sr_eb_recomment 
+		where sr_eb_num=#{map_sr_eb_num} and sr_num=#{map_sr_num} and sr_comment_num=#{map_sr_comment_num} 
+		order by sr_comment_date asc 
+	</select>
+	<select id="selectStudyRoomEachBoardReCommentAddList" parameterType="java.util.Map" resultType="studyRoomCommentVO">
+		select *  
+		from (
+			select rownum r, imsi_t.*   
+			from (
+					select * 
+					from sr_eb_recomment 
+					where sr_eb_num=#{map_sr_eb_num} and sr_num=#{map_sr_num} and sr_comment_num=#{map_sr_comment_num} 
+					order by sr_comment_date asc 
+			) imsi_t
+		)
+		where r between #{map_start_rownum} and #{map_end_rownum}
+	</select>
+	<!-- ================================================================================================ -->
+
+
+
+
+
+
+
+
 
 	
 	<!-- ====================글 들어갔을 때 댓글보기 =============-->
@@ -307,4 +357,41 @@
 	</select> 
 	
 	
+	
+	
+	<!-- 스터디룸 게시글 삭제 -->
+	<delete id="deleteStudyRoomWrite" parameterType="java.util.Map">
+		delete from studyroom where l_id=#{map_l_id} and sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomComment" parameterType="java.util.Map">
+		delete from sr_comment where sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomReComment" parameterType="java.util.Map">
+		delete from sr_recomment where sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomEachBoard" parameterType="java.util.Map">
+		delete from studyroomeachboard where sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomEBComment" parameterType="java.util.Map">
+		delete from sr_eb_comment where sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomEBReComment" parameterType="java.util.Map">
+		delete from sr_eb_recomment where sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomJoinList" parameterType="java.util.Map">
+		delete from studyroomjoinlist where sr_num=#{map_sr_num}
+	</delete>
+	
+	
+	
+	<!-- 참여한 스터디룸 게시글 삭제 -->
+	<delete id="deleteStudyRoomEachBoardWrite" parameterType="java.util.Map">
+		delete from studyroomeachboard where l_id=#{map_l_id} and sr_num=#{map_sr_num} and sr_eb_num=#{map_sr_eb_num}
+	</delete>
+	<delete id="deleteStudyRoomEachBoardComment" parameterType="java.util.Map">
+		delete from sr_eb_comment where sr_eb_num=#{map_sr_eb_num} and sr_num=#{map_sr_num}
+	</delete>
+	<delete id="deleteStudyRoomEachBoardReComment" parameterType="java.util.Map">
+		delete from sr_eb_recomment where sr_eb_num=#{map_sr_eb_num} and sr_num=#{map_sr_num}
+	</delete>
 </mapper>

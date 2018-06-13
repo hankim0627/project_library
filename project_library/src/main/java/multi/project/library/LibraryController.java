@@ -46,7 +46,7 @@ public class LibraryController {
 		
 		if(session.getAttribute("member_id") != null){
 			System.out.println(session.getAttribute("member_id"));
-			session.invalidate();
+			session.removeAttribute("member_id");
 		}
 	
 		return "redirect:/librarylist";
@@ -77,6 +77,8 @@ public class LibraryController {
 			mv.setViewName("redirect:/LibraryMain");
 			session.setAttribute("member_id", id);
 			session.setAttribute("l_id", vo.getL_id());
+			System.out.println(session.getAttribute("member_id"));
+			System.out.println("l_id" + vo.getL_id());
 		}
 
 		return mv;
