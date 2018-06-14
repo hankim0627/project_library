@@ -17,7 +17,7 @@ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	websocket = new WebSocket("ws://localhost:9090/library/chatws");
+	websocket = new WebSocket("ws://70.12.109.104:9090/library/chatws");
 	websocket.onopen = onOpen;
 	websocket.onclose = onClose;
 	websocket.onmessage = onMessage;
