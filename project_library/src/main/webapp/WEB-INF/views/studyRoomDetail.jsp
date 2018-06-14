@@ -29,6 +29,7 @@ div.commentForm{
 }
 div.goList{
 	text-align: center;
+	width: 500px;
 }
 ol.olForm{
 	width: 80%;
@@ -68,7 +69,7 @@ a:link,a:visited{
 	<div>
 		<table>
 			<tr><td class="middleText" width="7%">${studyRoomDetail.getSr_num() }</td><td class="middleText" width="16%">[${studyRoomDetail.getSr_cate()}]</td><td width="38%">${studyRoomDetail.getSr_title() }</td><td class="middleText" width="20%">${studyRoomDetail.getSr_date() }</td>
-				<td class="middleText"><a href="#" onclick="editPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEdit}">수정</a></td><td class="middleText"><a href="#" onclick="delPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEdit}">삭제</a></td></tr>
+				<td class="middleText"><%-- <a href="#" onclick="editPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEdit}">수정</a> --%></td><td class="middleText"><a href="#" onclick="delPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEdit}">삭제</a></td></tr>
 			<tr><td style="font-weight: bold;">작성자</td><td colspan="5" >${studyRoomDetail.getM_name() }</td></tr>		
 			<tr><td colspan="6" height="300px">${studyRoomDetail.getSr_content() }</td></tr>
 			<tr><td colspan="4"></td><td>댓글  <span id="studyRoomCommentCntId">${studyRoomCommentCnt }</span></td><td>조회 ${studyRoomDetail.getSr_view_num() }</td></tr>

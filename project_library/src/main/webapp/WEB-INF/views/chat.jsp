@@ -9,10 +9,10 @@
 
 <link rel="stylesheet" 
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-
+<!-- 
 <style type="text/css">
-body{background-color: rgb(217, 217, 217); text-align: center;}
-</style>
+body{ text-align: center;}
+</style> -->
 
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
@@ -44,16 +44,16 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<h2>채팅</h2>
+<h4 style="font-size: 15px; font-weight: bold; top: 15px; position: relative; left: 10px;">채팅</h4>
 
-<div id="chatArea">
+<div id="chatArea" style="top: 40px; position: relative; left: 10px; font-size: 13px;">
 
 </div>
-<!-- <div style="position: absolute;bottom: 0;"> -->
-<input type="text" id="message">
-<input type="button" value="메세지 전송" id="sendMsg">
-</div>
 
+<div style="left: 10px; position: relative;">
+<input type="text" id="message" style="height:20px; position: relative; top: 50px;">
+<input type="button" value="메세지 전송" id="sendMsg" style="height:25px; font-size: 13px; position: relative; top: 50px;">
+</div>
 
 </body>
 </html>

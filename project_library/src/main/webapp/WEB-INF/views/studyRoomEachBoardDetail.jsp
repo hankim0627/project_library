@@ -8,7 +8,7 @@
 <style>
 
 table{
-	width: 40%;
+	width: 650px;
 	border-collapse: collapse;
 	font-size: 13px;
 	left:10px;
@@ -31,9 +31,10 @@ div.commentForm{
 div.goList{
 	position: relative;
 	left: 25%;
+	width: 40px;
 }
 ol.olForm{
-	width: 40%;
+	width: 650px;
 	list-style: none;
 	padding-left: 0px;
 }
@@ -41,11 +42,13 @@ li.liForm{
 	border-top: 1px solid #BDBDBD;
 	border-bottom: 1px solid #BDBDBD;
 	font-size: 13px;
+	width: 650px;
 }
 li.a_recomment{
 	border-top: 1px solid #BDBDBD;
 	border-bottom: 1px solid #BDBDBD;
 	font-size: 13px;
+	width: 650px;
 }
 a{
 	text-decoration: none;
@@ -67,12 +70,12 @@ a:link,a:visited{
 
 <!-- <a href="/library/studyRoomMyPage">마이페이지 가기</a> -->
 	
-<h4>${sr_num }번 스터디룸 게시물</h4>
+<h4 style="width: 650px;">${sr_num }번 스터디룸 게시물</h4>
 	<!-- ===================================글 상세 내용 !!==================== -->
 	<div>
 		<table>
 			<tr><td class="middleText" width="8%">${studyRoomDetail.getSr_eb_num() }</td ><td class="middleText" width="15%">${studyRoomDetail.getSr_cate()}</td><td width="38%">${studyRoomDetail.getSr_title() }</td><td class="middleText" width="20%">${studyRoomDetail.getSr_date() }</td>
-				<td class="middleText"><a href="#" onclick="editPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEachBoardEdit}">수정</a></td><td><a href="#" onclick="delPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEachBoardEdit}">삭제</a></td></tr>
+				<td class="middleText"><%-- <a href="#" onclick="editPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEachBoardEdit}">수정</a> --%></td><td><a href="#" onclick="delPwCheck('${studyRoomDetail.getSr_pw()}');" style="${studyRoomEachBoardEdit}">삭제</a></td></tr>
 			<tr><td style="font-weight: bold;">작성자</td><td colspan="5">${studyRoomDetail.getM_name() }</td></tr>		
 			<tr><td colspan="6" height="300px">${studyRoomDetail.getSr_content() }</td></tr>
 			<tr><td colspan="4"></td><td>댓글 <span id="studyRoomCommentCntId">${studyRoomCommentCnt }</span></td><td>조회 ${studyRoomDetail.getSr_view_num() }</td></tr>
@@ -133,7 +136,7 @@ a:link,a:visited{
 	<!-- ====================댓글 다는 양식!!!! ==================-->
 	<div class="commentForm" id="comment" >
 		<%-- <p><%=session.getAttribute("member_id") %> --%> 
-		<textarea class="sr_comment_content_class" id="sr_comment_content_id" name="sr_comment_content" placeholder="댓글을 입력해주세요" rows="5" cols="80" placeholder="내용을 입력하세요"></textarea>
+		<textarea class="sr_comment_content_class" id="sr_comment_content_id" name="sr_comment_content" placeholder="댓글을 입력해주세요" rows="5" cols="70" placeholder="내용을 입력하세요"></textarea>
 			<input style="height: 80px; width:70px; position:relative; bottom: 35px;" type="button" id="sr_comment_btn" value="등록">
 	</div>
 	<input type="hidden" id="sr_eb_num" name="sr_eb_num" value="${sr_eb_num }">
@@ -171,7 +174,7 @@ a:link,a:visited{
 		});
 		
 		$('#sr_recomment_add_list' + comment_num).after("<li class=\"a_recomment\">"
-				+ "<div><p><textarea id=\"sr_recomment_content_id\" placeholder=\"댓글을 입력해주세요\" rows=\"5\" cols=\"80\" placeholder=\"내용을 입력하세요\"></textarea>"
+				+ "<div><p><textarea id=\"sr_recomment_content_id\" placeholder=\"댓글을 입력해주세요\" rows=\"5\" cols=\"60\" placeholder=\"내용을 입력하세요\"></textarea>"
 				+ "<input style=\"height: 80px; width:70px; position:relative; bottom: 35px;\" type=\"button\" id=\"sr_comment_btn_recomment\" value=\"등록\"></p></div></li>");
 		$('#sr_recomment_add_list' + comment_num).append("<input type=\"hidden\" class=\"a_recomment\" id=\"recommentCommentNum\" value=\""+ comment_num +"\">");
 	}	

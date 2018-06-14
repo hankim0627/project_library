@@ -32,6 +32,14 @@ public class StudyRoomEachBoardController {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 	
+	@RequestMapping(value="/studyRoomEachBoardShow")
+	public ModelAndView selectStudyRoomEachBoardShow(int sr_num){
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("sr_num", sr_num);
+		mv.setViewName("/studyRoomEachBoardShow");
+		return mv;
+	}
+	
 	// 스터디룸마다의 게시판 열기
 	@RequestMapping(value="/studyRoomEachBoard")
 	public ModelAndView selectStudyRoomEachBoard(HttpSession session, @RequestParam(value="page", defaultValue="1") int page, int sr_num, @RequestParam(value="fileUploadIsSuccess", defaultValue="1") int fileUploadIsSuccess){
@@ -167,9 +175,10 @@ public class StudyRoomEachBoardController {
 		return mv;
 	}
 	
+	// 파일 다운로드	
 	@RequestMapping(value="studyRoomEachBoardDetail.file")
 	public void studyRoomEachBoardFileDownload(HttpServletResponse response, int sr_eb_num, int sr_num, String filename) throws IOException{
-		File f = new File("c:/upload/studyroom" + sr_num + "/write" + sr_eb_num + "/");
+		File f = new File("c:/upload/studyroom" + sr_num + "/write" + sr_eb_num + "/", filename);
 		response.setContentType("application/download");
 		response.setContentLength((int)f.length());
 		response.setHeader("Content-Disposition", "attachment;filename=\"" + filename+ "\"");

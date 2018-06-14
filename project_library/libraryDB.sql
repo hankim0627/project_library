@@ -66,6 +66,7 @@ create table sr_eb_recomment (
 	sr_comment_content		varchar2(100)
 );
 drop table sr_eb_recomment;
+drop table sr_eb_comment;
 select * from sr_eb_recomment;
 select * from sr_eb_comment;
 select * from studyroomeachBoard;
@@ -90,9 +91,9 @@ create table studyroomeachBoard(
 
 
 select * from studyroomeachboard;
-
-
-
+delete from studyroomeachboard;
+drop sequence sr_eb_num;
+create sequence sr_eb_num;
 
 
 

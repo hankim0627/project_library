@@ -6,7 +6,7 @@
 <head>
 <style>
 table{
-	width: 50%;
+	width: 650px;			/* 원래 50% */
 	border-collapse: collapse;
 	font-size: 13px;
 }
@@ -35,7 +35,7 @@ a:link,a:visited{
 }
 div.pageNumSt{
 	position: absolute;
-	width: 50%;
+	width: 650px;
 	text-align: center;
 	padding: 20px;
 }
@@ -58,9 +58,9 @@ div.searchForm{
 <h4>${sr_num }번 스터디룸</h4>
 
 <table>
-	<tr class="menuHead"><td width="7%">글번호</td>
+	<tr class="menuHead"><td width="9%">글번호</td>
 						<td width="14%">카테고리</td>
-						<td width="38%">제목</td><td width="11%">작성자</td>
+						<td width="36%">제목</td><td width="11%">작성자</td>
 						<td width="20%">작성일</td>
 						<td width="10%">조회수</td></tr>
 	<c:forEach items="${studyRoomEachBoardList}" var="list">

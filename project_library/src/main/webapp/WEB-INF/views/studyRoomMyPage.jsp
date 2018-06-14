@@ -236,7 +236,8 @@ a.myPageSelect{
 	
 	function goStudyRoomBoard(sr_num){
 		var newWindow = window.open("about:blank");
-		newWindow.location.href = '/library/studyRoomEachBoard?sr_num=' + sr_num;
+		//newWindow.location.href = '/library/studyRoomEachBoard?sr_num=' + sr_num;
+		newWindow.location.href = '/library/studyRoomEachBoardShow?sr_num=' + sr_num;
 	}
 	
 

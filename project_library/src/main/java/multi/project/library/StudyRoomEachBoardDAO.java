@@ -43,7 +43,7 @@ public class StudyRoomEachBoardDAO {
 	// 파일 업로드 폴더명을 위해서 sr_eb_num 갖고옴
 	public int selectStudyRoomEachBoardFileUploadNum (){
 		if(session.selectOne("library.selectStudyRoomEachBoardFileUploadNum")==null){
-			return 0;
+			return 1;
 		} else {
 			return session.selectOne("library.selectStudyRoomEachBoardFileUploadNum");
 		}
