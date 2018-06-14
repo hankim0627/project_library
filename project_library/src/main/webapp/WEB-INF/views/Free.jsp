@@ -16,7 +16,7 @@
 .re1
 {border: 0px;
  border-right : solid black 2px;
-background-color: lightgray;}
+/* background-color: lightgray; */}
 .re2
 {border: 0px;}
 .ts
@@ -189,7 +189,7 @@ font-weight: bold;}
 				
 			result2 = 
 				"<tr class='retr'><td class='re1'></td><td class='re2'>"
-				+"<img alt='댓글' src='/library/resources/reply2.jpg'></td><td class='re2'>"
+				+"<img alt='댓글' src='/library/resources/reply.jpg'></td><td class='re2'>"
 				+"<form action='/library/ReplyDelete' method='post'>"+server2[i].fr_Content
 				+"<input class='deletebtn'name='deleteReply'type='image' value='"+deleteReply+"' src='/library/resources/xbutton.png' width='13' height='13'>"
 				+"<input type='password' name='deletePw' style='width:30px'></form>"//댓글삭제
@@ -202,7 +202,7 @@ font-weight: bold;}
 			}else{
 			result2=
 				"<tr class='retr'><td class='re1'></td><td class='re2'>"
-				+"<img alt='댓글' src='/library/resources/reply2.jpg'></td><td class='re2'>"
+				+"<img alt='댓글' src='/library/resources/reply.jpg'></td><td class='re2'>"
 				+server2[i].fr_Content
 				+"</td><td class='re2'>"
 				+"<img alt='이모티콘' class='rounded-circle' src='/library/resources/"+server2[i].m_Pic+"' width='17' height='17'>"
@@ -248,7 +248,7 @@ font-weight: bold;}
 	    				
 	    				result3 = 
 	     					"<tr class='retr'><td class='re1'></td><td class='re2'>"
-	     					+"<img alt='댓글' src='/library/resources/reply2.jpg'></td><td class='re2'>"
+	     					+"<img alt='댓글' src='/library/resources/reply.jpg'></td><td class='re2'>"
 	     					+"<form action='/library/ReplyDelete' method='post'>"+server3[i].fr_Content
 	     					+"<input class='deletebtn'name='deleteReply'type='image' value='"+deleteReply+"' src='/library/resources/xbutton.png' width='13' height='13'>"
 	     					+"<input type='password' name='deletePw' style='width:30px'></form>"
@@ -261,7 +261,7 @@ font-weight: bold;}
 	 	    			}else{
 	 	    			result3=
 	 	    				"<tr class='retr'><td class='re1'></td><td class='re2'>"
-	     					+"<img alt='댓글' src='/library/resources/reply2.jpg'></td><td class='re2'>"
+	     					+"<img alt='댓글' src='/library/resources/reply.jpg'></td><td class='re2'>"
 	     					+server3[i].fr_Content
 	     					+"</td><td class='re2'>"
 	     					+"<img alt='이모티콘' class='rounded-circle' src='/library/resources/"+server3[i].m_Pic+"' width='17' height='17'>"
