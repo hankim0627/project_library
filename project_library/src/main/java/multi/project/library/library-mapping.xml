@@ -4,12 +4,13 @@
 
 <mapper namespace="store">
 
-	<select id="allWithPage" parameterType="int" resultType="store">
+	<select id="allWithPage" parameterType="java.util.Map" resultType="store">
 		<![CDATA[
 		SELECT * FROM
 		(SELECT ROWNUM AS R, ST.* FROM
 		(SELECT * FROM STORE ORDER BY ST_DATE DESC) ST) S
-		WHERE S.R >= (#{a}-1)*10+1 AND S.R <= #{a}*10
+		WHERE S.R >= (#{page}-1)*10+1 AND S.R <= #{page}*10
+		AND L_ID = #{l_id}
 		]]>
 	</select>
 

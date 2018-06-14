@@ -12,8 +12,8 @@ public class StoreDAO {
 	@Autowired
 	SqlSession session;
 	
-	public List<StoreVO> selectAllWithPage(int page){
-		return session.selectList("store.allWithPage", page);
+	public List<StoreVO> selectAllWithPage(Map<String, String> map){
+		return session.selectList("store.allWithPage", map);
 	}
 	
 	public int selectAllCnt(){

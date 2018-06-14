@@ -11,8 +11,8 @@ public class StoreServiceImpl implements StoreService{
 	@Autowired
 	StoreDAO storeDAO;
 
-	public List<StoreVO> selectAllWithPage(int page) {
-		return storeDAO.selectAllWithPage(page);
+	public List<StoreVO> selectAllWithPage(Map<String, String> map) {
+		return storeDAO.selectAllWithPage(map);
 	}
 
 	public int selectAllCnt() { //전체갯수 출력

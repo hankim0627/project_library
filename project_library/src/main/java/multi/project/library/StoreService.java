@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface StoreService {
-	public List<StoreVO> selectAllWithPage(int page);
+	public List<StoreVO> selectAllWithPage(Map<String, String> map);
 	public int selectAllCnt();
 	public StoreVO selectOneWithStNum(String stnum);
 	public void insertStore(StoreVO vo);

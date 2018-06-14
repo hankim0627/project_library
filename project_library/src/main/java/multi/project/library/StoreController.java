@@ -24,10 +24,16 @@ public class StoreController {
 	//중고 게시판 리스트
 	@RequestMapping(value="/store", method=RequestMethod.GET)
 	public ModelAndView getStoreAllPage(
-			@RequestParam(value="page", defaultValue="1") String page){
+			@RequestParam(value="page", defaultValue="1") String page,
+			HttpSession session){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("store");
-		List<StoreVO> list = service.selectAllWithPage(Integer.parseInt(page));
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("page", page);
+		map.put("l_id", String.valueOf(session.getAttribute("l_id")));
+		
+		List<StoreVO> list = service.selectAllWithPage(map);
 		mv.addObject("storeList", list);	//store게시물
 		
 		int cntAll = service.selectAllCnt(); //모든 데이터 갯수
