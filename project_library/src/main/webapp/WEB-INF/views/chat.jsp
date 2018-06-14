@@ -11,7 +11,7 @@
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 <style type="text/css">
-body{background-color: rgb(217, 217, 217); text-align: center;}
+body{/* background-color: rgb(217, 217, 217); */ text-align: center;}
 </style>
 
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>

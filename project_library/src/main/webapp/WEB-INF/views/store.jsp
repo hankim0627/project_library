@@ -11,7 +11,7 @@
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 <style type="text/css">
-body{background-color: rgb(217, 217, 217); text-align: center;}
+body{/* background-color: rgb(217, 217, 217); */ text-align: center;}
 table{text-align: center; border: solid 1px; margin: 0px auto;}
 td{border: solid 1px;}
 #result_content{background-color: pink;}

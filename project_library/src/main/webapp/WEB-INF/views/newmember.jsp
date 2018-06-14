@@ -17,7 +17,7 @@ h1 {
 
 body {
 	text-align: center;
-	background-color: rgb(217, 217, 217);
+	/* background-color: rgb(217, 217, 217); */
 	
 }
 </style>

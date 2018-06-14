@@ -53,8 +53,8 @@ a, a:hover,a:VISITED,a:ACTIVE,a:LINK
 display: inline-block;
 font-weight: bold;} 
 #myinfo{color: black;}
-body
-{background-color: rgb(217, 217, 217)}
+/* body
+{background-color: rgb(217, 217, 217)} */
 .img-profile {
     max-width: 10rem;
     max-height: 10rem;
@@ -103,8 +103,8 @@ border-radius: 5%;}
   <div class='menu' id='store'><a href='#'>중고 장터</a></div><br>
   <div class='menu' id='studyroom'><a href='#'>스터디 룸</a></div><br>
   <div class='menu' id='map'><a href='#'>Location</a></div><br>
-  <div class='menu' id='mypage'><a href='#'>마이페이지</a></div>
-  <div class='menu' id='logout'><a href='#'>로그아웃</a></div>
+  <div class='menu' id='mypage'><a href='#'>마이페이지</a></div><br>
+  <div class='menu' id='logout'><a href='#'>로그아웃</a></div><br>
   
   </div>
   </div>     

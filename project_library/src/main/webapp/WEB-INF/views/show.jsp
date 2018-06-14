@@ -10,7 +10,7 @@
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 <style type="text/css">
-body{background-color: rgb(217, 217, 217); text-align: center;}
+body{/* background-color: rgb(217, 217, 217); */ text-align: center;}
 span{width: 400px; height: 500px;}
 #iframe1{width: 720px; height: 800px;}
 #iframe2{width: 300px; height: 800px;}
