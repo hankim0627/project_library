@@ -9,10 +9,10 @@
 
 <link rel="stylesheet" 
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<!-- 
+
 <style type="text/css">
-body{ text-align: center;}
-</style> -->
+
+</style>
 
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>

@@ -14,7 +14,7 @@ h1 {
 	font-weight: bold;
 	text-align: center;
 }
-body{background-color: rgb(217, 217, 217)}
+/* body{background-color: rgb(217, 217, 217)} */
 p {
 	color:  red;
 	text-align: center;

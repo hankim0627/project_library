@@ -36,7 +36,7 @@ section#info{
   padding: 25px; 
 }
 
-body{background-color: rgb(217, 217, 217)}
+/* body{background-color: rgb(217, 217, 217)} */
 
 p{
  text-align: right;

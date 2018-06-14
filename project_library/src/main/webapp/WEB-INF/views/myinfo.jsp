@@ -16,8 +16,8 @@ table
  background-color: rgb(109, 124, 163);}
 td
 {border: solid black 2px; }
-body
-{background-color: rgb(217, 217, 217);}
+/* body
+{background-color: rgb(217, 217, 217);} */
 .rounded-circle {
   border-radius: 50% !important;
 }

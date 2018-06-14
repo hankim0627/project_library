@@ -61,7 +61,8 @@ a.myPageSelect{
 <div class="mainForm">
 	<div class="myPageSelect">
 		<span><a class="myPageSelect" href="#" onclick="showJoinStudyRoomWithId();">신청한 스터디룸 (${cntJoinStudyRoomWithId})</a></span>  |	  							<!-- toggle 기능 넣기 -->
-		<span><a class="myPageSelect" href="#" onclick="showMakeStudyRoomWithId();">참여 중인 스터디룸(${cntMyJoinStudyRoonWithId})</a></span>
+		<span><a class="myPageSelect" href="#" onclick="showMakeStudyRoomWithId();">참여 중인 스터디룸(${cntMyJoinStudyRoonWithId})</a></span>  |	
+		<span><a href="/library/mypage">거래상태 보기</a></span>
 	</div>
 	
 	<div id="joinStudyRoomWithId" style="${joinDisplay}">

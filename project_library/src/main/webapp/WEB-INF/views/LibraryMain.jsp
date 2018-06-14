@@ -53,8 +53,8 @@ a, a:hover,a:VISITED,a:ACTIVE,a:LINK
 display: inline-block;
 font-weight: bold;} 
 #myinfo{color: black;}
-body
-{background-color: rgb(217, 217, 217)}
+/* body
+{background-color: rgb(217, 217, 217)} */
 .img-profile {
     max-width: 10rem;
     max-height: 10rem;
@@ -72,6 +72,7 @@ body
 {background-color: rgba(158, 168, 194,0.7);
 padding:5px;
 border-radius: 5%;}
+hr{border-color: rgba(158, 168, 194,0.7);}
 </style>
 </head>
 <body>
@@ -103,20 +104,20 @@ border-radius: 5%;}
   <div class='menu' id='store'><a href='#'>중고 장터</a></div><br>
   <div class='menu' id='studyroom'><a href='#'>스터디 룸</a></div><br>
   <div class='menu' id='map'><a href='#'>Location</a></div><br>
-  <div class='menu' id='mypage'><a href='#'>마이페이지</a></div>
-  <div class='menu' id='logout'><a href='#'>로그아웃</a></div>
+  <div class='menu' id='mypage'><a href='#'>마이페이지</a></div><br>
+  <div class='menu' id='logout'><a href='#'>로그아웃</a></div><br>
   
   </div>
   </div>     
   <div id='board' class="item3">
   
-  <iframe src=<%=request.getAttribute("libraryWebsite") %> width=1050 height=900 ></iframe>
+  <iframe style='border: 0px;' src=<%=request.getAttribute("libraryWebsite") %> width=1050 height=900 ></iframe>
   </div>  
   
   <div class="item4"></div>
   
   <div class="item5"><table><tr>
-  <td><a href="/library/LibraryMain"><img  src='/library/resources/LOGO2.jpg'></a></td>
+  <td><a href="/library/LibraryMain"><img  src='/library/resources/LOGO3.jpg'></a></td>
   <td>서울특별시 강남구 언주로 508 10~17층(역삼동, 서울상록빌딩)홈페이지 관련 문의 : multi@Library.go.kr
   <br>Copyright ⓒ multiLibrary. All rights	reserved.전화문의 : 02-111-2222, 080-111-2222(수신자 부담)</td>
   </tr></table></div>
@@ -141,27 +142,27 @@ $("#map").on('click',function(){
 	
  $("#free>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/Freelist' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/Freelist' width=1050 height=900 ></iframe>")
 }) 
 
 $("#store>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/show' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/show' width=1050 height=900 ></iframe>")
 }) 
 
 
  $("#studyroom>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/studyRoomMain?page=1&l_id=<%=session.getAttribute("l_id")%>' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/studyRoomMain?page=1&l_id=<%=session.getAttribute("l_id")%>' width=1050 height=900 ></iframe>")
 }) 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='<%=request.getAttribute("libraryWebsite")%>' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='<%=request.getAttribute("libraryWebsite")%>' width=1050 height=900 ></iframe>")
 })
 
  $("#mypage>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/studyRoomMyPage' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/studyRoomMyPage' width=1050 height=900 ></iframe>")
 })
 
  $("#logout>a").on('click',function(){	

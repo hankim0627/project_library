@@ -14,8 +14,8 @@
 
 <style type="text/css">
 
-body
-{background-color: rgb(217, 217, 217)}
+/* body
+{background-color: rgb(217, 217, 217)} */
 div
 {background-color: rgb(109, 124, 163);
 padding: 10px;

@@ -7,8 +7,8 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <style type="text/css">
-body
-{background-color: rgb(217, 217, 217)}
+/* body
+{background-color: rgb(217, 217, 217)} */
 </style>
 <script 
 src="http://maps.google.com/maps/api/js?key=AIzaSyBuMhc367ia1i3QryuC2LLtWT5WnSSNwF8"></script> 

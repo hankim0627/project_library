@@ -11,7 +11,7 @@
 href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
 <style type="text/css">
-body{background-color: rgb(217, 217, 217); text-align: center;}
+body{/* background-color: rgb(217, 217, 217); */ text-align: center;}
 table{text-align: center; border: solid 1px; margin: 0px auto;}
 td{border: solid 1px;}
 #result_content{background-color: pink;}
@@ -147,7 +147,7 @@ $(document).ready(function(){
 				$("#write_comment").attr('hidden',false);
 				$("#result_comment").html("<table id='result_content3'>");
 				for(var i = 0; i < result.length; i++){
-					$("result_content3").append(
+					$("#result_content3").append(
 							"<tr>"+
 							"<td>"+result[i].c_m_id+"</td>"+
 							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
