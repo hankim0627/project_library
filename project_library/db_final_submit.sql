@@ -33,36 +33,6 @@ insert into member values(0001, 'dohye777', '123456', '010-222-8555', '김도혜
 select m_id from member where l_id = '0001' and m_id = 'dohye77'
 select * from member;
 
-create table STUDYROOM (
-   sr_num      number(20)      primary key,
-   sr_title     varchar2(100),
-   l_id         number(10)  constraint sr_l_id_fk  references library(l_id),
-   sr_content   varchar2(1000),
-   m_id         varchar2(50)  constraint sr_m_id_fk references member(m_id),
-   sr_pw        varchar2(100),
-   sr_date      date,
-   sr_cate      varchar2(30),
-   sr_view_num   number(20)
-);
-
-create table sr_comment (
- sr_num  number(20) constraint srcom_m_id_fk references studyroom(sr_num),
- sr_comment_num number(20)  primary key,
- sr_comment_id  varchar2(100),
- sr_comment_date  date,      
- sr_comment_content  varchar2(100),
- sr_recomment_flag  number(2)      
-);
-
-create table sr_recomment (
-   sr_num                   number(20)   constraint srrecom_sr_num_fk references studyroom(sr_num),
-   sr_comment_num            number(20)  constraint srrecom_sr_com_fk references sr_comment(sr_comment_num),
-   sr_recomment_num         number(20)   primary key,
-   sr_recomment_id          varchar2(100),
-   sr_recomment_date         date,
-   sr_recomment_content      varchar2(100)
-);
-
 
 create table store(
 l_id number(10)  constraint st_l_id_fk references library(l_id),
@@ -109,4 +79,96 @@ fr_content varchar2(1000),
 m_Pic varchar2(30),
 fr_Pw varchar2(30)
 );
+
+
+create sequence sr_eb_num;
+create sequence sr_num;
+create sequence sr_comment_num;
+create sequence sr_recomment_num;
+create sequence sr_eb_comment_num;
+create sequence sr_eb_recomment_num;
+
+create table STUDYROOM (
+	sr_num		number(20)		primary key,
+	sr_title	varchar2(100),
+	l_id		number(10)	not null references library(l_id),
+	sr_content	varchar2(1000),
+	m_id		varchar2(50)	not null references member(m_id),
+	sr_pw		varchar2(100),
+	sr_date		date,
+	sr_cate		varchar2(30),
+	sr_view_num	number(20)
+);
+
+create table studyroomJoinList(
+	l_id		number(10)	not null references library(l_id),
+	sr_num		number(20)	not null references studyroom(sr_num),
+	m_id		varchar2(50)	not null references member(m_id),
+	sr_join_flag number(2)	not null,			
+	sr_join_content varchar2(500)
+)
+
+create table sr_comment (
+ sr_num  number(20) constraint srcom_m_id_fk references studyroom(sr_num),
+ sr_comment_num number(20)  primary key,
+ sr_comment_id  varchar2(100),
+ sr_comment_date  date,      
+ sr_comment_content  varchar2(100),
+ sr_recomment_flag  number(2)      
+);
+
+create table sr_recomment (
+   sr_num                   number(20)   constraint srrecom_sr_num_fk references studyroom(sr_num),
+   sr_comment_num            number(20)  constraint srrecom_sr_com_fk references sr_comment(sr_comment_num),
+   sr_recomment_num         number(20)   primary key,
+   sr_comment_id          varchar2(100),
+   sr_comment_date         date,
+   sr_comment_content      varchar2(100)
+);
+
+
+create table sr_eb_comment (
+	sr_eb_num				number(20)		not null references studyroomeachboard(sr_eb_num),
+	sr_num 					number(20)		not null references studyroom(sr_num),
+	sr_comment_num			number(20)		primary key,
+	sr_comment_id 			varchar2(100),
+	sr_comment_date			date,
+	sr_comment_content		varchar2(100),
+	sr_recomment_flag  number(2)  
+);
+
+create table sr_eb_recomment (
+	sr_eb_num					number(20)	not null references studyroomeachboard(sr_eb_num),
+	sr_num 						number(20)	not null references studyroom(sr_num),
+	sr_comment_num				number(20)	not null references sr_eb_comment(sr_comment_num),
+	sr_recomment_num			number(20)	primary key,
+	sr_comment_id 			varchar2(100),
+	sr_comment_date			date,
+	sr_comment_content		varchar2(100)
+);
+
+create table studyroomeachBoard(
+	sr_eb_num 	number(20)	 primary key,				스터디룸 게시판 글 번호
+	sr_num		number(20)		not null references studyroom(sr_num),
+	sr_title	varchar2(100),
+	l_id		number(10)	not null references library(l_id),
+	sr_content	varchar2(100),
+	m_id		varchar2(50)	not null references member(m_id),
+	sr_pw		varchar2(100),
+	sr_date		date,
+	sr_cate		varchar2(30),
+	sr_view_num	number(20),
+	sr_file_name1 varchar2(100),	
+	sr_file_name2 varchar2(100),
+	sr_file_name3 varchar2(100)
+);
+
+
+
+
+
+
+
+
+
 
