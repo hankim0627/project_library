@@ -106,7 +106,7 @@ a:link,a:visited{
 	<!-- ===============댓글 더보기 눌렀을 경우============================== -->
 	<div style="padding: 10px; position:relative; left: 30px;">
 		<input type="button" id="sr_comment_add_btn" value="댓글 더보기<c:if test="${studyRoomCommentCnt < 5 }">(0)</c:if><c:if test="${studyRoomCommentCnt >= 5 }">(${studyRoomCommentCnt-5})</c:if>" ><br>
-		<input type="hidden" id="sr_comment_add_num" value="<c:if test="${studyRoomCommentCnt < 5 }">${studyRoomCommentCnt }</c:if><c:if test="${studyRoomCommentCnt >= 5 }">6</c:if>">
+		<input type="hidden" id="sr_comment_add_num" value="<c:if test="${studyRoomCommentCnt < 5 }">${studyRoomCommentCnt +1}</c:if><c:if test="${studyRoomCommentCnt >= 5 }">6</c:if>">
 	</div>
 	<!-- ============================================================-->
 		
@@ -204,13 +204,13 @@ a:link,a:visited{
 			$('#studyRoomCommentCntId').html((parseInt(add_num_end)));		
 			$('#sr_comment_add_num').val((parseInt(add_num_end) + parseInt(1)));
 			$('#sr_comment_add_btn').val("댓글 더보기(0)");
-
+			
 			var sr_num = $('#sr_num').val();
 			var sr_comment_id = $('#sr_comment_id').val();
 			var sr_comment_content = $('#sr_comment_content_id').val();
 			
-			/* alert(add_num_start);
-			alert(add_num_end); */
+			//alert(add_num_start);
+			//alert(add_num_end);
 			
 			$.ajax({
 				type: 'post',		// 글 번호, 보여줄 댓글 갯수, 대댓글일 경우 댓글 번호/아닐경우 -1, 댓글단 아이디, 댓글 내용
