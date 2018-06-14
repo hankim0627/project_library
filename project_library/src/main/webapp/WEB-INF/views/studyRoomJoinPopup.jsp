@@ -13,7 +13,7 @@
 
 	<div id="joinConfirm">
 		<p>받는 사람: <%=request.getParameter("sr_m_name") %></p>
-		<p><textarea id="joinContent" placeholder="내용을 입력해주세요"></textarea></p> 
+		<p><textarea id="joinContent" rows="11" cols="50" placeholder="내용을 입력해주세요"></textarea></p> 
 		<p><input type="button" id="joinSubmit" value="신청">
 			<input type="button" id="joinCancel" onclick="self.close();" value="취소"></p>
 	</div>
