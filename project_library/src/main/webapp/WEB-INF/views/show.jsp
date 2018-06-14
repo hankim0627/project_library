@@ -19,12 +19,12 @@ span{width: 400px; height: 500px;}
 <body>
 
 <span>
-<iframe id="iframe1" src="/library/store">
+<iframe style='border: 0px;' id="iframe1" src="/library/store">
 </iframe>
 </span>
 
 <span>
-<iframe id="iframe2" src="/library/chat">
+<iframe  id="iframe2" src="/library/chat">
 </iframe>
 </span>
 

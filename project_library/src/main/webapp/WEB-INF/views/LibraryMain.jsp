@@ -72,6 +72,7 @@ font-weight: bold;}
 {background-color: rgba(158, 168, 194,0.7);
 padding:5px;
 border-radius: 5%;}
+hr{border-color: rgba(158, 168, 194,0.7);}
 </style>
 </head>
 <body>
@@ -110,7 +111,7 @@ border-radius: 5%;}
   </div>     
   <div id='board' class="item3">
   
-  <iframe src=<%=request.getAttribute("libraryWebsite") %> width=1050 height=900 ></iframe>
+  <iframe style='border: 0px;' src=<%=request.getAttribute("libraryWebsite") %> width=1050 height=900 ></iframe>
   </div>  
   
   <div class="item4"></div>
@@ -141,27 +142,27 @@ $("#map").on('click',function(){
 	
  $("#free>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/Freelist' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/Freelist' width=1050 height=900 ></iframe>")
 }) 
 
 $("#store>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/show' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/show' width=1050 height=900 ></iframe>")
 }) 
 
 
  $("#studyroom>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/studyRoomMain?page=1&l_id=<%=session.getAttribute("l_id")%>' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/studyRoomMain?page=1&l_id=<%=session.getAttribute("l_id")%>' width=1050 height=900 ></iframe>")
 }) 
  $("#lib>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='<%=request.getAttribute("libraryWebsite")%>' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='<%=request.getAttribute("libraryWebsite")%>' width=1050 height=900 ></iframe>")
 })
 
  $("#mypage>a").on('click',function(){	
 	//alert('/library/Freelist');
-	$('#board').html("<iframe src='/library/studyRoomMyPage' width=1050 height=900 ></iframe>")
+	$('#board').html("<iframe style='border: 0px;' src='/library/studyRoomMyPage' width=1050 height=900 ></iframe>")
 })
 
  $("#logout>a").on('click',function(){	
