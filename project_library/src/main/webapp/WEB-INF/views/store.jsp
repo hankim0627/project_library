@@ -147,7 +147,7 @@ $(document).ready(function(){
 				$("#write_comment").attr('hidden',false);
 				$("#result_comment").html("<table id='result_content3'>");
 				for(var i = 0; i < result.length; i++){
-					$("result_content3").append(
+					$("#result_content3").append(
 							"<tr>"+
 							"<td>"+result[i].c_m_id+"</td>"+
 							"<td width='250' align='right'>"+result[i].c_content+"</td>"+
